@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <link rel="stylesheet" href="/Resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Resources/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="/Resources/js/jquery-3.3.1.min.js" />
+    <link rel="stylesheet" href="~/Resources/js/popper.min.js" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <a class="navbar-brand text-light">IRunes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active text-light" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link text-light" href="/Users/Login">Login</a>
+                <a class="nav-item nav-link text-light" href="/Users/Register">Register</a>
+            </div>
+                    
+        </div>
+    </nav>
+    <hr style="height: 2px" class="bg-success"/>
+    
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <h1 class="text-success font-weight-normal" align="center">Register</h1>
+            <hr style="height: 2px" class="bg-success"/>
+
+            <form method="post" action="/Users/Register">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="text-center"><button type="submit" class="btn btn-primary bg-success">Register</button></div>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+ 
+</body>
+</html>
