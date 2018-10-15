@@ -1,6 +1,5 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using SIS.HTTP.Requests.Contracts;
     using SIS.Framework.ActionResults.Contracts;
 
     public class HomeController : BaseController

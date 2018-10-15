@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.ComponentModel.DataAnnotations;
 
     using ActionResults.Contracts;
     using Attributes.Methods;
@@ -28,8 +29,8 @@
 
             var controller = this.GetController(controllerName, request);
             var action = this.GetMethod(request.RequestMethod.ToString(), controller, stringAction);
-
-            var actionParameters = this.MapActionParameters(action, request);
+            
+            var actionParameters = this.MapActionParameters(action, request, controller);
             var actionResult = this.InvokeAction(controller, action, actionParameters);
 
             var response = this.PrepareResponse(actionResult);
@@ -42,7 +43,7 @@
             return (IActionResult)action.Invoke(controller, actionParameters);
         }
 
-        private object[] MapActionParameters(MethodInfo action, IHttpRequest request)
+        private object[] MapActionParameters(MethodInfo action, IHttpRequest request, Controller controller)
         {
             var actionParametersInfo = action.GetParameters();
             var mappedActionParameters = new object[actionParametersInfo.Length];
@@ -57,11 +58,34 @@
                 }
                 else
                 {
-                    mappedActionParameters[index] = ProcessBindingModelParameters(parameterType, request);
+                    var bindingModel = ProcessBindingModelParameters(parameterType, request);
+                    controller.ModelState.IsValid = this.IsValidModel(bindingModel);
+
+                    mappedActionParameters[index] = bindingModel;
                 }
             }
 
             return mappedActionParameters;
+        }
+
+        private bool IsValidModel(object bindingModel)
+        {
+            var bindingModelProperties = bindingModel.GetType().GetProperties();
+            
+            foreach (var bindingModelProperty in bindingModelProperties)
+            {
+                var validationAttributes = bindingModelProperty.GetCustomAttributes()
+                    .Where(attr => attr is ValidationAttribute)
+                    .Cast<ValidationAttribute>()
+                    .ToList();
+                
+                foreach (var validationAttribute in validationAttributes)
+                {
+                    if (!validationAttribute.IsValid(bindingModelProperty.GetValue(bindingModel))) return false;
+                }
+            }
+
+            return true;
         }
 
         private object ProcessBindingModelParameters(ParameterInfo param, IHttpRequest request)

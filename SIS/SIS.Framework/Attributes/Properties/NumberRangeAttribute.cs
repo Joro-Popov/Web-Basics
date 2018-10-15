@@ -1,0 +1,22 @@
+﻿namespace SIS.Framework.Attributes.Properties
+{
+    using System.ComponentModel.DataAnnotations;
+
+    public class NumberRangeAttribute : ValidationAttribute
+    {
+        private readonly double minValue;
+
+        private readonly double maxValue;
+
+        public NumberRangeAttribute(double minValue, double maxValue)
+        {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+        }
+
+        public override bool IsValid(object value)
+        {
+            return (double) value >= this.minValue && (double) value <= this.maxValue;
+        }
+    }
+}

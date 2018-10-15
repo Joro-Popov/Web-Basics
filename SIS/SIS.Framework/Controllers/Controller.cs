@@ -18,6 +18,8 @@
 
         public IHttpRequest Request { get; set; }
 
+        public Model ModelState { get; } = new Model();
+
         protected ViewModel Model { get; }
 
         protected IViewable View([CallerMemberName] string caller = "")

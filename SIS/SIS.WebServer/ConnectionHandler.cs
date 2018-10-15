@@ -4,6 +4,8 @@
     using System.Net.Sockets;
     using System.Text;
     using System.Threading.Tasks;
+    using System.IO;
+    using System.Linq;
 
     using HTTP.Enums;
     using HTTP.Requests;
@@ -12,6 +14,7 @@
     using HTTP.Cookies;
     using HTTP.Exceptions;
     using HTTP.Sessions;
+    using HTTP.Common;
     using API;
     using Results;
     
@@ -49,7 +52,21 @@
 
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
+            if (this.IsResourceRequest(httpRequest))
+            {
+
+            }
+
             return this.handler.Handle(httpRequest);
+        }
+
+        private bool IsResourceRequest(IHttpRequest httpRequest)
+        {
+            if (string.IsNullOrWhiteSpace(httpRequest.Path.Split('/').Last())) return false;
+
+            var extension = Path.GetExtension(httpRequest.Path);
+
+            return !string.IsNullOrWhiteSpace(extension) && GlobalConstants.FileExtensions.Contains(extension.Substring(1));
         }
 
         private async Task PrepareResponseAsync(IHttpResponse httpResponse)
