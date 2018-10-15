@@ -6,16 +6,19 @@
     using ActionResults.Contracts;
     using Utilities;
     using Views;
+    using Models;
     using HTTP.Requests.Contracts;
 
     public abstract class Controller
     {
         protected Controller()
         {
-
+            this.Model = new ViewModel();
         }
 
         public IHttpRequest Request { get; set; }
+
+        protected ViewModel Model { get; }
 
         protected IViewable View([CallerMemberName] string caller = "")
         {
@@ -23,7 +26,7 @@
 
             var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, caller);
 
-            var view = new View(fullyQualifiedName);
+            var view = new View(fullyQualifiedName, Model.Data);
 
             return new ViewResult(view);
         }

@@ -1,0 +1,14 @@
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\bin\Debug\netcoreapp2.1\SIS.Framework.deps.json
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\bin\Debug\netcoreapp2.1\SIS.Framework.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\bin\Debug\netcoreapp2.1\SIS.Framework.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\bin\Debug\netcoreapp2.1\SIS.HTTP.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\bin\Debug\netcoreapp2.1\SIS.WebServer.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\bin\Debug\netcoreapp2.1\SIS.HTTP.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\bin\Debug\netcoreapp2.1\SIS.WebServer.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\obj\Debug\netcoreapp2.1\SIS.Framework.csprojAssemblyReference.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\obj\Debug\netcoreapp2.1\SIS.Framework.csproj.CoreCompileInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\obj\Debug\netcoreapp2.1\SIS.Framework.AssemblyInfoInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\obj\Debug\netcoreapp2.1\SIS.Framework.AssemblyInfo.cs
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\obj\Debug\netcoreapp2.1\SIS.Framework.csproj.CopyComplete
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\obj\Debug\netcoreapp2.1\SIS.Framework.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\SIS.Framework\obj\Debug\netcoreapp2.1\SIS.Framework.pdb

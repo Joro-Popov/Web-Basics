@@ -43,7 +43,7 @@
             {
                 return isResourceRequest ? this.ReturnResource(request.Path) : new HttpResponse(HttpResponseStatusCode.NotFound);
             }
-
+            
             var action = this.Routes[request.RequestMethod][request.Path].Invoke(request);
             var result = action.Invoke();
 

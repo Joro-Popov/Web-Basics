@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.Controllers
+﻿using SIS.Framework.Attributes.Methods;
+
+namespace IRunes.App.Controllers
 {
     using System;
     using Services;
@@ -22,12 +24,12 @@
         {
             this.hashService = new HashService();
         }
-
+        
         public IActionResult Login()
         {
             return this.IsAuthenticated(this.Request) ? this.View("/") : this.View();
         }
-
+        
         public IActionResult LoginPost()
         {
             var username = this.Request.FormData["username"].ToString();

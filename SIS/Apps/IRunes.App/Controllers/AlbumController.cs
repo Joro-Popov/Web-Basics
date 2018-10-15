@@ -18,7 +18,7 @@ namespace IRunes.App.Controllers
     {
         private const string EmptyAlbumsCollection = "There are currently no albums!";
         
-        public IActionResult ListAlbums()
+        public IActionResult All()
         {
             if (!this.IsAuthenticated(this.Request)) this.View("/");
             

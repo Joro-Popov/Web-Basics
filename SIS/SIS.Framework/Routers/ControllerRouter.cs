@@ -11,6 +11,7 @@
     using HTTP.Enums;
     using HTTP.Requests.Contracts;
     using HTTP.Responses.Contracts;
+    using HTTP.Extensions;
     using WebServer.API;
     using WebServer.Results;
 
@@ -22,17 +23,83 @@
         {
             var requestArgs = request.Path.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            var controllerName = requestArgs.First() + MvcContext.Get.ControllersSuffix;
-            var stringAction = requestArgs.Last();
+            var controllerName = requestArgs.First().Capitalize() + MvcContext.Get.ControllersSuffix;
+            var stringAction = requestArgs.Last().Capitalize();
 
             var controller = this.GetController(controllerName, request);
             var action = this.GetMethod(request.RequestMethod.ToString(), controller, stringAction);
 
-            var response = this.PrepareResponse(controller, action);
+            var actionParameters = this.MapActionParameters(action, request);
+            var actionResult = this.InvokeAction(controller, action, actionParameters);
+
+            var response = this.PrepareResponse(actionResult);
 
             return response;
         }
- 
+
+        private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
+        {
+            return (IActionResult)action.Invoke(controller, actionParameters);
+        }
+
+        private object[] MapActionParameters(MethodInfo action, IHttpRequest request)
+        {
+            var actionParametersInfo = action.GetParameters();
+            var mappedActionParameters = new object[actionParametersInfo.Length];
+
+            for (var index = 0; index < actionParametersInfo.Length; index++)
+            {
+                var parameterType = actionParametersInfo[index];
+
+                if (parameterType.ParameterType.IsPrimitive || parameterType.ParameterType == typeof(string))
+                {
+                    mappedActionParameters[index] = ProcessPrimitiveParameter(request, parameterType);
+                }
+                else
+                {
+                    mappedActionParameters[index] = ProcessBindingModelParameters(parameterType, request);
+                }
+            }
+
+            return mappedActionParameters;
+        }
+
+        private object ProcessBindingModelParameters(ParameterInfo param, IHttpRequest request)
+        {
+            var bindingModelType = param.ParameterType;
+
+            var bindingModelInstance = Activator.CreateInstance(bindingModelType);
+            var bindingModelProperties = bindingModelType.GetProperties();
+
+            foreach (var property in bindingModelProperties)
+            {
+                try
+                {
+                    var value = this.GetParameterFromRequestData(request, property.Name);
+                    property.SetValue(bindingModelInstance, Convert.ChangeType(value, property.PropertyType));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"The {property.Name} field could not be mapped.");
+                }
+            }
+
+            return Convert.ChangeType(bindingModelInstance, bindingModelType);
+        }
+
+        private object ProcessPrimitiveParameter(IHttpRequest request, ParameterInfo paramInfo)
+        {
+            var value = this.GetParameterFromRequestData(request, paramInfo.Name);
+            return Convert.ChangeType(value, paramInfo.ParameterType);
+        }
+
+        private object GetParameterFromRequestData(IHttpRequest request, string paramName)
+        {
+            if (request.QueryData.ContainsKey(paramName)) return request.QueryData[paramName];
+
+            return request.FormData.ContainsKey(paramName) ? request.FormData[paramName] : null;
+        }
+
         private Controller GetController(string controllerName, IHttpRequest request)
         {
             if (controllerName == null) return null;
@@ -79,18 +146,18 @@
                 controller.GetType().GetMethods().Where(method => method.Name.ToLower().Equals(actionName.ToLower()));
         }
         
-        private IHttpResponse PrepareResponse(Controller controller, MethodInfo action)
+        private IHttpResponse PrepareResponse(IActionResult actionResult)
         {
-            var actionResult =(IActionResult)action.Invoke(controller, null); 
-            var invokeResult = actionResult.Invoke();
+            var invocationResult = actionResult.Invoke();
 
             switch (actionResult)
             {
-                case IViewable _: return new HtmlResult(invokeResult, HttpResponseStatusCode.Ok);
-
-                case IRedirectable _: return new RedirectResult(invokeResult);
-
-                default: throw new InvalidOperationException(NotSupportedViewResult);
+                case IViewable _:
+                    return new HtmlResult(invocationResult, HttpResponseStatusCode.Ok);
+                case IRedirectable _:
+                    return new RedirectResult(invocationResult);
+                default:
+                    throw new InvalidOperationException(NotSupportedViewResult);
             }
         }
     }

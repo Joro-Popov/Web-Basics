@@ -32,7 +32,7 @@ namespace IRunes.App
             serverRoutingTable.Routes[HttpRequestMethod.Post]["/Users/Register"] = request => new UsersController().RegisterPost();
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/Users/Logout"] = request => new UsersController().Logout();
 
-            serverRoutingTable.Routes[HttpRequestMethod.Get]["/Albums/All"] = request => new AlbumController().ListAlbums();
+            serverRoutingTable.Routes[HttpRequestMethod.Get]["/Albums/All"] = request => new AlbumController().All();
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/Albums/Create"] = request => new AlbumController().CreateAlbum();
             serverRoutingTable.Routes[HttpRequestMethod.Post]["/Albums/Create"] = request => new AlbumController().CreateAlbumPost();
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/Albums/Details"] = request => new AlbumController().AlbumDetails();
