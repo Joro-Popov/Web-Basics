@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.Controllers
+﻿using SIS.Framework.Services.Contracts;
+
+namespace IRunes.App.Controllers
 {
     using SIS.Framework.ActionResults.Contracts;
 
@@ -14,5 +16,6 @@
 
             return this.View("Welcome");
         }
+        
     }
 }

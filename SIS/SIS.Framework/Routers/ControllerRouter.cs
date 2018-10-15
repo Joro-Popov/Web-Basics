@@ -1,4 +1,9 @@
-﻿namespace SIS.Framework.Routers
+﻿using System.IO;
+using SIS.Framework.Services;
+using SIS.Framework.Services.Contracts;
+using SIS.HTTP.Common;
+
+namespace SIS.Framework.Routers
 {
     using System;
     using System.Collections.Generic;
@@ -20,8 +25,22 @@
     {
         private const string NotSupportedViewResult = "The view result is not supported!";
 
+        private readonly IHttpHandler resourceHandler;
+        private readonly IServiceCollection serviceCollection;
+
+        public ControllerRouter(IServiceCollection serviceCollection)
+        {
+            this.resourceHandler = new ResourceRouter();
+            this.serviceCollection = serviceCollection;
+        }
+
         public IHttpResponse Handle(IHttpRequest request)
         {
+            if (this.IsResourceRequest(request))
+            {
+                return this.resourceHandler.Handle(request);
+            }
+
             var requestArgs = request.Path.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
 
             var controllerName = requestArgs.First().Capitalize() + MvcContext.Get.ControllersSuffix;
@@ -37,6 +56,16 @@
 
             return response;
         }
+
+        private bool IsResourceRequest(IHttpRequest httpRequest)
+        {
+            if (string.IsNullOrWhiteSpace(httpRequest.Path.Split('/').Last())) return false;
+
+            var extension = Path.GetExtension(httpRequest.Path);
+
+            return !string.IsNullOrWhiteSpace(extension) && GlobalConstants.FileExtensions.Contains(extension.Substring(1));
+        }
+
 
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
         {
@@ -133,7 +162,8 @@
 
             var controllerType = Type.GetType(controllerTypeName);
 
-            var controller = (Controller)Activator.CreateInstance(controllerType);
+            var controller = (Controller)this.serviceCollection.CreateInstance(controllerType);
+            //var controller = (Controller)Activator.CreateInstance(controllerType);
 
             if (controller != null) controller.Request = request;
 

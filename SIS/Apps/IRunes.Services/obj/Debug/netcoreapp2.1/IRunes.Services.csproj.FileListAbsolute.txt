@@ -6,3 +6,4 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.AssemblyInfo.cs
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.csprojAssemblyReference.cache

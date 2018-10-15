@@ -1308,16 +1308,6 @@
           "bin/placeholder/IRunes.Models.dll": {}
         }
       },
-      "IRunes.Services/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "compile": {
-          "bin/placeholder/IRunes.Services.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/IRunes.Services.dll": {}
-        }
-      },
       "SIS.Framework/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
@@ -4845,11 +4835,6 @@
       "path": "../IRunes.Models/IRunes.Models.csproj",
       "msbuildProject": "../IRunes.Models/IRunes.Models.csproj"
     },
-    "IRunes.Services/1.0.0": {
-      "type": "project",
-      "path": "../IRunes.Services/IRunes.Services.csproj",
-      "msbuildProject": "../IRunes.Services/IRunes.Services.csproj"
-    },
     "SIS.Framework/1.0.0": {
       "type": "project",
       "path": "../../SIS.Framework/SIS.Framework.csproj",
@@ -4869,7 +4854,6 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "IRunes.Data >= 1.0.0",
-      "IRunes.Services >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "SIS.Framework >= 1.0.0"
     ]
@@ -4906,9 +4890,6 @@
           "projectReferences": {
             "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\Apps\\IRunes.Data\\IRunes.Data.csproj": {
               "projectPath": "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\Apps\\IRunes.Data\\IRunes.Data.csproj"
-            },
-            "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\Apps\\IRunes.Services\\IRunes.Services.csproj": {
-              "projectPath": "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\Apps\\IRunes.Services\\IRunes.Services.csproj"
             },
             "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\SIS.Framework\\SIS.Framework.csproj": {
               "projectPath": "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\SIS.Framework\\SIS.Framework.csproj"

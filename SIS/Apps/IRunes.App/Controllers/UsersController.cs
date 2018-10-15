@@ -1,10 +1,10 @@
-﻿using SIS.Framework.Attributes.Methods;
+﻿using SIS.Framework.Models;
+using SIS.Framework.Services;
+using SIS.Framework.Services.Contracts;
 
 namespace IRunes.App.Controllers
 {
     using System;
-    using Services;
-    using Services.Contracts;
     using SIS.HTTP.Requests.Contracts;
     using System.Linq;
     using System.Net;
@@ -12,6 +12,7 @@ namespace IRunes.App.Controllers
     using SIS.HTTP.Enums;
     using SIS.WebServer.Results;
     using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Attributes.Methods;
 
     public class UsersController : BaseController
     {
@@ -20,22 +21,27 @@ namespace IRunes.App.Controllers
         
         private readonly IHashService hashService;
 
-        public UsersController()
+        public UsersController(IHashService hashService)
         {
-            this.hashService = new HashService();
+            this.hashService = hashService;
         }
         
+        [HttpGet]
         public IActionResult Login()
         {
             return this.IsAuthenticated(this.Request) ? this.View("/") : this.View();
         }
         
-        public IActionResult LoginPost()
+        [HttpPost]
+        public IActionResult Login(ViewModel model)
         {
-            var username = this.Request.FormData["username"].ToString();
-            var password = this.Request.FormData["password"].ToString();
+            //var username = this.Request.FormData["username"].ToString();
+           // var password = this.Request.FormData["password"].ToString();
 
-            var hashedPassword = this.hashService.Hash(password);
+            var username = model.Data["username"].ToString();
+            var password = model.Data["password"].ToString();
+
+            var hashedPassword = this.hashService.Hash(password.ToString());
 
             var user = this.DbContext.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
 
@@ -48,11 +54,13 @@ namespace IRunes.App.Controllers
             return response;
         }
 
+        [HttpGet]
         public IActionResult Register()
         {
             return this.IsAuthenticated(this.Request) ? this.View("/") : this.View();
         }
 
+        [HttpPost]
         public IActionResult RegisterPost()
         {
             var username = this.Request.FormData["username"].ToString();
@@ -96,6 +104,7 @@ namespace IRunes.App.Controllers
             return response;
         }
 
+        [HttpGet]
         public IActionResult Logout()
         {
             var cookie = this.Request.Cookies.GetCookie(".auth-IRunes");

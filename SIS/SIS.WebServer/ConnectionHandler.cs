@@ -52,11 +52,6 @@
 
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
-            if (this.IsResourceRequest(httpRequest))
-            {
-
-            }
-
             return this.handler.Handle(httpRequest);
         }
 

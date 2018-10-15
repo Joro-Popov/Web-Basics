@@ -5,13 +5,11 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRu
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRunes.App.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRunes.Data.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRunes.Models.dll
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRunes.Services.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\SIS.Framework.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\SIS.HTTP.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\SIS.WebServer.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\SIS.Framework.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRunes.Data.pdb
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRunes.Services.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\IRunes.Models.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\SIS.HTTP.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\SIS.WebServer.pdb

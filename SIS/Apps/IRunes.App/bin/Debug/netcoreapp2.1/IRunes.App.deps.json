@@ -9,7 +9,6 @@
       "IRunes.App/1.0.0": {
         "dependencies": {
           "IRunes.Data": "1.0.0",
-          "IRunes.Services": "1.0.0",
           "SIS.Framework": "1.0.0"
         },
         "runtime": {
@@ -759,11 +758,6 @@
           "IRunes.Models.dll": {}
         }
       },
-      "IRunes.Services/1.0.0": {
-        "runtime": {
-          "IRunes.Services.dll": {}
-        }
-      },
       "SIS.Framework/1.0.0": {
         "dependencies": {
           "SIS.HTTP": "1.0.0",
@@ -1325,11 +1319,6 @@
       "sha512": ""
     },
     "IRunes.Models/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "IRunes.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
