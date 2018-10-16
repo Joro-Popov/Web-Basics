@@ -1,4 +1,4 @@
-﻿namespace SIS.Framework.ActionResults.Contracts
+﻿namespace SIS.Framework.ActionResults.Contracts.Base
 {
     public interface IActionResult
     {

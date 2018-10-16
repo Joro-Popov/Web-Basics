@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace IRunes.Models
+namespace IRunes.Models.Domain
 {
-    using System.Collections.Generic;
-
     public class Album : BaseEntity<string>
     {
         public string Name { get; set; }

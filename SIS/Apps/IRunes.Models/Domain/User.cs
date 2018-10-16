@@ -1,7 +1,7 @@
-﻿namespace IRunes.Models
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace IRunes.Models.Domain
+{
     public class User : BaseEntity<string>
     {
         public string Username { get; set; }

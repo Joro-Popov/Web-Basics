@@ -1301,6 +1301,9 @@
       "IRunes.Models/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "SIS.Framework": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/IRunes.Models.dll": {}
         },

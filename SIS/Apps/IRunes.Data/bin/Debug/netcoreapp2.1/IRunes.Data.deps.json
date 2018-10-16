@@ -751,8 +751,33 @@
         }
       },
       "IRunes.Models/1.0.0": {
+        "dependencies": {
+          "SIS.Framework": "1.0.0"
+        },
         "runtime": {
           "IRunes.Models.dll": {}
+        }
+      },
+      "SIS.Framework/1.0.0": {
+        "dependencies": {
+          "SIS.HTTP": "1.0.0",
+          "SIS.WebServer": "1.0.0"
+        },
+        "runtime": {
+          "SIS.Framework.dll": {}
+        }
+      },
+      "SIS.HTTP/1.0.0": {
+        "runtime": {
+          "SIS.HTTP.dll": {}
+        }
+      },
+      "SIS.WebServer/1.0.0": {
+        "dependencies": {
+          "SIS.HTTP": "1.0.0"
+        },
+        "runtime": {
+          "SIS.WebServer.dll": {}
         }
       }
     }
@@ -1296,6 +1321,21 @@
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
     "IRunes.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SIS.Framework/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SIS.HTTP/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SIS.WebServer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

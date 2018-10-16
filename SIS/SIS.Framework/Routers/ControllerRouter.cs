@@ -1,29 +1,29 @@
-﻿using System.IO;
-using SIS.Framework.Services;
-using SIS.Framework.Services.Contracts;
-using SIS.HTTP.Common;
-
-namespace SIS.Framework.Routers
+﻿namespace SIS.Framework.Routers
 {
     using System;
+    using System.IO;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.ComponentModel.DataAnnotations;
 
+    using ActionResults.Contracts.Base;
+    using Attributes.Methods.Base;
+    using Services.Contracts;
     using ActionResults.Contracts;
-    using Attributes.Methods;
     using Controllers;
+    using WebServer.API;
+    using WebServer.Results;
+
+    using HTTP.Common;
     using HTTP.Enums;
     using HTTP.Requests.Contracts;
     using HTTP.Responses.Contracts;
     using HTTP.Extensions;
-    using WebServer.API;
-    using WebServer.Results;
 
     public class ControllerRouter : IHttpHandler
     {
-        private const string NotSupportedViewResult = "The view result is not supported!";
+        private const string NotSupportedViewResult = "Type of result is not supported!";
 
         private readonly IHttpHandler resourceHandler;
         private readonly IServiceCollection serviceCollection;
@@ -42,13 +42,17 @@ namespace SIS.Framework.Routers
             }
 
             var requestArgs = request.Path.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
-
+            
             var controllerName = requestArgs.First().Capitalize() + MvcContext.Get.ControllersSuffix;
-            var stringAction = requestArgs.Last().Capitalize();
 
+            var stringAction = requestArgs.Last().Capitalize();
+            
             var controller = this.GetController(controllerName, request);
+            
             var action = this.GetMethod(request.RequestMethod.ToString(), controller, stringAction);
             
+            if(controller == null || action == null) throw new NullReferenceException();
+
             var actionParameters = this.MapActionParameters(action, request, controller);
             var actionResult = this.InvokeAction(controller, action, actionParameters);
 
@@ -56,6 +60,7 @@ namespace SIS.Framework.Routers
 
             return response;
         }
+
 
         private bool IsResourceRequest(IHttpRequest httpRequest)
         {
@@ -66,7 +71,6 @@ namespace SIS.Framework.Routers
             return !string.IsNullOrWhiteSpace(extension) && GlobalConstants.FileExtensions.Contains(extension.Substring(1));
         }
 
-
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
         {
             return (IActionResult)action.Invoke(controller, actionParameters);
@@ -75,6 +79,7 @@ namespace SIS.Framework.Routers
         private object[] MapActionParameters(MethodInfo action, IHttpRequest request, Controller controller)
         {
             var actionParametersInfo = action.GetParameters();
+
             var mappedActionParameters = new object[actionParametersInfo.Length];
 
             for (var index = 0; index < actionParametersInfo.Length; index++)
@@ -97,9 +102,9 @@ namespace SIS.Framework.Routers
             return mappedActionParameters;
         }
 
-        private bool IsValidModel(object bindingModel)
+        private bool? IsValidModel(object bindingModel)
         {
-            var bindingModelProperties = bindingModel.GetType().GetProperties();
+            var bindingModelProperties = bindingModel.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             
             foreach (var bindingModelProperty in bindingModelProperties)
             {
@@ -121,17 +126,19 @@ namespace SIS.Framework.Routers
         {
             var bindingModelType = param.ParameterType;
 
-            var bindingModelInstance = Activator.CreateInstance(bindingModelType);
-            var bindingModelProperties = bindingModelType.GetProperties();
+            var bindingModelInstance = this.serviceCollection.CreateInstance(bindingModelType);
+
+            var bindingModelProperties = bindingModelType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
 
             foreach (var property in bindingModelProperties)
             {
                 try
                 {
                     var value = this.GetParameterFromRequestData(request, property.Name);
+                    
                     property.SetValue(bindingModelInstance, Convert.ChangeType(value, property.PropertyType));
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine($"The {property.Name} field could not be mapped.");
                 }
@@ -143,19 +150,23 @@ namespace SIS.Framework.Routers
         private object ProcessPrimitiveParameter(IHttpRequest request, ParameterInfo paramInfo)
         {
             var value = this.GetParameterFromRequestData(request, paramInfo.Name);
-            return Convert.ChangeType(value, paramInfo.ParameterType);
+
+            return value == null ? value : Convert.ChangeType(value, paramInfo.ParameterType);
         }
 
         private object GetParameterFromRequestData(IHttpRequest request, string paramName)
         {
-            if (request.QueryData.ContainsKey(paramName)) return request.QueryData[paramName];
+            if (request.QueryData.Any(x => x.Key.ToLower() == paramName.ToLower()))
+            {
+                return request.QueryData.FirstOrDefault(x => x.Key.ToLower() == paramName.ToLower()).Value;
+            }
 
-            return request.FormData.ContainsKey(paramName) ? request.FormData[paramName] : null;
+            return request.FormData.FirstOrDefault(x => x.Key.ToLower() == paramName.ToLower()).Value;
         }
 
         private Controller GetController(string controllerName, IHttpRequest request)
         {
-            if (controllerName == null) return null;
+            if (string.IsNullOrWhiteSpace(controllerName)) return null;
 
             var controllerTypeName =
                 $"{MvcContext.Get.AssemblyName}.{MvcContext.Get.ControllersFolder}.{controllerName}, {MvcContext.Get.AssemblyName}";
@@ -163,7 +174,6 @@ namespace SIS.Framework.Routers
             var controllerType = Type.GetType(controllerTypeName);
 
             var controller = (Controller)this.serviceCollection.CreateInstance(controllerType);
-            //var controller = (Controller)Activator.CreateInstance(controllerType);
 
             if (controller != null) controller.Request = request;
 
@@ -172,9 +182,9 @@ namespace SIS.Framework.Routers
         
         private MethodInfo GetMethod(string requestMethod, Controller controller, string actionName)
         {
-            MethodInfo method = null;
+            var actions = this.GetSuitableMethods(controller, actionName);
 
-            foreach (var suitableMethod in this.GetSuitableMethods(controller, actionName))
+            foreach (var suitableMethod in actions)
             {
                 var attributes = suitableMethod
                     .GetCustomAttributes()
@@ -190,7 +200,7 @@ namespace SIS.Framework.Routers
                 }
             }
 
-            return method;
+            return null; 
         }
         
         private IEnumerable<MethodInfo> GetSuitableMethods(Controller controller, string actionName)

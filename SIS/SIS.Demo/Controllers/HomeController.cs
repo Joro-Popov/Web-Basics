@@ -1,4 +1,6 @@
-﻿namespace SIS.Demo.Controllers
+﻿using SIS.Framework.ActionResults.Contracts.Base;
+
+namespace SIS.Demo.Controllers
 {
     using Framework.ActionResults.Contracts;
     using SIS.Framework.Controllers;

@@ -1,4 +1,6 @@
-﻿namespace IRunes.Data
+﻿using IRunes.Models.Domain;
+
+namespace IRunes.Data
 {
     using Models;
     using Microsoft.EntityFrameworkCore;

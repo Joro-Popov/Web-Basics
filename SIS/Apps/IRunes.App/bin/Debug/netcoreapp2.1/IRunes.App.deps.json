@@ -754,6 +754,9 @@
         }
       },
       "IRunes.Models/1.0.0": {
+        "dependencies": {
+          "SIS.Framework": "1.0.0"
+        },
         "runtime": {
           "IRunes.Models.dll": {}
         }

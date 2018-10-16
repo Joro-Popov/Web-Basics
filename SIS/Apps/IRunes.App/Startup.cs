@@ -1,11 +1,10 @@
-﻿using SIS.Framework.Services;
-using SIS.Framework.Services.Contracts;
-
-namespace IRunes.App
+﻿namespace IRunes.App
 {
     using SIS.WebServer;
     using SIS.Framework.Routers;
     using SIS.Framework;
+    using SIS.Framework.Services;
+    using SIS.Framework.Services.Contracts;
 
     public class Startup
     {
@@ -29,6 +28,7 @@ namespace IRunes.App
         {
             collection.AddService<IHashService, HashService>();
             collection.AddService<ICookieService, CookieService>();
+            collection.AddService<IUserService, UserService>();
         }
     }
 }

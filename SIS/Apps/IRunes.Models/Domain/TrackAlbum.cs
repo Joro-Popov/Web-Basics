@@ -1,4 +1,4 @@
-﻿namespace IRunes.Models
+﻿namespace IRunes.Models.Domain
 {
     public class TrackAlbum
     {

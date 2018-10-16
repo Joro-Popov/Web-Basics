@@ -1,5 +1,6 @@
-﻿using SIS.Framework.ActionResults.Contracts;
-using SIS.Framework.Services.Contracts;
+﻿using IRunes.Models.ViewModels.Album;
+using SIS.Framework.ActionResults.Contracts.Base;
+using SIS.Framework.Attributes.Methods;
 
 namespace IRunes.App.Controllers
 {
@@ -10,57 +11,64 @@ namespace IRunes.App.Controllers
     using System.Net;
     using System.Text;
 
-    using Models;
-    using SIS.HTTP.Requests.Contracts;
-    using SIS.HTTP.Enums;
-    using SIS.WebServer.Results;
+    using Models.Domain;
+
+    using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Services.Contracts;
 
     public class AlbumController : BaseController
     {
         private const string EmptyAlbumsCollection = "There are currently no albums!";
-        
+
+        public AlbumController(IUserService userService) : base(userService)
+        {
+
+        }
+
+        [HttpGet]
         public IActionResult All()
         {
-            if (!this.IsAuthenticated(this.Request)) this.View("/");
-            
             var username = this.Request.Session.GetParameter("username").ToString();
 
+            if (!this.UserService.IsAuthenticated(this.Request)) this.RedirectToAction("/Home/Index");
+            
             var albums = this.DbContext.Users.FirstOrDefault(u => u.Username == username).Albums.ToList();
 
             if (albums.Count == 0)
             {
-                this.ViewBag["albums"] = EmptyAlbumsCollection;
                 return this.View();
             }
-
-            this.ViewBag["albums"] = ConvertAlbumNamesToHtml(albums);
 
             return this.View();
         }
         
+        [HttpGet]
         public IActionResult CreateAlbum()
         {
-            return !this.IsAuthenticated(this.Request) ? this.View("/") : this.View();
+            if (this.UserService.IsAuthenticated(this.Request))
+            {
+                return this.View();
+            }
+
+            return this.RedirectToAction("/home/index");
         }
         
-        public IActionResult CreateAlbumPost()
+        public IActionResult CreateAlbumPost(CreateAlbumViewModel model)
         {
-            if (!this.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.UserService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
 
             var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Request.Session.GetParameter("username").ToString());
-            var albumName = this.Request.FormData["albumName"].ToString();
-            var cover = this.Request.FormData["cover"].ToString();
-
-            var albumNameIsInvalid = string.IsNullOrWhiteSpace(albumName);
-            var albumNameExists = this.DbContext.Albums.Any(a => a.Name == albumName);
-            var albumCoverIsInvalid = string.IsNullOrWhiteSpace(cover);
             
-            if(albumCoverIsInvalid || albumNameExists || albumNameIsInvalid) return this.View("/Albums/Created");
+            var albumNameIsInvalid = string.IsNullOrWhiteSpace(model.AlbumName);
+            var albumNameExists = this.DbContext.Albums.Any(a => a.Name == model.AlbumName);
+            var albumCoverIsInvalid = string.IsNullOrWhiteSpace(model.Cover);
+            
+            if(albumCoverIsInvalid || albumNameExists || albumNameIsInvalid) return this.RedirectToAction("/Albums/Created");
 
             var album = new Album
             {
-                Name = albumName,
-                Cover = cover,
+                Name = model.AlbumName,
+                Cover = model.Cover,
             };
             
             user.Albums.Add(album);
@@ -74,37 +82,38 @@ namespace IRunes.App.Controllers
                 //return new ServerErrorResult(e.Message, HttpResponseStatusCode.InternalServerError);
             }
 
-            return this.View("/Albums/All");
+            return this.RedirectToAction("/Albums/All");
         }
         
-        public IActionResult AlbumDetails()
+        public IActionResult AlbumDetails(string albumId)
         {
-            if (!this.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.UserService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
             
-            var albumId = this.Request.QueryData["albumId"].ToString();
             var username = this.Request.Session.GetParameter("username").ToString();
             var album = this.DbContext.Users.FirstOrDefault(u => u.Username == username)?.Albums.FirstOrDefault(a => a.Id == albumId);
-            
-            this.ViewBag["albumId"] = albumId;
-            this.ViewBag["cover"] = WebUtility.UrlDecode(album.Cover);
-            this.ViewBag["name"] = WebUtility.UrlDecode(album.Name);
-            this.ViewBag["price"] = album.Price.ToString(CultureInfo.InvariantCulture);
-            this.ViewBag["tracks"] = ConvertTrackNamesToHtml(album, albumId);
+
+            this.Model.Data["albumId"] = albumId;
+            this.Model.Data["cover"] = WebUtility.UrlDecode(album.Cover);
+            this.Model.Data["name"] = WebUtility.UrlDecode(album.Name);
+            this.Model.Data["price"] = album.Price.ToString(CultureInfo.InvariantCulture);
+            this.Model.Data["tracks"] = ConvertTrackNamesToHtml(album, albumId);
 
             return this.View();
         }
         
         public IActionResult CreateTrack()
         {
-            if (!this.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.UserService.IsAuthenticated(this.Request)) return this.View("/");
 
-            this.ViewBag["albumId"] = this.Request.QueryData["albumId"].ToString();
+            //TODO: Inject Create TrackViewModel...
+
+            //this.ViewBag["albumId"] = this.Request.QueryData["albumId"].ToString();
             return this.View();
         }
         
         public IActionResult CreateTrackPost()
         {
-            if (!this.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.UserService.IsAuthenticated(this.Request)) return this.View("/");
 
             var albumId = this.Request.QueryData["albumId"].ToString();
             var trackName = this.Request.FormData["trackName"].ToString();
@@ -148,7 +157,7 @@ namespace IRunes.App.Controllers
         
         public IActionResult TrackDetails()
         {
-            if (!this.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.UserService.IsAuthenticated(this.Request)) return this.View("/");
 
             var albumId = this.Request.QueryData["albumId"].ToString();
             var trackId = this.Request.QueryData["trackId"].ToString();
@@ -158,10 +167,12 @@ namespace IRunes.App.Controllers
                 .FirstOrDefault(t => t.Track.Id == trackId)
                 .Track;
 
-            this.ViewBag["track"] = track.Link;
-            this.ViewBag["name"] = WebUtility.UrlDecode(track.Name);
-            this.ViewBag["price"] = track.Price.ToString(CultureInfo.InvariantCulture);
-            this.ViewBag["albumId"] = albumId;
+            //TODO: Inject TrackDetailsViewModel...
+
+            //this.ViewBag["track"] = track.Link;
+            //this.ViewBag["name"] = WebUtility.UrlDecode(track.Name);
+            //this.ViewBag["price"] = track.Price.ToString(CultureInfo.InvariantCulture);
+            //this.ViewBag["albumId"] = albumId;
 
             return this.View();
         }

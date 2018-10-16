@@ -17,18 +17,18 @@
         }
 
         public IHttpRequest Request { get; set; }
-
+        
         public Model ModelState { get; } = new Model();
 
         protected ViewModel Model { get; }
 
-        protected IViewable View([CallerMemberName] string caller = "")
+        protected IViewable View([CallerMemberName] string viewName = "")
         {
             var controllerName = ControllerUtilities.GetControllerName(this);
 
-            var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, caller);
+            var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, viewName);
 
-            var view = new View(fullyQualifiedName, Model.Data);
+            var view = new View(fullyQualifiedName, this.Model.Data);
 
             return new ViewResult(view);
         }

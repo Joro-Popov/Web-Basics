@@ -4,4 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Home\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SIS.Framework\SIS.Framework.csproj" />
+  </ItemGroup>
+
 </Project>

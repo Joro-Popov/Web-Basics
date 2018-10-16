@@ -1,4 +1,4 @@
-﻿namespace IRunes.Models
+﻿namespace IRunes.Models.Domain
 {
     public abstract class BaseEntity<TKeyidentifier>
     {

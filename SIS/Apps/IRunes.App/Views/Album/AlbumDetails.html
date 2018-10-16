@@ -28,17 +28,17 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <img src="{{cover}}" class="img-thumbnail" alt="album cover" />
-                <h3 align="center">Name: {{name}}</h3>
-                <h3 align="center">Price: $ {{price}}</h3>
-                <p> <a href="/Tracks/Create?albumId={{albumId}}" class="btn btn-primary bg-success float-left" role="button"> Create Track</a> </p>
+                <img src="{{{cover}}}" class="img-thumbnail" alt="album cover" />
+                <h3 align="center">Name: {{{name}}}</h3>
+                <h3 align="center">Price: $ {{{price}}}</h3>
+                <p> <a href="/Tracks/Create?albumId={{{albumId}}}" class="btn btn-primary bg-success float-left" role="button"> Create Track</a> </p>
                 <p> <a href="/Albums/All" class="btn btn-primary bg-success float-right" role="button">Back To All</a> </p>
             </div>
             <div class="col">
                 <h3>Tracks</h3>
 
                 <ul>
-                    {{tracks}}
+                    {{{tracks}}}
                 </ul>
             </div>
         </div>

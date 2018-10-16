@@ -1,4 +1,6 @@
-﻿namespace SIS.Framework.ActionResults.Contracts
+﻿using SIS.Framework.ActionResults.Contracts.Base;
+
+namespace SIS.Framework.ActionResults.Contracts
 {
     public interface IRedirectable : IActionResult
     {

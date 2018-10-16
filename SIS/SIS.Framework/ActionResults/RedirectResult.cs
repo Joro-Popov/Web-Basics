@@ -1,4 +1,7 @@
-﻿namespace SIS.Framework.ActionResults
+﻿using System.Text;
+using SIS.Framework.Models;
+
+namespace SIS.Framework.ActionResults
 {
     using Contracts;
 
@@ -9,8 +12,8 @@
             this.RedirectUrl = redirectUrl;
         }
 
-        public string Invoke() => this.RedirectUrl;
-
         public string RedirectUrl { get; }
+        
+        public string Invoke() => this.RedirectUrl;
     }
 }

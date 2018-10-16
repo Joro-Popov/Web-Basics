@@ -6,6 +6,6 @@
 
         public const string HostHeaderKey = "Host";
 
-        public static string[] FileExtensions = {"css", "js"};
+        public static string[] FileExtensions = {"css", "js", "ico"};
     }
 }

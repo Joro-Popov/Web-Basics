@@ -1,19 +1,17 @@
-﻿using SIS.Framework.Models;
-using SIS.Framework.Services;
-using SIS.Framework.Services.Contracts;
+﻿using SIS.Framework.ActionResults.Contracts.Base;
 
 namespace IRunes.App.Controllers
 {
     using System;
-    using SIS.HTTP.Requests.Contracts;
     using System.Linq;
     using System.Net;
-    using Models;
-    using SIS.HTTP.Enums;
-    using SIS.WebServer.Results;
-    using SIS.Framework.ActionResults.Contracts;
+    
     using SIS.Framework.Attributes.Methods;
-
+    using SIS.Framework.Services.Contracts;
+    
+    using Models.Domain;
+    using Models.ViewModels.User;
+    
     public class UsersController : BaseController
     {
         private const int UsernameMinLength = 3;
@@ -21,7 +19,7 @@ namespace IRunes.App.Controllers
         
         private readonly IHashService hashService;
 
-        public UsersController(IHashService hashService)
+        public UsersController(IUserService userService, IHashService hashService) : base(userService)
         {
             this.hashService = hashService;
         }
@@ -29,59 +27,59 @@ namespace IRunes.App.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return this.IsAuthenticated(this.Request) ? this.View("/") : this.View();
+            if (this.UserService.IsAuthenticated(this.Request))
+            {
+                return this.RedirectToAction("/home/welcome");
+            }
+
+            return this.View();
         }
         
         [HttpPost]
-        public IActionResult Login(ViewModel model)
+        public IActionResult Login(DoLoginViewModel model)
         {
-            //var username = this.Request.FormData["username"].ToString();
-           // var password = this.Request.FormData["password"].ToString();
+            var hashedPassword = this.hashService.Hash(model.Password);
 
-            var username = model.Data["username"].ToString();
-            var password = model.Data["password"].ToString();
+            var user = this.DbContext.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == hashedPassword);
 
-            var hashedPassword = this.hashService.Hash(password.ToString());
+            if (user == null) return this.View();
 
-            var user = this.DbContext.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
-
-            if (user == null) return this.View("/Users/Login");
- 
-            var response = this.View("/");
+            var result = this.RedirectToAction($"/Home/Welcome?username={model.Username}");
             
-            //this.SignInUser(username, request, response);
-            
-            return response;
+            return result;
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            return this.IsAuthenticated(this.Request) ? this.View("/") : this.View();
+            if (!this.UserService.IsAuthenticated(this.Request))
+            {
+                return this.View();
+            }
+
+            return this.RedirectToAction("/home/index");
         }
 
         [HttpPost]
-        public IActionResult RegisterPost()
+        public IActionResult Register(RegisterViewModel model)
         {
-            var username = this.Request.FormData["username"].ToString();
-            var password = this.Request.FormData["password"].ToString();
-            var confirmPassword = this.Request.FormData["confirmPassword"].ToString();
-            var email = WebUtility.UrlDecode(this.Request.FormData["email"].ToString());
+            var email = WebUtility.UrlDecode(model.Email);
             
-            var usernameIsInvalid = string.IsNullOrWhiteSpace(username) || username.Length < UsernameMinLength;
-            var usernameExists = this.DbContext.Users.Any(u => u.Username == username);
-            var passwordIsNullOrEmpty = string.IsNullOrWhiteSpace(password) || password.Length < PasswordMinLength;
-            var passwordsMismatch = password != confirmPassword;
+            var usernameIsInvalid = string.IsNullOrWhiteSpace(model.Username) || model.Username.Length < UsernameMinLength;
+            var usernameExists = this.DbContext.Users.Any(u => u.Username == model.Username);
+            var passwordIsNullOrEmpty = string.IsNullOrWhiteSpace(model.Password) || model.Password.Length < PasswordMinLength;
+            var passwordsMismatch = model.Password != model.ConfirmPassword;
+
             var emailIsInvalid = (string.IsNullOrWhiteSpace(email) || !email.Contains('@'));
             
             if(usernameIsInvalid || usernameExists ||
-               passwordIsNullOrEmpty || passwordsMismatch || emailIsInvalid) return  this.View("/Users/Register");
+               passwordIsNullOrEmpty || passwordsMismatch || emailIsInvalid) return  this.View();
 
-            var hashedPassword = this.hashService.Hash(password);
+            var hashedPassword = this.hashService.Hash(model.Password);
 
             var user = new User
             {
-                Username = username,
+                Username = model.Username,
                 Password = hashedPassword,
                 Email = email
             };
@@ -96,10 +94,8 @@ namespace IRunes.App.Controllers
             {
                 //return new ServerErrorResult(e.Message, HttpResponseStatusCode.InternalServerError);
             }
-
-            var response = this.View("/");
-
-            //this.SignInUser(username, request, response);
+            
+            var response = this.RedirectToAction($"/home/welcome?username={model.Username}");
 
             return response;
         }
@@ -107,14 +103,10 @@ namespace IRunes.App.Controllers
         [HttpGet]
         public IActionResult Logout()
         {
-            var cookie = this.Request.Cookies.GetCookie(".auth-IRunes");
+            this.UserService.Logout(this.Request);
 
-            cookie.Delete();
-
-            var response = this.View("/");
-
-            //response.Cookies.Add(cookie);
-
+            var response = this.RedirectToAction("/home/index");
+            
             return response;
         }
     }

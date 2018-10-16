@@ -1,11 +1,11 @@
-﻿using SIS.Framework.Services;
-using SIS.Framework.Services.Contracts;
-
-namespace SIS.Demo
+﻿namespace SIS.Demo
 {
-    using Framework.Routers;
     using WebServer;
+
     using Framework;
+    using Framework.Routers;
+    using Framework.Services;
+    using Framework.Services.Contracts;
 
     public class Launcher
     {

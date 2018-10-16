@@ -1,4 +1,4 @@
-﻿namespace SIS.Framework.Attributes.Methods
+﻿namespace SIS.Framework.Attributes.Methods.Base
 {
     using System;
 

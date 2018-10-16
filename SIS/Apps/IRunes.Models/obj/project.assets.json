@@ -207,6 +207,43 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "SIS.Framework/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "SIS.HTTP": "1.0.0",
+          "SIS.WebServer": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SIS.Framework.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SIS.Framework.dll": {}
+        }
+      },
+      "SIS.HTTP/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/SIS.HTTP.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SIS.HTTP.dll": {}
+        }
+      },
+      "SIS.WebServer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "SIS.HTTP": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SIS.WebServer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SIS.WebServer.dll": {}
+        }
       }
     }
   },
@@ -673,11 +710,27 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "SIS.Framework/1.0.0": {
+      "type": "project",
+      "path": "../../SIS.Framework/SIS.Framework.csproj",
+      "msbuildProject": "../../SIS.Framework/SIS.Framework.csproj"
+    },
+    "SIS.HTTP/1.0.0": {
+      "type": "project",
+      "path": "../../SIS.HTTP/SIS.HTTP.csproj",
+      "msbuildProject": "../../SIS.HTTP/SIS.HTTP.csproj"
+    },
+    "SIS.WebServer/1.0.0": {
+      "type": "project",
+      "path": "../../SIS.WebServer/SIS.WebServer.csproj",
+      "msbuildProject": "../../SIS.WebServer/SIS.WebServer.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "SIS.Framework >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -709,7 +762,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\SIS.Framework\\SIS.Framework.csproj": {
+              "projectPath": "C:\\Users\\JORO\\Desktop\\Web-Basics\\SIS\\SIS.Framework\\SIS.Framework.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

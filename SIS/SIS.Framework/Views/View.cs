@@ -24,10 +24,8 @@ namespace SIS.Framework.Views
         private string ReadFile(string templateName)
         {
             var path = $"{RootDirectory}{templateName}";
-
-            var viewExists = File.Exists(path);
-
-            if(!viewExists) throw new FileNotFoundException();
+            
+            if(!File.Exists(path)) throw new FileNotFoundException();
             
             var htmlText = File.ReadAllText(path);
 
@@ -45,7 +43,7 @@ namespace SIS.Framework.Views
         private string RenderHtml(string fullHtml)
         {
             var renderHtml = fullHtml;
-
+            
             if (this.viewData.Any())
             {
                 renderHtml = this.viewData.Aggregate(renderHtml, (current, parameter) => 
