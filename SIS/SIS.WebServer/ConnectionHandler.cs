@@ -92,11 +92,11 @@
 
         private void SetResponseSession(IHttpRequest request, IHttpResponse httpResponse, string sessionId)
         {
-            if (sessionId == null) return;
-
+            if (sessionId == null ) return;
+            
             HttpCookie cookie = null;
 
-            if (request.Cookies.ContainsCookie("SIS_ID"))
+            if (request.Cookies.ContainsCookie(HttpSessionStorage.SessionCookieKey))
             {
                 if (Guid.TryParse(sessionId, out Guid guidOutput)) return;
 
