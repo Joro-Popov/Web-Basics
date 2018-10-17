@@ -13,7 +13,6 @@
     using ActionResults.Contracts;
     using Controllers;
     using WebServer.API;
-    using WebServer.Results;
 
     using HTTP.Common;
     using HTTP.Enums;
@@ -54,10 +53,11 @@
             if(controller == null || action == null) throw new NullReferenceException();
 
             var actionParameters = this.MapActionParameters(action, request, controller);
+            
             var actionResult = this.InvokeAction(controller, action, actionParameters);
 
-            var response = this.PrepareResponse(actionResult);
-
+            var response = this.PrepareResponse(actionResult, controller);
+            
             return response;
         }
 
@@ -210,16 +210,18 @@
                 controller.GetType().GetMethods().Where(method => method.Name.ToLower().Equals(actionName.ToLower()));
         }
         
-        private IHttpResponse PrepareResponse(IActionResult actionResult)
+        private IHttpResponse PrepareResponse(IActionResult actionResult, Controller controller)
         {
             var invocationResult = actionResult.Invoke();
-
+            
             switch (actionResult)
             {
                 case IViewable _:
-                    return new HtmlResult(invocationResult, HttpResponseStatusCode.Ok);
+                    return controller.HtmlResult(invocationResult);
+
                 case IRedirectable _:
-                    return new RedirectResult(invocationResult);
+                    return controller.RedirectResult(invocationResult);
+
                 default:
                     throw new InvalidOperationException(NotSupportedViewResult);
             }

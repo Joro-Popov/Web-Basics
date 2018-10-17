@@ -28,7 +28,7 @@
         {
             collection.AddService<IHashService, HashService>();
             collection.AddService<ICookieService, CookieService>();
-            collection.AddService<IUserService, UserService>();
+            collection.AddService<IAuthenticationService, AuthenticationService>();
         }
     }
 }

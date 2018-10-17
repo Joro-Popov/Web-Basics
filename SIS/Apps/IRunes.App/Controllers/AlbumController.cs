@@ -20,7 +20,7 @@ namespace IRunes.App.Controllers
     {
         private const string EmptyAlbumsCollection = "There are currently no albums!";
 
-        public AlbumController(IUserService userService) : base(userService)
+        public AlbumController(IAuthenticationService authenticationService) : base(authenticationService)
         {
 
         }
@@ -30,7 +30,7 @@ namespace IRunes.App.Controllers
         {
             var username = this.Request.Session.GetParameter("username").ToString();
 
-            if (!this.UserService.IsAuthenticated(this.Request)) this.RedirectToAction("/Home/Index");
+            if (!this.AuthenticationService.IsAuthenticated(this.Request)) this.RedirectToAction("/Home/Index");
             
             var albums = this.DbContext.Users.FirstOrDefault(u => u.Username == username).Albums.ToList();
 
@@ -45,7 +45,7 @@ namespace IRunes.App.Controllers
         [HttpGet]
         public IActionResult CreateAlbum()
         {
-            if (this.UserService.IsAuthenticated(this.Request))
+            if (this.AuthenticationService.IsAuthenticated(this.Request))
             {
                 return this.View();
             }
@@ -55,7 +55,7 @@ namespace IRunes.App.Controllers
         
         public IActionResult CreateAlbumPost(CreateAlbumViewModel model)
         {
-            if (!this.UserService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
+            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
 
             var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Request.Session.GetParameter("username").ToString());
             
@@ -87,7 +87,7 @@ namespace IRunes.App.Controllers
         
         public IActionResult AlbumDetails(string albumId)
         {
-            if (!this.UserService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
+            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
             
             var username = this.Request.Session.GetParameter("username").ToString();
             var album = this.DbContext.Users.FirstOrDefault(u => u.Username == username)?.Albums.FirstOrDefault(a => a.Id == albumId);
@@ -103,7 +103,7 @@ namespace IRunes.App.Controllers
         
         public IActionResult CreateTrack()
         {
-            if (!this.UserService.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.View("/");
 
             //TODO: Inject Create TrackViewModel...
 
@@ -113,7 +113,7 @@ namespace IRunes.App.Controllers
         
         public IActionResult CreateTrackPost()
         {
-            if (!this.UserService.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.View("/");
 
             var albumId = this.Request.QueryData["albumId"].ToString();
             var trackName = this.Request.FormData["trackName"].ToString();
@@ -157,7 +157,7 @@ namespace IRunes.App.Controllers
         
         public IActionResult TrackDetails()
         {
-            if (!this.UserService.IsAuthenticated(this.Request)) return this.View("/");
+            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.View("/");
 
             var albumId = this.Request.QueryData["albumId"].ToString();
             var trackId = this.Request.QueryData["trackId"].ToString();

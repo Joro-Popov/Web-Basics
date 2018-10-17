@@ -6,17 +6,17 @@
     
     public class HomeController : BaseController
     {
-        private readonly IUserService userService;
+        private readonly IAuthenticationService authenticationService;
 
-        public HomeController(IUserService userService) : base(userService)
+        public HomeController(IAuthenticationService authenticationService) : base(authenticationService)
         {
-            this.userService = userService;
+            this.authenticationService = authenticationService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            if (!this.userService.IsAuthenticated(this.Request)) return this.View();
+            if (!this.authenticationService.IsAuthenticated(this.Request)) return this.View();
             
             var username = this.Request.Session.GetParameter("username").ToString();
             

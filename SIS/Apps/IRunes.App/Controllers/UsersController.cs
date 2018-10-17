@@ -19,7 +19,7 @@ namespace IRunes.App.Controllers
         
         private readonly IHashService hashService;
 
-        public UsersController(IUserService userService, IHashService hashService) : base(userService)
+        public UsersController(IAuthenticationService authenticationService, IHashService hashService) : base(authenticationService)
         {
             this.hashService = hashService;
         }
@@ -27,7 +27,7 @@ namespace IRunes.App.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (this.UserService.IsAuthenticated(this.Request))
+            if (this.AuthenticationService.IsAuthenticated(this.Request))
             {
                 return this.RedirectToAction("/home/welcome");
             }
@@ -46,13 +46,15 @@ namespace IRunes.App.Controllers
 
             var result = this.RedirectToAction($"/Home/Welcome?username={model.Username}");
             
+            this.AuthenticationService.Authenticate(user.Username, this.Response, this.Request);
+
             return result;
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            if (!this.UserService.IsAuthenticated(this.Request))
+            if (!this.AuthenticationService.IsAuthenticated(this.Request))
             {
                 return this.View();
             }
@@ -92,7 +94,7 @@ namespace IRunes.App.Controllers
             }
             catch (Exception e)
             {
-                //return new ServerErrorResult(e.Message, HttpResponseStatusCode.InternalServerError);
+                //return this.ServerErrorResult(e.Message);
             }
             
             var response = this.RedirectToAction($"/home/welcome?username={model.Username}");
@@ -103,7 +105,7 @@ namespace IRunes.App.Controllers
         [HttpGet]
         public IActionResult Logout()
         {
-            this.UserService.Logout(this.Request);
+            this.AuthenticationService.Logout(this.Request);
 
             var response = this.RedirectToAction("/home/index");
             

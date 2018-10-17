@@ -6,14 +6,14 @@
 
     public abstract class BaseController : Controller
     {
-        protected BaseController(IUserService userService)
+        protected BaseController(IAuthenticationService authenticationService)
         {
             this.DbContext = new IRunesDbContext();
-            this.UserService = userService;
+            this.AuthenticationService = authenticationService;
         }
 
         protected IRunesDbContext DbContext { get; set; }
 
-        protected IUserService UserService { get; set; }
+        protected IAuthenticationService AuthenticationService { get; set; }
     }
 }
