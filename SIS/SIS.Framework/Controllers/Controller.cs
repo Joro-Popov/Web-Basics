@@ -1,20 +1,19 @@
-﻿using System.Text;
-using SIS.Framework.Services.Contracts;
-using SIS.HTTP.Enums;
-using SIS.HTTP.Headers;
-using SIS.HTTP.Responses;
-using SIS.HTTP.Responses.Contracts;
-
-namespace SIS.Framework.Controllers
+﻿namespace SIS.Framework.Controllers
 {
     using System.Runtime.CompilerServices;
+    using System.Text;
 
     using ActionResults;
     using ActionResults.Contracts;
     using Utilities;
     using Views;
     using Models;
+
     using HTTP.Requests.Contracts;
+    using HTTP.Enums;
+    using HTTP.Headers;
+    using HTTP.Responses;
+    using HTTP.Responses.Contracts;
 
     public abstract class Controller
     {
@@ -32,13 +31,13 @@ namespace SIS.Framework.Controllers
         
         protected ViewModel Model { get; }
 
-        protected IViewable View([CallerMemberName] string viewName = "")
+        protected IViewable View(bool isLogged = true, [CallerMemberName] string viewName = "")
         {
             var controllerName = ControllerUtilities.GetControllerName(this);
 
             var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, viewName);
 
-            var view = new View(fullyQualifiedName, this.Model.Data);
+            var view = new View(fullyQualifiedName, this.Model.Data, isLogged);
 
             return new ViewResult(view);
         }

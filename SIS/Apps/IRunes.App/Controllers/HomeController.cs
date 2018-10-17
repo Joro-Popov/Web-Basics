@@ -16,11 +16,11 @@
         [HttpGet]
         public IActionResult Index()
         {
-            if (!this.authenticationService.IsAuthenticated(this.Request)) return this.View();
+            if (!this.authenticationService.IsAuthenticated(this.Request)) return this.View(false);
             
             var username = this.Request.Session.GetParameter("username").ToString();
             
-            return this.RedirectToAction($"/Welcome?username={username}");
+            return this.RedirectToAction($"/Home/Welcome?username={username}");
         }
 
         [HttpGet]

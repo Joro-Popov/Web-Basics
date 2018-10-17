@@ -41,7 +41,6 @@ namespace IRunes.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Cover = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

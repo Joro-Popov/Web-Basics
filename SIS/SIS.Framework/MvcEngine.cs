@@ -7,10 +7,13 @@
 
     public static class MvcEngine
     {
-        private const string ControllersFolder = "Controllers";
-        private const string ControllersSuffix = "Controller";
-        private const string ViewsFolder = "Views";
-        private const string ModelsFolder = "Models";
+        private const string CONTROLLERS_FOLDER = "Controllers";
+
+        private const string CONTROLLER_SUFFIX = "Controller";
+
+        private const string VIEWS_FOLDER = "Views";
+
+        private const string MODELS_FOLDER = "Models";
         
         public static void Run(WebServer server)
         {
@@ -32,18 +35,18 @@
 
         private static void RegisterModelsData()
         {
-            MvcContext.Get.ModelsFolder = ModelsFolder;
+            MvcContext.Get.ModelsFolder = MODELS_FOLDER;
         }
 
         private static void RegisterViewsData()
         {
-            MvcContext.Get.ViewsFolder = ViewsFolder;
+            MvcContext.Get.ViewsFolder = VIEWS_FOLDER;
         }
 
         private static void RegisterControllersData()
         {
-            MvcContext.Get.ControllersFolder = ControllersFolder;
-            MvcContext.Get.ControllersSuffix = ControllersSuffix;
+            MvcContext.Get.ControllersFolder = CONTROLLERS_FOLDER;
+            MvcContext.Get.ControllersSuffix = CONTROLLER_SUFFIX;
         }
 
         private static void RegisterAssemblyName()

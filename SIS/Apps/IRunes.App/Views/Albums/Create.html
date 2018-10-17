@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Create Album</title>
+    <link rel="stylesheet" href="/Resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Resources/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="/Resources/js/jquery-3.3.1.min.js" />
+    <link rel="stylesheet" href="~/Resources/js/popper.min.js" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-6">
+                <h1 class="text-success font-weight-normal" align="center">Create Album</h1>
+                <hr style="height: 2px" class="bg-success"/>
+
+                <form method="post" action="/Albums/Create">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="albumName" id="name" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="cover">Cover</label>
+                        <input type="text" name="cover" class="form-control" id="cover" placeholder="Cover">
+                    </div>
+                    <hr style="height: 2px" class="bg-success"/>
+                    <button type="submit" class="btn btn-primary bg-success float-sm-left">Create</button>
+                    <p><a href="/Albums/All" class="btn btn-primary bg-success float-right" role="button">Back To All</a> </p>
+                </form>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+     
+</body>
+</html>

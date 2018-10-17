@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SIS.Framework.Services.Contracts;
-
-namespace SIS.Framework.Services
+﻿namespace SIS.Framework.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Contracts;
+
     public class ServiceCollection : IServiceCollection
     {
         private readonly IDictionary<Type, Type> dependencyContainer;

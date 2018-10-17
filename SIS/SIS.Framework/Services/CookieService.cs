@@ -1,24 +1,25 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using SIS.Framework.Services.Contracts;
-
-namespace SIS.Framework.Services
+﻿namespace SIS.Framework.Services
 {
+    using System;
+    using System.IO;
+    using System.Security.Cryptography;
+    using System.Text;
+
+    using Contracts;
+
     public class CookieService : ICookieService
     {
-        public const string EncryptKey = "E646C8DF278CD5931069B522E695D4F2";
+        public const string ENCRYPT_KEY = "E646C8DF278CD5931069B522E695D4F2";
 
         public string SetUserCookie(string username)
         {
-            var cookieContent = EncryptString(username, EncryptKey);
+            var cookieContent = EncryptString(username, ENCRYPT_KEY);
             return cookieContent;
         }
 
         public string GetUserData(string cookieContent)
         {
-            var username = DecryptString(cookieContent, EncryptKey);
+            var username = DecryptString(cookieContent, ENCRYPT_KEY);
             return username;
         }
 

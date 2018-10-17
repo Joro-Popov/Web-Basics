@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SIS.Framework.Services.Contracts
+﻿namespace SIS.Framework.Services.Contracts
 {
+    using System;
+
     public interface IServiceCollection
     {
         void AddService<TSource, TDestination>();

@@ -1,7 +1,7 @@
-﻿using SIS.Framework.ActionResults.Contracts.Base;
-
-namespace SIS.Framework.ActionResults.Contracts
+﻿namespace SIS.Framework.ActionResults.Contracts
 {
+    using Base;
+
     public interface IViewable : IActionResult
     {
         IRenderable View { get; set; }

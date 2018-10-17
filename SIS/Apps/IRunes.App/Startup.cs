@@ -14,7 +14,9 @@
 
             ConfigureServices(services);
 
-            var server = new WebServer(80, new ControllerRouter(services));
+            var router = new ControllerRouter(services);
+
+            var server = new WebServer(80, router);
 
             MvcEngine.Run(server);
         }

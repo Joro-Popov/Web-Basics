@@ -1,12 +1,15 @@
-﻿using SIS.Framework.Attributes.Methods.Base;
-
-namespace SIS.Framework.Attributes.Methods
+﻿namespace SIS.Framework.Attributes.Methods
 {
+    using Base;
+
     public class HttpGetAttribute : HttpMethodAttribute
     {
+        private const string REQUEST_METHOD = "GET";
+
         public override bool IsValid(string requestMethod)
         {
-            return requestMethod.ToUpper() == "GET";
+            return requestMethod.ToUpper() == REQUEST_METHOD;
         }
+        
     }
 }

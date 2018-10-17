@@ -12,7 +12,7 @@
 
     public class ResourceRouter : IHttpHandler
     {
-        private const string RelativePath = "../../../Resources";
+        private const string RELATIVE_PATH = "../../../Resources";
 
         public IHttpResponse Handle(IHttpRequest request)
         {
@@ -25,7 +25,7 @@
 
             var fileExtension = Path.GetExtension(path).Substring(1);
 
-            var resourcePath = $"{RelativePath}/{fileExtension}/{file}";
+            var resourcePath = $"{RELATIVE_PATH}/{fileExtension}/{file}";
 
             var resource = File.ReadAllText(resourcePath);
 

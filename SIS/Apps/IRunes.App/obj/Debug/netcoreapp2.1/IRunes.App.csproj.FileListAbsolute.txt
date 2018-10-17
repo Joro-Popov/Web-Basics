@@ -20,12 +20,12 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\obj\Debug\netcoreapp2.1\IRu
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\obj\Debug\netcoreapp2.1\IRunes.App.csproj.CopyComplete
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\obj\Debug\netcoreapp2.1\IRunes.App.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\obj\Debug\netcoreapp2.1\IRunes.App.pdb
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Album\AlbumDetails.html
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Album\CreateAlbum.html
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Album\CreateTrack.html
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Album\ListAlbums.html
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Album\TrackDetails.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Home\Index.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Home\Welcome.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Users\Login.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Users\Register.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Albums\All.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Albums\Create.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Albums\Details.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Tracks\Create.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Tracks\Details.html

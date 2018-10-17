@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Create Track</title>
+    <link rel="stylesheet" href="/Resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Resources/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="/Resources/js/jquery-3.3.1.min.js" />
+    <link rel="stylesheet" href="~/Resources/js/popper.min.js" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-6">
+                <h1 class="text-success font-weight-normal" align="center">Create Track</h1>
+                <hr style="height: 2px" class="bg-success" />
+
+                <form method="post" action="/Tracks/Create?albumId={{{albumId}}}">
+                    <div class="form-group">
+                        <label for="trackName">Name</label>
+                        <input type="text" class="form-control" name="trackName" id="trackName" placeholder="Name">
+                    </div>
+                    <div class="row">
+                        <div class="col form-group">
+                                <label for="link">Link</label>
+                                <input type="url" name="link" class="form-control" id="link" placeholder="Link">
+                        </div>
+                        <div class="col">
+                        </div>
+                        <div class="col form-group">
+                                <label for="price">Price</label>
+                                <input type="number" step="0.10" name="price" class="form-control" id="price" placeholder="Price">
+                        </div>
+                    </div>
+                   
+                    <hr style="height: 2px" class="bg-success" />
+                    <button type="submit" class="btn btn-primary bg-success float-left">Create</button>
+                    <a href="/Albums/Details?albumId={{{albumId}}}" class="btn btn-primary bg-success float-right" role="button">Back To Album</a>
+                </form>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

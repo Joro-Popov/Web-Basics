@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRunes.Data.Migrations
 {
     [DbContext(typeof(IRunesDbContext))]
-    [Migration("20181004201250_InitialCreate")]
+    [Migration("20181017095447_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace IRunes.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("IRunes.App.Models.Album", b =>
+            modelBuilder.Entity("IRunes.Models.Domain.Album", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -28,8 +28,6 @@ namespace IRunes.Data.Migrations
                     b.Property<string>("Cover");
 
                     b.Property<string>("Name");
-
-                    b.Property<decimal>("Price");
 
                     b.Property<string>("UserId");
 
@@ -40,7 +38,7 @@ namespace IRunes.Data.Migrations
                     b.ToTable("Albums");
                 });
 
-            modelBuilder.Entity("IRunes.App.Models.Track", b =>
+            modelBuilder.Entity("IRunes.Models.Domain.Track", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -56,7 +54,7 @@ namespace IRunes.Data.Migrations
                     b.ToTable("Tracks");
                 });
 
-            modelBuilder.Entity("IRunes.App.Models.TrackAlbum", b =>
+            modelBuilder.Entity("IRunes.Models.Domain.TrackAlbum", b =>
                 {
                     b.Property<string>("AlbumId");
 
@@ -69,7 +67,7 @@ namespace IRunes.Data.Migrations
                     b.ToTable("TrackAlbums");
                 });
 
-            modelBuilder.Entity("IRunes.App.Models.User", b =>
+            modelBuilder.Entity("IRunes.Models.Domain.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -85,21 +83,21 @@ namespace IRunes.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("IRunes.App.Models.Album", b =>
+            modelBuilder.Entity("IRunes.Models.Domain.Album", b =>
                 {
-                    b.HasOne("IRunes.App.Models.User")
+                    b.HasOne("IRunes.Models.Domain.User")
                         .WithMany("Albums")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("IRunes.App.Models.TrackAlbum", b =>
+            modelBuilder.Entity("IRunes.Models.Domain.TrackAlbum", b =>
                 {
-                    b.HasOne("IRunes.App.Models.Album", "Album")
+                    b.HasOne("IRunes.Models.Domain.Album", "Album")
                         .WithMany("TrackAlbums")
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("IRunes.App.Models.Track", "Track")
+                    b.HasOne("IRunes.Models.Domain.Track", "Track")
                         .WithMany("TrackAlbums")
                         .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade);

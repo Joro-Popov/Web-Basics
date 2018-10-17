@@ -1,6 +1,4 @@
-﻿using SIS.Framework.ActionResults.Contracts.Base;
-
-namespace IRunes.App.Controllers
+﻿namespace IRunes.App.Controllers
 {
     using System;
     using System.Linq;
@@ -8,7 +6,8 @@ namespace IRunes.App.Controllers
     
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Services.Contracts;
-    
+    using SIS.Framework.ActionResults.Contracts.Base;
+
     using Models.Domain;
     using Models.ViewModels.User;
     
@@ -32,7 +31,7 @@ namespace IRunes.App.Controllers
                 return this.RedirectToAction("/home/welcome");
             }
 
-            return this.View();
+            return this.View(false);
         }
         
         [HttpPost]
@@ -56,7 +55,7 @@ namespace IRunes.App.Controllers
         {
             if (!this.AuthenticationService.IsAuthenticated(this.Request))
             {
-                return this.View();
+                return this.View(false);
             }
 
             return this.RedirectToAction("/home/index");
@@ -105,7 +104,9 @@ namespace IRunes.App.Controllers
         [HttpGet]
         public IActionResult Logout()
         {
-            this.AuthenticationService.Logout(this.Request);
+            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/home/index");
+
+            this.AuthenticationService.Logout(this.Request, this.Response);
 
             var response = this.RedirectToAction("/home/index");
             

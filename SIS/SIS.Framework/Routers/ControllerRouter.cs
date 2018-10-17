@@ -22,7 +22,7 @@
 
     public class ControllerRouter : IHttpHandler
     {
-        private const string NotSupportedViewResult = "Type of result is not supported!";
+        private const string NOT_SUPPORTED_VIEW_RESULT = "Type of result is not supported!";
 
         private readonly IHttpHandler resourceHandler;
         private readonly IServiceCollection serviceCollection;
@@ -223,7 +223,7 @@
                     return controller.RedirectResult(invocationResult);
 
                 default:
-                    throw new InvalidOperationException(NotSupportedViewResult);
+                    throw new InvalidOperationException(NOT_SUPPORTED_VIEW_RESULT);
             }
         }
     }

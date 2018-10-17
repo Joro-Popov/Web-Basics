@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Track Details</title>
+    <link rel="stylesheet" href="/Resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Resources/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="/Resources/js/jquery-3.3.1.min.js" />
+    <link rel="stylesheet" href="~/Resources/js/popper.min.js" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-6">
+                <p class="font-weight-normal" align="center"><strong>Track Name: {{{name}}}</strong></p>
+                <p class="font-weight-normal" align="center"><strong>Track Price: $ {{{price}}}</strong></p>
+                <hr style="height: 2px" class="bg-success" />
+
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{{track}}}" allowfullscreen></iframe>
+                </div>
+                <hr style="height: 2px" class="bg-success" />
+                <p class="text-center"><a href="/Albums/Details?albumId={{{albumId}}}" class="btn btn-primary bg-success" role="button">Back To All</a> </p>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using SIS.Framework.Services.Contracts;
-
-namespace SIS.Framework.Services
+﻿namespace SIS.Framework.Services
 {
+    using System;
+    using System.Security.Cryptography;
+    using System.Text;
+
+    using Contracts;
+
     public class HashService : IHashService
     {
         public string Hash(string stringToHash)
