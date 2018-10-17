@@ -93,9 +93,23 @@
         private void SetResponseSession(IHttpRequest request, IHttpResponse httpResponse, string sessionId)
         {
             if (sessionId == null) return;
-            if(request.Cookies.ContainsCookie("SIS_ID")) return;
-            
-            var cookie = new HttpCookie(HttpSessionStorage.SessionCookieKey, $"{sessionId}");
+
+            HttpCookie cookie = null;
+
+            if (request.Cookies.ContainsCookie("SIS_ID"))
+            {
+                if (Guid.TryParse(sessionId, out Guid guidOutput)) return;
+
+                sessionId = Guid.NewGuid().ToString();
+
+                cookie = new HttpCookie(HttpSessionStorage.SessionCookieKey, $"{sessionId}");
+
+                httpResponse.AddCookie(cookie);
+
+                return;
+            }
+
+            cookie = new HttpCookie(HttpSessionStorage.SessionCookieKey, $"{sessionId}");
 
             httpResponse.AddCookie(cookie);
         }
