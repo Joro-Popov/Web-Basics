@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.Controllers
+﻿using SIS.HTTP.Exceptions;
+
+namespace IRunes.App.Controllers
 {
     using System;
     using System.Globalization;
@@ -62,7 +64,7 @@
             }
             catch (Exception e)
             {
-                //return new ServerErrorResult(e.Message, HttpResponseStatusCode.InternalServerError);
+                throw new InternalServerException(e.Message);
             }
 
             return this.RedirectToAction($"/Albums/Details?albumId={albumId}");
