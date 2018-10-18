@@ -20,19 +20,18 @@
             dependencyContainer[typeof(TSource)] = typeof(TDestination);
         }
 
+        public T CreateInstance<T>() => (T)this.CreateInstance(typeof(T));
+
         public object CreateInstance(Type type)
         {
-            if (dependencyContainer.ContainsKey(type))
-            {
-                type = dependencyContainer[type];
-            }
+            var instanceType = this[type] ?? type;
 
-            if (type.IsInterface || type.IsAbstract)
+            if (instanceType.IsInterface || instanceType.IsAbstract)
             {
                 throw new Exception($"Type {type.FullName} cannot be instantiated!");
             }
 
-            var constructor = type.GetConstructors().First();
+            var constructor = instanceType.GetConstructors().First();
             var constructorParameters = constructor.GetParameters();
 
             var constructorParameterObjects = new List<object>();
@@ -48,5 +47,8 @@
 
             return obj;
         }
+
+        private Type this[Type key] =>
+            this.dependencyContainer.ContainsKey(key) ? this.dependencyContainer[key] : null;
     }
 }
