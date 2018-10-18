@@ -78,6 +78,7 @@
                 .FirstOrDefault(t => t.Track.Id == trackId)
                 .Track;
 
+            this.Model.Data["albumId"] = albumId;
             this.Model.Data["track"] = track.Link;
             this.Model.Data["name"] = WebUtility.UrlDecode(track.Name);
             this.Model.Data["price"] = track.Price.ToString(CultureInfo.InvariantCulture);
