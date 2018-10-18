@@ -1,7 +1,4 @@
-﻿using System.Text;
-using SIS.Framework.Models;
-
-namespace SIS.Framework.ActionResults
+﻿namespace SIS.Framework.ActionResults
 {
     using Contracts;
 

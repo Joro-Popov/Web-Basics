@@ -69,15 +69,6 @@
 
             return this.Response;
         }
-        
-        public IHttpResponse ServerErrorResult(string content)
-        {
-            content = string.Format(content, (int)HttpResponseStatusCode.InternalServerError, content);
-
-            this.Response.Headers.Add(new HttpHeader(HttpHeader.ContentType, "text/html; charset=utf-8"));
-            this.Response.Content = Encoding.UTF8.GetBytes(content);
-
-            return this.Response;
-        }
+       
     }
 }

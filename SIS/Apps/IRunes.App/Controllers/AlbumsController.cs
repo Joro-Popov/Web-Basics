@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.Controllers
+﻿using SIS.HTTP.Exceptions;
+
+namespace IRunes.App.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -82,7 +84,7 @@
             }
             catch (Exception e)
             {
-                //return this.ServerErrorResult(e.Message);
+                throw new InternalServerException(e.Message);
             }
 
             return this.RedirectToAction("/Albums/All");

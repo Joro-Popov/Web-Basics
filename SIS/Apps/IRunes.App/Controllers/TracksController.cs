@@ -33,21 +33,19 @@
         {
             if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/home/index");
             
-            var price = decimal.Parse(model.Price);
-
             var trackNameIsInvalid = string.IsNullOrWhiteSpace(model.TrackName);
-            var linkIsInvalid = string.IsNullOrWhiteSpace(WebUtility.UrlDecode(model.Link));
-            var priceIsInvalid = price < 0;
-
-            if (trackNameIsInvalid || linkIsInvalid || priceIsInvalid) return this.RedirectToAction("/tracks/create");
-
+            var linkIsInvalid = string.IsNullOrWhiteSpace(model.Link);
+            var priceIsInvalid = string.IsNullOrWhiteSpace(model.Price);
+            
+            if (trackNameIsInvalid || linkIsInvalid || priceIsInvalid) return this.RedirectToAction($"/tracks/create?albumId={albumId}");
+            
             var album = this.DbContext.Albums.FirstOrDefault(a => a.Id == albumId);
 
             var track = new Track()
             {
                 Name = model.TrackName,
                 Link = WebUtility.UrlDecode(model.Link),
-                Price = price
+                Price = decimal.Parse(model.Price)
             };
 
             var trackAlbum = new TrackAlbum()
