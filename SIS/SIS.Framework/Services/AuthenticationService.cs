@@ -21,7 +21,7 @@
             return request.Session.ContainsParameter("username") && request.Cookies.ContainsCookie(AUTH_COOKIE_NAME);
         }
 
-        public void Authenticate(string username, IHttpResponse response, IHttpRequest request)
+        public void Login(string username, IHttpResponse response, IHttpRequest request)
         {
             var cookieContent = this.cookieService.SetUserCookie(username);
             var cookie = new HttpCookie(AUTH_COOKIE_NAME, cookieContent, 7);

@@ -7,7 +7,7 @@
     {
         bool IsAuthenticated(IHttpRequest request);
 
-        void Authenticate(string username, IHttpResponse response, IHttpRequest request);
+        void Login(string username, IHttpResponse response, IHttpRequest request);
 
         void Logout(IHttpRequest request, IHttpResponse response);
     }

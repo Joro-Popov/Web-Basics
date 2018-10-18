@@ -1,6 +1,4 @@
-﻿using SIS.HTTP.Exceptions;
-
-namespace IRunes.App.Controllers
+﻿namespace IRunes.App.Controllers
 {
     using System;
     using System.Linq;
@@ -9,6 +7,7 @@ namespace IRunes.App.Controllers
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Services.Contracts;
     using SIS.Framework.ActionResults.Contracts.Base;
+    using SIS.HTTP.Exceptions;
 
     using Models.Domain;
     using Models.ViewModels.User;
@@ -47,7 +46,7 @@ namespace IRunes.App.Controllers
 
             var result = this.RedirectToAction($"/Home/Welcome?username={model.Username}");
             
-            this.AuthenticationService.Authenticate(user.Username, this.Response, this.Request);
+            this.AuthenticationService.Login(user.Username, this.Response, this.Request);
 
             return result;
         }
@@ -100,7 +99,7 @@ namespace IRunes.App.Controllers
             
             var response = this.RedirectToAction($"/home/welcome?username={model.Username}");
 
-            this.AuthenticationService.Authenticate(model.Username, this.Response, this.Request);
+            this.AuthenticationService.Login(model.Username, this.Response, this.Request);
 
             return response;
         }

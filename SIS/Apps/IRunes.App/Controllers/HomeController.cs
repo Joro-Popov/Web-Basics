@@ -27,6 +27,7 @@
         public IActionResult Welcome(string username)
         {
             this.Model.Data["username"] = username;
+
             return this.View();
         }
     }
