@@ -6,7 +6,7 @@
 
     public class FileLogger : IFileLogger
     {
-        private const string DEFAULT_PATH = "../../../Logs/log.txt";
+        private const string DEFAULT_PATH = "Logs/log.txt";
 
         private readonly string path;
         

@@ -36,7 +36,7 @@
             collection.AddService<ICookieService, CookieService>();
             collection.AddService<IAuthenticationService, AuthenticationService>();
             collection.AddService<IConsoleLogger, ConsoleLogger>();
-            collection.AddService<ILogger>(() => new FileLogger($"../../../Logs/{DateTime.Now.Date:dd/MM/yyyy}.txt"));
+            collection.AddService<IFileLogger>(() => new FileLogger($"../../../Logs/{DateTime.Now.Date:dd/MM/yyyy}.txt"));
         }
     }
 }

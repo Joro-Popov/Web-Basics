@@ -1,7 +1,4 @@
-﻿using System;
-using SIS.Framework.Logger.Contracts;
-
-namespace IRunes.App.Controllers
+﻿namespace IRunes.App.Controllers
 {
     using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.Framework.Attributes.Methods;
