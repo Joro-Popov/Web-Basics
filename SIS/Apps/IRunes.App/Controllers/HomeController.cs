@@ -1,4 +1,7 @@
-﻿namespace IRunes.App.Controllers
+﻿using System;
+using SIS.Framework.Logger.Contracts;
+
+namespace IRunes.App.Controllers
 {
     using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.Framework.Attributes.Methods;
@@ -7,7 +10,7 @@
     public class HomeController : BaseController
     {
         private readonly IAuthenticationService authenticationService;
-
+        
         public HomeController(IAuthenticationService authenticationService) : base(authenticationService)
         {
             this.authenticationService = authenticationService;

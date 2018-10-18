@@ -1,10 +1,14 @@
 ﻿namespace IRunes.App
 {
+    using System;
+
     using SIS.WebServer;
     using SIS.Framework.Routers;
     using SIS.Framework;
     using SIS.Framework.Services;
     using SIS.Framework.Services.Contracts;
+    using SIS.Framework.Logger;
+    using SIS.Framework.Logger.Contracts;
 
     public class Startup
     {
@@ -31,6 +35,8 @@
             collection.AddService<IHashService, HashService>();
             collection.AddService<ICookieService, CookieService>();
             collection.AddService<IAuthenticationService, AuthenticationService>();
+            collection.AddService<IConsoleLogger, ConsoleLogger>();
+            collection.AddService<ILogger>(() => new FileLogger($"../../../Logs/{DateTime.Now.Date:dd/MM/yyyy}.txt"));
         }
     }
 }

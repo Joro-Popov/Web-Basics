@@ -28,7 +28,6 @@
             }
             catch (Exception e)
             {
-                // TODO: Log Errors
                 Console.WriteLine(e.Message);
             }
         }
