@@ -1,6 +1,4 @@
-﻿using SIS.HTTP.Exceptions;
-
-namespace IRunes.App.Controllers
+﻿namespace IRunes.App.Controllers
 {
     using System;
     using System.Globalization;
@@ -13,6 +11,7 @@ namespace IRunes.App.Controllers
     using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Services.Contracts;
+    using SIS.HTTP.Exceptions;
 
     public class TracksController : BaseController
     {
