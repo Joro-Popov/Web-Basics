@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.Controllers
+﻿using SIS.HTTP.Exceptions;
+
+namespace IRunes.App.Controllers
 {
     using System;
     using System.Linq;
@@ -93,10 +95,12 @@
             }
             catch (Exception e)
             {
-                //return this.ServerErrorResult(e.Message);
+                throw new InternalServerException(e.Message);
             }
             
             var response = this.RedirectToAction($"/home/welcome?username={model.Username}");
+
+            this.AuthenticationService.Authenticate(model.Username, this.Response, this.Request);
 
             return response;
         }
