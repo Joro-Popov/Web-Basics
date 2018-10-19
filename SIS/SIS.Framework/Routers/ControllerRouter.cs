@@ -24,6 +24,11 @@
     {
         private const string NOT_SUPPORTED_VIEW_RESULT = "Type of result is not supported!";
 
+        private const string DEFAULT_CONTROLLER_NAME = "Home";
+
+        private const string DEFAULT_ACTION_NAME = "Index";
+
+
         private readonly IHttpHandler resourceHandler;
         private readonly IServiceCollection serviceCollection;
 
@@ -40,11 +45,22 @@
                 return this.resourceHandler.Handle(request);
             }
 
-            var requestArgs = request.Path.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
-            
-            var controllerName = requestArgs.First().Capitalize() + MvcContext.Get.ControllersSuffix;
+            var controllerName = string.Empty;
+            var stringAction = string.Empty;
 
-            var stringAction = requestArgs.Last().Capitalize();
+            if (request.Path == "/")
+            {
+                controllerName = DEFAULT_CONTROLLER_NAME + MvcContext.Get.ControllersSuffix;
+                stringAction = DEFAULT_ACTION_NAME;
+            }
+            else
+            {
+                var requestArgs = request.Path.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                controllerName = requestArgs.First().Capitalize() + MvcContext.Get.ControllersSuffix;
+
+                stringAction = requestArgs.Last().Capitalize();
+            }
             
             var controller = this.GetController(controllerName, request);
             
