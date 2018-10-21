@@ -15,7 +15,6 @@
     using WebServer.API;
 
     using HTTP.Common;
-    using HTTP.Enums;
     using HTTP.Requests.Contracts;
     using HTTP.Responses.Contracts;
     using HTTP.Extensions;
@@ -27,24 +26,16 @@
         private const string DEFAULT_CONTROLLER_NAME = "Home";
 
         private const string DEFAULT_ACTION_NAME = "Index";
-
-
-        private readonly IHttpHandler resourceHandler;
+        
         private readonly IServiceCollection serviceCollection;
 
         public ControllerRouter(IServiceCollection serviceCollection)
         {
-            this.resourceHandler = new ResourceRouter();
             this.serviceCollection = serviceCollection;
         }
 
         public IHttpResponse Handle(IHttpRequest request)
         {
-            if (this.IsResourceRequest(request))
-            {
-                return this.resourceHandler.Handle(request);
-            }
-
             var controllerName = string.Empty;
             var stringAction = string.Empty;
 
@@ -78,14 +69,14 @@
         }
 
 
-        private bool IsResourceRequest(IHttpRequest httpRequest)
-        {
-            if (string.IsNullOrWhiteSpace(httpRequest.Path.Split('/').Last())) return false;
+        //private bool IsResourceRequest(IHttpRequest httpRequest)
+        //{
+        //    if (string.IsNullOrWhiteSpace(httpRequest.Path.Split('/').Last())) return false;
 
-            var extension = Path.GetExtension(httpRequest.Path);
+        //    var extension = Path.GetExtension(httpRequest.Path);
 
-            return !string.IsNullOrWhiteSpace(extension) && GlobalConstants.FileExtensions.Contains(extension.Substring(1));
-        }
+        //    return !string.IsNullOrWhiteSpace(extension) && GlobalConstants.FileExtensions.Contains(extension.Substring(1));
+        //}
 
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
         {

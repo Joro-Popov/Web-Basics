@@ -18,7 +18,10 @@
 
             ConfigureServices(services);
 
-            var router = new ControllerRouter(services);
+            var controllerRouter = new ControllerRouter(services);
+            var resourceRouter = new ResourceRouter();
+
+            var router = new HttpHandlerContext(controllerRouter, resourceRouter);
 
             var server = new WebServer(80, router);
 

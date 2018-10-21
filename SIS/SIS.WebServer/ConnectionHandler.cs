@@ -55,15 +55,6 @@
             return this.handler.Handle(httpRequest);
         }
 
-        private bool IsResourceRequest(IHttpRequest httpRequest)
-        {
-            if (string.IsNullOrWhiteSpace(httpRequest.Path.Split('/').Last())) return false;
-
-            var extension = Path.GetExtension(httpRequest.Path);
-
-            return !string.IsNullOrWhiteSpace(extension) && GlobalConstants.FileExtensions.Contains(extension.Substring(1));
-        }
-
         private async Task PrepareResponseAsync(IHttpResponse httpResponse)
         {
             var byteSegment = httpResponse.GetBytes();

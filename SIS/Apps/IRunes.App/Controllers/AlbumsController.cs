@@ -19,7 +19,8 @@
     {
         private const string EMPTY_ALBUMS_COLLECTION = "There are currently no albums!";
 
-        public AlbumsController(IAuthenticationService authenticationService) : base(authenticationService)
+        public AlbumsController(IAuthenticationService authenticationService) 
+            : base(authenticationService)
         {
 
         }
@@ -83,6 +84,8 @@
             }
             catch (Exception e)
             {
+                // return this.InternalServerError(e.Messsage);
+
                 throw new InternalServerException(e.Message);
             }
 

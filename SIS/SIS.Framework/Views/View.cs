@@ -1,4 +1,6 @@
-﻿namespace SIS.Framework.Views
+﻿using System;
+
+namespace SIS.Framework.Views
 {
     using System.IO;
     using System.Collections.Generic;
@@ -8,8 +10,8 @@
 
     public class View : IRenderable
     {
-        private const string ROOT_DIRECTORY = "../../../";
-
+        private const string RELATIVE_PATH = "../../../";
+        
         private const string LAYOUT_LOGGED = "Views/_LayoutLogged.html";
 
         private const string LAYOUT_LOGGED_OUT = "Views/_Layout.html";
@@ -32,15 +34,15 @@
 
         private string ReadFile(string templateName)
         {
-            var path = $"{ROOT_DIRECTORY}{templateName}";
-            
-            if(!File.Exists(path)) throw new FileNotFoundException();
-            
+            var path = $"{RELATIVE_PATH}{templateName}";
+
+            if (!File.Exists(path)) throw new FileNotFoundException();
+
             var htmlText = File.ReadAllText(path);
 
             string layout;
 
-            layout = File.ReadAllText(this.IsLogged ? $"{ROOT_DIRECTORY}{LAYOUT_LOGGED}" : $"{ROOT_DIRECTORY}{LAYOUT_LOGGED_OUT}");
+            layout = File.ReadAllText(this.IsLogged ? $"{RELATIVE_PATH}{LAYOUT_LOGGED}" : $"{RELATIVE_PATH}{LAYOUT_LOGGED_OUT}");
 
             layout = layout.Replace(RENDER_BODY, htmlText);
 

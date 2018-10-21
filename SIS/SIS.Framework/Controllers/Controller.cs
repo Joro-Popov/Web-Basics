@@ -31,6 +31,24 @@
         
         protected ViewModel Model { get; }
 
+        //protected string User
+        //{
+        //    get
+        //    {
+        //        if (!this.Request.Cookies.ContainsCookie(".auth-cakes"))
+        //        {
+        //            return null;
+        //        }
+
+        //        var cookie = this.Request.Cookies.GetCookie(".auth-cakes");
+        //        var cookieContent = cookie.Value;
+        //        var userName = this.UserCookieService.GetUserData(cookieContent);
+        //        return userName;
+        //    }
+        //}
+
+        // TODO: Get rid of bool variable. Insert model after implementing View Engine!
+        // TODO: _Layout?
         protected IViewable View(bool isLogged = true, [CallerMemberName] string viewName = "")
         {
             var controllerName = ControllerUtilities.GetControllerName(this);
@@ -69,6 +87,5 @@
 
             return this.Response;
         }
-       
     }
 }
