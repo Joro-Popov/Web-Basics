@@ -18,7 +18,7 @@
                 <h1 class="text-success font-weight-normal" align="center">Create Track</h1>
                 <hr style="height: 2px" class="bg-success" />
 
-                <form method="post" action="/Tracks/Create?albumId={{{albumId}}}">
+                <form method="post" action="/Tracks/Create?albumId=@Model.albumId">
                     <div class="form-group">
                         <label for="trackName">Name</label>
                         <input type="text" class="form-control" name="trackName" id="trackName" placeholder="Name">
@@ -38,7 +38,7 @@
                    
                     <hr style="height: 2px" class="bg-success" />
                     <button type="submit" class="btn btn-primary bg-success float-left">Create</button>
-                    <a href="/Albums/Details?albumId={{{albumId}}}" class="btn btn-primary bg-success float-right" role="button">Back To Album</a>
+                    <a href="/Albums/Details?albumId=@Model.albumId" class="btn btn-primary bg-success float-right" role="button">Back To Album</a>
                 </form>
             </div>
             <div class="col">

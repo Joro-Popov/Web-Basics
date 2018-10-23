@@ -1,5 +1,6 @@
 ﻿namespace SIS.Framework.Controllers
 {
+    using System;
     using System.Runtime.CompilerServices;
     using System.Text;
 
@@ -8,6 +9,7 @@
     using Utilities;
     using Views;
     using Models;
+    using Security.Contracts;
 
     using HTTP.Requests.Contracts;
     using HTTP.Enums;
@@ -17,6 +19,8 @@
 
     public abstract class Controller
     {
+        private const string IDENTITY_KEY = "auth";
+
         protected Controller()
         {
             this.Model = new ViewModel();
@@ -30,38 +34,62 @@
         public Model ModelState { get; } = new Model();
         
         protected ViewModel Model { get; }
-
-        //protected string User
-        //{
-        //    get
-        //    {
-        //        if (!this.Request.Cookies.ContainsCookie(".auth-cakes"))
-        //        {
-        //            return null;
-        //        }
-
-        //        var cookie = this.Request.Cookies.GetCookie(".auth-cakes");
-        //        var cookieContent = cookie.Value;
-        //        var userName = this.UserCookieService.GetUserData(cookieContent);
-        //        return userName;
-        //    }
-        //}
-
-        // TODO: Get rid of bool variable. Insert model after implementing View Engine!
-        // TODO: _Layout?
-        protected IViewable View(bool isLogged = true, [CallerMemberName] string viewName = "")
+        
+        private ViewEngine ViewEngine { get; } = new ViewEngine();
+        
+        protected IViewable View([CallerMemberName] string viewName = "")
         {
             var controllerName = ControllerUtilities.GetControllerName(this);
 
-            var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, viewName);
+            string viewContent = null;
 
-            var view = new View(fullyQualifiedName, this.Model.Data, isLogged);
+            try
+            {
+                viewContent = this.ViewEngine.GetViewContent(controllerName, viewName);
+            }
+            catch (Exception e)
+            {
+                this.Model.Data["Error"] = e.Message;
 
-            return new ViewResult(view);
+                viewContent = this.ViewEngine.GetErrorContent();
+            }
+
+            var renderedContent = this.ViewEngine.RenderHtml(viewContent, this.Model.Data);
+
+            return new ViewResult(new View(renderedContent));
+            
         }
 
         protected  IRedirectable RedirectToAction(string redirectUrl) => new RedirectResult(redirectUrl);
 
+        protected void SignIn(IIdentity auth)
+        {
+            this.Request.Session.AddParameter(IDENTITY_KEY, auth);
+        }
+
+        protected void SignOut()
+        {
+            //var cookie = this.Request.Cookies.GetCookie(".auth");
+
+            //cookie.Delete();
+
+            //this.Response.Cookies.Add(cookie);
+
+            this.Request.Session.ClearParameters();
+        }
+
+        public IIdentity Identity
+        {
+            get
+            {
+                if (this.Request.Session.ContainsParameter(IDENTITY_KEY))
+                {
+                   return (IIdentity)this.Request.Session.GetParameter(IDENTITY_KEY);
+                }
+
+                return null; 
+            }
+        }
 
         public IHttpResponse HtmlResult(string content)
         {

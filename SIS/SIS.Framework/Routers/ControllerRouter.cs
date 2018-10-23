@@ -1,7 +1,6 @@
 ﻿namespace SIS.Framework.Routers
 {
     using System;
-    using System.IO;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -9,12 +8,13 @@
 
     using ActionResults.Contracts.Base;
     using Attributes.Methods.Base;
+    using Attributes.Action;
     using Services.Contracts;
     using ActionResults.Contracts;
     using Controllers;
     using WebServer.API;
-
-    using HTTP.Common;
+    using WebServer.Results;
+    
     using HTTP.Requests.Contracts;
     using HTTP.Responses.Contracts;
     using HTTP.Extensions;
@@ -61,23 +61,10 @@
 
             var actionParameters = this.MapActionParameters(action, request, controller);
             
-            var actionResult = this.InvokeAction(controller, action, actionParameters);
-
-            var response = this.PrepareResponse(actionResult, controller);
-            
-            return response;
+            return this.Authorize(controller, action) 
+                   ?? this.PrepareResponse(this.InvokeAction(controller, action, actionParameters), controller);
         }
-
-
-        //private bool IsResourceRequest(IHttpRequest httpRequest)
-        //{
-        //    if (string.IsNullOrWhiteSpace(httpRequest.Path.Split('/').Last())) return false;
-
-        //    var extension = Path.GetExtension(httpRequest.Path);
-
-        //    return !string.IsNullOrWhiteSpace(extension) && GlobalConstants.FileExtensions.Contains(extension.Substring(1));
-        //}
-
+        
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
         {
             return (IActionResult)action.Invoke(controller, actionParameters);
@@ -232,6 +219,16 @@
                 default:
                     throw new InvalidOperationException(NOT_SUPPORTED_VIEW_RESULT);
             }
+        }
+
+        private IHttpResponse Authorize(Controller controller, MethodInfo action)
+        {
+            var hasIdentity = action.GetCustomAttributes()
+                .Where(a => a is AuthorizeAttribute)
+                .Cast<AuthorizeAttribute>()
+                .Any(a => !a.IsAuthorized(controller.Identity));
+
+            return hasIdentity ? new UnauthorizedResult() : null;
         }
     }
 }

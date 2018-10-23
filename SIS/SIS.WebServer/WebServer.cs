@@ -33,20 +33,19 @@
 
             Console.WriteLine(StartServerMessage, LocalhostIpAddress, this.port);
 
-            var task = Task.Run(this.ListenLoopAsync);
-           
-            task.Wait();
+            while (isRunning)
+            {
+                var client = this.listener.AcceptSocketAsync().Result;
+
+                Task.Run(() => ListenLoopAsync(client));
+            }
         }
 
-        public async Task ListenLoopAsync()
+        public async Task ListenLoopAsync(Socket client)
         {
-            while (this.isRunning)
-            {
-                var client = await this.listener.AcceptSocketAsync();
-                var connectionHandler = new ConnectionHandler(client, handler);
+            var connectionHandler = new ConnectionHandler(client, handler);
 
-                connectionHandler.ProcessRequestAsync();
-            }
+            await connectionHandler.ProcessRequestAsync();
         }
     }
 }

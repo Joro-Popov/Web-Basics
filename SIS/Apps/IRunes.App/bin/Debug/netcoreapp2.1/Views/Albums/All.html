@@ -15,7 +15,9 @@
 
     <p><a href="/Albums/Create" class="btn btn-primary bg-success" role="button">Create Album</a> </p>
     <hr style="height: 2px" class="bg-success"/>
-
-    {{{albums}}}
+    
+    <ul>
+        @Model.Collection.albums(<li>@Item</li>)
+    </ul>
 </body>
 </html>

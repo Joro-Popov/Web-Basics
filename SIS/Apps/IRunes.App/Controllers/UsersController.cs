@@ -8,6 +8,8 @@
     using SIS.Framework.Services.Contracts;
     using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.HTTP.Exceptions;
+    using SIS.Framework.Attributes.Action;
+    using SIS.Framework.Security;
 
     using Models.Domain;
     using Models.ViewModels.User;
@@ -19,7 +21,7 @@
         
         private readonly IHashService hashService;
 
-        public UsersController(IAuthenticationService authenticationService, IHashService hashService) : base(authenticationService)
+        public UsersController(IHashService hashService) : base()
         {
             this.hashService = hashService;
         }
@@ -27,17 +29,17 @@
         [HttpGet]
         public IActionResult Login()
         {
-            if (this.AuthenticationService.IsAuthenticated(this.Request))
-            {
-                return this.RedirectToAction("/home/welcome");
-            }
-
-            return this.View(false);
+            return this.View();
         }
         
         [HttpPost]
-        public IActionResult Login(DoLoginViewModel model)
+        public IActionResult Login(LoginViewModel model)
         {
+            if (!ModelState.IsValid.HasValue)
+            {
+                return this.View();
+            }
+
             var hashedPassword = this.hashService.Hash(model.Password);
 
             var user = this.DbContext.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == hashedPassword);
@@ -46,25 +48,29 @@
 
             var result = this.RedirectToAction($"/Home/Welcome?username={model.Username}");
             
-            this.AuthenticationService.Login(user.Username, this.Response, this.Request);
+            var identityUser = new IdentityUser()
+            {
+                Username = user.Username,
+                Password = hashedPassword,
+                Email = user.Email
+            };
 
+            this.SignIn(identityUser);
+            
             return result;
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request))
-            {
-                return this.View(false);
-            }
-
-            return this.RedirectToAction("/home/index");
+            return this.View();
         }
 
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
+            if (!ModelState.IsValid.HasValue) return this.View();
+
             var email = WebUtility.UrlDecode(model.Email);
             
             var usernameIsInvalid = string.IsNullOrWhiteSpace(model.Username) || model.Username.Length < UsernameMinLength;
@@ -99,17 +105,23 @@
             
             var response = this.RedirectToAction($"/home/welcome?username={model.Username}");
 
-            this.AuthenticationService.Login(model.Username, this.Response, this.Request);
+            var identityUser = new IdentityUser()
+            {
+                Username = user.Username,
+                Password = hashedPassword,
+                Email = user.Email
+            };
 
+            this.SignIn(identityUser);
+            
             return response;
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Logout()
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/home/index");
-
-            this.AuthenticationService.Logout(this.Request, this.Response);
+            this.SignOut();
 
             var response = this.RedirectToAction("/home/index");
             

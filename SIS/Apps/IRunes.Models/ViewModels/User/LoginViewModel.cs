@@ -2,7 +2,7 @@
 
 namespace IRunes.Models.ViewModels.User
 {
-    public class DoLoginViewModel
+    public class LoginViewModel
     {
         //TODO: Put validation attributes
 

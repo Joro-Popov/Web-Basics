@@ -36,8 +36,6 @@
         private static void ConfigureServices(IServiceCollection collection)
         {
             collection.AddService<IHashService, HashService>();
-            collection.AddService<ICookieService, CookieService>();
-            collection.AddService<IAuthenticationService, AuthenticationService>();
             collection.AddService<IConsoleLogger, ConsoleLogger>();
             collection.AddService<IFileLogger>(() => new FileLogger($"../../../Logs/{DateTime.Now.Date:dd/MM/yyyy}.txt"));
         }

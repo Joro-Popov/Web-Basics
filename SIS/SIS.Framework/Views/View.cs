@@ -10,66 +10,61 @@ namespace SIS.Framework.Views
 
     public class View : IRenderable
     {
-        private const string RELATIVE_PATH = "../../../";
+        //private const string RELATIVE_PATH = "../../../";
         
-        private const string LAYOUT_LOGGED = "Views/_LayoutLogged.html";
+        //private const string LAYOUT_PATH = "Views/_Layout.html";
 
-        private const string LAYOUT_LOGGED_OUT = "Views/_Layout.html";
-
-        private const string RENDER_BODY = "@RenderBody";
+        //private const string RENDER_BODY = "@RenderBody";
 
 
-        private readonly string fullyQualifiedTemplateName;
+        private readonly string fullHtmlContent;
         
-        private readonly IDictionary<string, object> viewData;
-
-        private readonly bool IsLogged;
+        //private readonly IDictionary<string, object> viewData;
         
-        public View(string fullyQualifiedTemplateName, IDictionary<string, object> viewData, bool isLogged) 
+        public View(string fullHtmlContent/*, IDictionary<string, object> viewData*/) 
         {
-            this.fullyQualifiedTemplateName = fullyQualifiedTemplateName;
-            this.viewData = viewData;
-            this.IsLogged = isLogged;
+            this.fullHtmlContent = fullHtmlContent;
+            //this.viewData = viewData;
         }
 
-        private string ReadFile(string templateName)
-        {
-            var path = $"{RELATIVE_PATH}{templateName}";
+        public string Render() => this.fullHtmlContent;
 
-            if (!File.Exists(path)) throw new FileNotFoundException();
+        //private string ReadFile(string templateName)
+        //{
+        //    var path = $"{RELATIVE_PATH}{templateName}";
 
-            var htmlText = File.ReadAllText(path);
+        //    if (!File.Exists(path)) throw new FileNotFoundException();
 
-            string layout;
+        //    var htmlText = File.ReadAllText(path);
 
-            layout = File.ReadAllText(this.IsLogged ? $"{RELATIVE_PATH}{LAYOUT_LOGGED}" : $"{RELATIVE_PATH}{LAYOUT_LOGGED_OUT}");
+        //    var layout = File.ReadAllText($"{RELATIVE_PATH}{LAYOUT_PATH}");
 
-            layout = layout.Replace(RENDER_BODY, htmlText);
+        //    layout = layout.Replace(RENDER_BODY, htmlText);
 
-            return layout;
-        }
+        //    return layout;
+        //}
 
-        public string Render()
-        {
-            var fullHtml = this.ReadFile(this.fullyQualifiedTemplateName);
-            var renderHtml = this.RenderHtml(fullHtml);
+        //public string Render()
+        //{
+        //    var fullHtml = this.ReadFile(this.fullHtmlContent);
+        //    var renderHtml = this.RenderHtml(fullHtml);
 
-            return renderHtml;
-        }
+        //    return renderHtml;
+        //}
 
-        private string RenderHtml(string fullHtml)
-        {
-            var renderHtml = fullHtml;
-            
-            if (this.viewData.Any())
-            {
-                foreach (var parameter in this.viewData)
-                {
-                    renderHtml = renderHtml.Replace($"{{{{{{{parameter.Key}}}}}}}", parameter.Value.ToString());
-                }
-            }
+        //private string RenderHtml(string fullHtml)
+        //{
+        //    var renderHtml = fullHtml;
 
-            return renderHtml;
-        }
+        //    if (this.viewData.Any())
+        //    {
+        //        foreach (var parameter in this.viewData)
+        //        {
+        //            renderHtml = renderHtml.Replace($"{{{{{{{parameter.Key}}}}}}}", parameter.Value.ToString());
+        //        }
+        //    }
+
+        //    return renderHtml;
+        //}
     }
 }

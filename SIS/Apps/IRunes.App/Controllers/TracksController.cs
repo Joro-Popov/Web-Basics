@@ -10,35 +10,30 @@
 
     using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.Framework.Attributes.Methods;
-    using SIS.Framework.Services.Contracts;
+    using SIS.Framework.Attributes.Action;
     using SIS.HTTP.Exceptions;
 
     public class TracksController : BaseController
     {
-        public TracksController(IAuthenticationService authenticationService) : base(authenticationService)
-        {
-        }
-
         [HttpGet]
+        [Authorize]
         public IActionResult Create(string albumId)
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/home/index");
-
             this.Model.Data["albumId"] = albumId;
 
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(CreateTrackViewModel model, string albumId)
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/home/index");
-            
             var trackNameIsInvalid = string.IsNullOrWhiteSpace(model.TrackName);
             var linkIsInvalid = string.IsNullOrWhiteSpace(model.Link);
             var priceIsInvalid = string.IsNullOrWhiteSpace(model.Price);
             
-            if (trackNameIsInvalid || linkIsInvalid || priceIsInvalid) return this.RedirectToAction($"/tracks/create?albumId={albumId}");
+            if (trackNameIsInvalid || linkIsInvalid || priceIsInvalid)
+                return this.RedirectToAction($"/tracks/create?albumId={albumId}");
             
             var album = this.DbContext.Albums.FirstOrDefault(a => a.Id == albumId);
 
@@ -70,10 +65,9 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Details(string albumId, string trackId)
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/home/index");
-            
             var track = this.DbContext.Albums
                 .FirstOrDefault(a => a.Id == albumId)?.TrackAlbums
                 .FirstOrDefault(t => t.Track.Id == trackId)

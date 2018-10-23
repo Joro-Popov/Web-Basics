@@ -15,15 +15,15 @@
             <div class="col">
             </div>
             <div class="col-6">
-                <p class="font-weight-normal" align="center"><strong>Track Name: {{{name}}}</strong></p>
-                <p class="font-weight-normal" align="center"><strong>Track Price: $ {{{price}}}</strong></p>
+                <p class="font-weight-normal" align="center"><strong>Track Name: @Model.name</strong></p>
+                <p class="font-weight-normal" align="center"><strong>Track Price: $ </strong></p>
                 <hr style="height: 2px" class="bg-success" />
 
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="{{{track}}}" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="@Model.track" allowfullscreen></iframe>
                 </div>
                 <hr style="height: 2px" class="bg-success" />
-                <p class="text-center"><a href="/Albums/Details?albumId={{{albumId}}}" class="btn btn-primary bg-success" role="button">Back To All</a> </p>
+                <p class="text-center"><a href="/Albums/Details?albumId=@Model.albumId" class="btn btn-primary bg-success" role="button">Back To All</a> </p>
             </div>
             <div class="col">
             </div>

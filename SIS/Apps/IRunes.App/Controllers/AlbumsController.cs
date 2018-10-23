@@ -12,27 +12,18 @@
 
     using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.Framework.Attributes.Methods;
-    using SIS.Framework.Services.Contracts;
+    using SIS.Framework.Attributes.Action;
     using SIS.HTTP.Exceptions;
 
     public class AlbumsController : BaseController
     {
         private const string EMPTY_ALBUMS_COLLECTION = "There are currently no albums!";
-
-        public AlbumsController(IAuthenticationService authenticationService) 
-            : base(authenticationService)
-        {
-
-        }
-
+        
         [HttpGet]
+        [Authorize]
         public IActionResult All()
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
-
-            var username = this.Request.Session.GetParameter("username").ToString();
-            
-            var albums = this.DbContext.Users.FirstOrDefault(u => u.Username == username).Albums.ToList();
+            var albums = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username).Albums.ToList();
 
             if (albums.Count == 0)
             {
@@ -47,21 +38,16 @@
         }
         
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
-            if (this.AuthenticationService.IsAuthenticated(this.Request))
-            {
-                return this.View();
-            }
-
-            return this.RedirectToAction("/home/index");
+            return this.View();
         }
         
         [HttpPost]
+        [Authorize]
         public IActionResult Create(CreateAlbumViewModel model)
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
-
             var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Request.Session.GetParameter("username").ToString());
             
             var albumNameIsInvalid = string.IsNullOrWhiteSpace(model.AlbumName);
@@ -84,8 +70,6 @@
             }
             catch (Exception e)
             {
-                // return this.InternalServerError(e.Messsage);
-
                 throw new InternalServerException(e.Message);
             }
 
@@ -93,12 +77,10 @@
         }
         
         [HttpGet]
+        [Authorize]
         public IActionResult Details(string albumId)
         {
-            if (!this.AuthenticationService.IsAuthenticated(this.Request)) return this.RedirectToAction("/Home/Index");
-            
-            var username = this.Request.Session.GetParameter("username").ToString();
-            var album = this.DbContext.Users.FirstOrDefault(u => u.Username == username)?.Albums.FirstOrDefault(a => a.Id == albumId);
+            var album = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username)?.Albums.FirstOrDefault(a => a.Id == albumId);
 
             this.Model.Data["albumId"] = albumId;
             this.Model.Data["cover"] = WebUtility.UrlDecode(album.Cover);
@@ -109,23 +91,23 @@
             return this.View();
         }
         
-        private string ConvertAlbumNamesToHtml(IEnumerable<Album> albums)
+        private IEnumerable<string> ConvertAlbumNamesToHtml(IEnumerable<Album> albums)
         {
-            var convertedAlbums = new StringBuilder();
+            var convertedAlbums = new List<string>();
 
             foreach (var album in albums)
             {
                 var albumName = WebUtility.UrlDecode(album.Name);
 
-                convertedAlbums.AppendLine($"<p><a href=\"/Albums/Details?albumId={album.Id}\">{albumName}</a></p>");
+                convertedAlbums.Add($"<p><a href=\"/Albums/Details?albumId={album.Id}\">{albumName}</a></p>");
             }
 
-            return convertedAlbums.ToString();
+            return convertedAlbums;
         }
 
-        private string ConvertTrackNamesToHtml(Album album, string albumId)
+        private IEnumerable<string> ConvertTrackNamesToHtml(Album album, string albumId)
         {
-            var tracks = new StringBuilder();
+            var tracks = new List<string>();
 
             var index = 1;
 
@@ -133,12 +115,12 @@
             {
                 var trackName = WebUtility.UrlDecode(track.Track.Name);
 
-                tracks.AppendLine($"<li>{index}. <a href=\"/Tracks/Details?albumId={albumId}&trackId={track.Track.Id}\">{trackName}<a/></li>");
+                tracks.Add($"<li>{index}.<a href=\"/Tracks/Details?albumId={albumId}&trackId={track.Track.Id}\">{trackName}<a/></li>");
 
                 index++;
             }
 
-            return tracks.ToString();
+            return tracks;
         }
     }
 }
