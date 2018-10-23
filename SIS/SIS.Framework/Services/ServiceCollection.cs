@@ -9,12 +9,10 @@
     public class ServiceCollection : IServiceCollection
     {
         private readonly IDictionary<Type, Type> dependencyContainer;
-        private readonly IDictionary<Type, Func<object>> dependencyContainerWithFunc;
 
         public ServiceCollection()
         {
             this.dependencyContainer = new Dictionary<Type, Type>();
-            this.dependencyContainerWithFunc = new Dictionary<Type, Func<object>>();
         }
 
         public void AddService<TSource, TDestination>()
@@ -26,11 +24,6 @@
 
         public object CreateInstance(Type type)
         {
-            if (this.dependencyContainerWithFunc.ContainsKey(type))
-            {
-                return this.dependencyContainerWithFunc[type]();
-            }
-
             var instanceType = this[type] ?? type;
 
             if (instanceType.IsInterface || instanceType.IsAbstract)
@@ -54,12 +47,7 @@
 
             return obj;
         }
-
-        public void AddService<T>(Func<T> p)
-        {
-            this.dependencyContainerWithFunc[typeof(T)] = () => p();
-        }
-
+        
         private Type this[Type key] =>
             this.dependencyContainer.ContainsKey(key) ? this.dependencyContainer[key] : null;
     }

@@ -1,7 +1,5 @@
 ﻿namespace IRunes.App
 {
-    using System;
-
     using SIS.WebServer;
     using SIS.Framework.Routers;
     using SIS.Framework;
@@ -37,7 +35,6 @@
         {
             collection.AddService<IHashService, HashService>();
             collection.AddService<IConsoleLogger, ConsoleLogger>();
-            collection.AddService<IFileLogger>(() => new FileLogger($"../../../Logs/{DateTime.Now.Date:dd/MM/yyyy}.txt"));
         }
     }
 }
