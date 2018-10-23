@@ -1,4 +1,6 @@
-﻿namespace SIS.Framework.Routers
+﻿using SIS.HTTP.Enums;
+
+namespace SIS.Framework.Routers
 {
     using System;
     using System.Collections.Generic;
@@ -27,7 +29,9 @@
 
         private const string DEFAULT_ACTION_NAME = "Index";
         
+
         private readonly IServiceCollection serviceCollection;
+
 
         public ControllerRouter(IServiceCollection serviceCollection)
         {
@@ -211,10 +215,10 @@
             switch (actionResult)
             {
                 case IViewable _:
-                    return controller.HtmlResult(invocationResult);
+                    return new HtmlResult(invocationResult, HttpResponseStatusCode.Ok);
 
                 case IRedirectable _:
-                    return controller.RedirectResult(invocationResult);
+                    return new RedirectResult(invocationResult);
 
                 default:
                     throw new InvalidOperationException(NOT_SUPPORTED_VIEW_RESULT);

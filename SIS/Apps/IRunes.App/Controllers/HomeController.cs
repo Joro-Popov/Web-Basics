@@ -13,6 +13,7 @@
             {
                 return this.RedirectToAction($"/home/welcome?username={this.Identity.Username}");
             }
+
             return this.View();
         }
 

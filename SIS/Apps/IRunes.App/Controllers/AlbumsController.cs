@@ -1,15 +1,13 @@
-﻿using IRunes.Models.ViewModels.Track;
-
-namespace IRunes.App.Controllers
+﻿namespace IRunes.App.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Net;
 
     using Models.Domain;
     using Models.ViewModels.Album;
+    using Models.ViewModels.Track;
 
     using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.Framework.Attributes.Methods;
@@ -26,7 +24,7 @@ namespace IRunes.App.Controllers
         {
             var albums = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username).Albums.ToList();
 
-            if (albums.Count == 0)
+            if (!albums.Any())
             {
                 this.Model.Data["Albums"] = EMPTY_ALBUMS_COLLECTION;
 

@@ -29,6 +29,11 @@
         [HttpGet]
         public IActionResult Login()
         {
+            if (this.Identity != null)
+            {
+                return this.RedirectToAction($"/home/welcome?username={this.Identity.Username}");
+            }
+
             return this.View();
         }
         
@@ -63,6 +68,11 @@
         [HttpGet]
         public IActionResult Register()
         {
+            if (this.Identity != null)
+            {
+                return this.RedirectToAction($"/home/welcome?username={this.Identity.Username}");
+            }
+
             return this.View();
         }
 

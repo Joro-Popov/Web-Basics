@@ -20,6 +20,8 @@
 
         private const string LAYOUT_VIEW_NAME = "_Layout";
 
+        private const string LAYOUT_LOGGED_NAME = "_LayoutLogged";
+
         private const string ERROR_VIEW_NAME = "_Error";
 
         private const string VIEW_EXTENSION = "html";
@@ -39,6 +41,10 @@
         // ../../../Views/Shared/_Layout.html
         private string FormatLayoutViewPath() =>
             $@"{this.ViewsSharedFolderPath}{LAYOUT_VIEW_NAME}.{VIEW_EXTENSION}";
+
+        // ../../../Views/Shared/_LayoutLogged.html
+        private string FormatLayoutLoggedViewPath() =>
+            $@"{this.ViewsSharedFolderPath}{LAYOUT_LOGGED_NAME}.{VIEW_EXTENSION}";
 
         // ../../../Views/Shared/_Error.html
         private string FormatErrorViewPath()
@@ -146,10 +152,11 @@
             this.ReadLayoutHtml(this.FormatLayoutViewPath())
                 .Replace("@RenderError()", this.ReadErrorHtml(this.FormatErrorViewPath()));
         
-        public string GetViewContent(string controllerName, string actionName)
+        public string GetViewContent(bool isUserLoggedIn, string controllerName, string actionName)
         {
-            var layout = this.ReadLayoutHtml(this.FormatLayoutViewPath());
-
+            var layout = isUserLoggedIn ? 
+                this.ReadLayoutHtml(this.FormatLayoutLoggedViewPath()) : this.ReadLayoutHtml(this.FormatLayoutViewPath());
+            
             var viewHtml = this.ReadViewHtml(this.FormatViewPath(controllerName, actionName));
 
             var result = layout.Replace("@RenderBody()", viewHtml);

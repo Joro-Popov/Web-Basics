@@ -45,12 +45,13 @@
 
             try
             {
-                viewContent = this.ViewEngine.GetViewContent(controllerName, viewName);
+                viewContent = this.ViewEngine.GetViewContent(this.Identity != null, controllerName, viewName);
             }
             catch (Exception e)
             {
                 this.Model.Data["Error"] = e.Message;
 
+                // TODO: _Error missing...
                 viewContent = this.ViewEngine.GetErrorContent();
             }
 
@@ -82,31 +83,6 @@
 
                 return null; 
             }
-        }
-
-        public IHttpResponse HtmlResult(string content)
-        {
-            this.Response.Headers.Add(new HttpHeader(HttpHeader.ContentType, "text/html; charset=utf-8"));
-            this.Response.Content = Encoding.UTF8.GetBytes(content);
-
-            return this.Response;
-        }
-
-        public IHttpResponse RedirectResult(string location)
-        {
-            this.Response.Headers.Add(new HttpHeader(HttpHeader.Location, location));
-            this.Response.StatusCode = HttpResponseStatusCode.SeeOther;
-
-            return this.Response;
-        }
-
-        public IHttpResponse FileResult(byte[] content)
-        {
-            this.Response.Headers.Add(new HttpHeader(HttpHeader.ContentLength, content.Length.ToString()));
-            this.Response.Headers.Add(new HttpHeader(HttpHeader.ContentDisposition, "inline"));
-            this.Response.Content = content;
-
-            return this.Response;
         }
     }
 }
