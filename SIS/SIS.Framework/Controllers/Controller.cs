@@ -57,7 +57,6 @@
             var renderedContent = this.ViewEngine.RenderHtml(viewContent, this.Model.Data);
 
             return new ViewResult(new View(renderedContent));
-            
         }
 
         protected  IRedirectable RedirectToAction(string redirectUrl) => new RedirectResult(redirectUrl);
@@ -69,12 +68,6 @@
 
         protected void SignOut()
         {
-            //var cookie = this.Request.Cookies.GetCookie(".auth");
-
-            //cookie.Delete();
-
-            //this.Response.Cookies.Add(cookie);
-
             this.Request.Session.ClearParameters();
         }
 

@@ -35,6 +35,7 @@
         // ../../../Views/Shared/DisplayTemplates/
         private string ViewsDisplayTemplateFolderPath => $@"{this.ViewsSharedFolderPath}/DisplayTemplates/";
 
+
         // ../../../Views/Shared/_Layout.html
         private string FormatLayoutViewPath() =>
             $@"{this.ViewsSharedFolderPath}{LAYOUT_VIEW_NAME}.{VIEW_EXTENSION}";
@@ -121,6 +122,7 @@
                 && !viewObject.GetType().IsPrimitive
                 && viewObject.GetType() != typeof(string))
             {
+
                 if (File.Exists(this.FormatDisplayTemplatePath(viewObject.GetType().Name)))
                 {
                     var displayTemplate = File.ReadAllText(this.FormatDisplayTemplatePath(viewObject.GetType().Name));
@@ -143,10 +145,17 @@
         public string GetErrorContent() =>
             this.ReadLayoutHtml(this.FormatLayoutViewPath())
                 .Replace("@RenderError()", this.ReadErrorHtml(this.FormatErrorViewPath()));
+        
+        public string GetViewContent(string controllerName, string actionName)
+        {
+            var layout = this.ReadLayoutHtml(this.FormatLayoutViewPath());
 
-        public string GetViewContent(string controllerName, string actionName) =>
-            this.ReadLayoutHtml(this.FormatLayoutViewPath())
-                .Replace("@RenderBody()", this.ReadViewHtml(this.FormatViewPath(controllerName, actionName)));
+            var viewHtml = this.ReadViewHtml(this.FormatViewPath(controllerName, actionName));
+
+            var result = layout.Replace("@RenderBody()", viewHtml);
+
+            return result;
+        }
 
         public string RenderHtml(string fullHtmlContent, IDictionary<string, object> viewData)
         {

@@ -1,33 +1,16 @@
-﻿<!DOCTYPE html>
+﻿ <div class="container">
+    <div class="row">
+        <div class="col">
+            <img src="@Model.Cover" class="img-thumbnail" alt="album cover" />
+            <h3 align="center">Name: @Model.Name</h3>
+            <h3 align="center">Price: $ @Model.Price</h3>
+            <p> <a href="/Tracks/Create?albumId=@Model.AlbumId" class="btn btn-primary bg-success float-left" role="button"> Create Track</a> </p>
+            <p> <a href="/Albums/All" class="btn btn-primary bg-success float-right" role="button">Back To All</a> </p>
+        </div>
+        <div class="col">
+            <h3>Tracks</h3>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Album Details</title>
-    <link rel="stylesheet" href="/Resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/Resources/js/bootstrap.min.js" />
-    <link rel="stylesheet" href="/Resources/js/jquery-3.3.1.min.js" />
-    <link rel="stylesheet" href="~/Resources/js/popper.min.js" />
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <img src="@Model.cover" class="img-thumbnail" alt="album cover" />
-                <h3 align="center">Name: @Model.name</h3>
-                <h3 align="center">Price: $ @Model.price</h3>
-                <p> <a href="/Tracks/Create?albumId=@Model.albumId" class="btn btn-primary bg-success float-left" role="button"> Create Track</a> </p>
-                <p> <a href="/Albums/All" class="btn btn-primary bg-success float-right" role="button">Back To All</a> </p>
-            </div>
-            <div class="col">
-                <h3>Tracks</h3>
-
-                <ul>
-                    @Model.Collection.tracks(<li>@Item</li>)
-                </ul>
-            </div>
+            @Model.Collection.TrackAlbum(<li>@Item</li>)
         </div>
     </div>
-
-</body>
-</html>
+</div>

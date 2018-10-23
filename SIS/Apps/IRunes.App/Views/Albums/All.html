@@ -1,23 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<h1>Albums</h1>
+<hr style="height: 2px" class="bg-success"/>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>All Albums</title>
-    <link rel="stylesheet" href="/Resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/Resources/js/bootstrap.min.js" />
-    <link rel="stylesheet" href="/Resources/js/jquery-3.3.1.min.js" />
-    <link rel="stylesheet" href="~/Resources/js/popper.min.js" />
-</head>
-<body>
-    <h1>Albums</h1>
-    <hr style="height: 2px" class="bg-success"/>
-
-    <p><a href="/Albums/Create" class="btn btn-primary bg-success" role="button">Create Album</a> </p>
-    <hr style="height: 2px" class="bg-success"/>
+<p><a href="/Albums/Create" class="btn btn-primary bg-success" role="button">Create Album</a> </p>
+<hr style="height: 2px" class="bg-success"/>
     
-    <ul>
-        @Model.Collection.albums(<li>@Item</li>)
-    </ul>
-</body>
-</html>
+<ul>
+    @Model.Collection.Albums(<li>@Item</li>)
+</ul>

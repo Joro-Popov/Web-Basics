@@ -1,11 +1,12 @@
-﻿namespace IRunes.App.Controllers
+﻿using IRunes.Models.ViewModels.Track;
+
+namespace IRunes.App.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Net;
-    using System.Text;
 
     using Models.Domain;
     using Models.ViewModels.Album;
@@ -27,12 +28,18 @@
 
             if (albums.Count == 0)
             {
-                this.Model.Data["albums"] = EMPTY_ALBUMS_COLLECTION;
+                this.Model.Data["Albums"] = EMPTY_ALBUMS_COLLECTION;
 
                 return this.View();
             }
 
-            this.Model.Data["albums"] = this.ConvertAlbumNamesToHtml(albums);
+            var albumsData = albums.Select(a => new AlbumsViewModel()
+            {
+                Name = WebUtility.UrlDecode(a.Name),
+                Id = a.Id
+            });
+            
+            this.Model.Data["Albums"] = albumsData;
 
             return this.View();
         }
@@ -48,7 +55,7 @@
         [Authorize]
         public IActionResult Create(CreateAlbumViewModel model)
         {
-            var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Request.Session.GetParameter("username").ToString());
+            var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username);
             
             var albumNameIsInvalid = string.IsNullOrWhiteSpace(model.AlbumName);
             var albumNameExists = this.DbContext.Albums.Any(a => a.Name == model.AlbumName);
@@ -80,47 +87,23 @@
         [Authorize]
         public IActionResult Details(string albumId)
         {
-            var album = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username)?.Albums.FirstOrDefault(a => a.Id == albumId);
+            var album = this.DbContext.Users
+                .FirstOrDefault(u => u.Username == this.Identity.Username)?.Albums.FirstOrDefault(a => a.Id == albumId);
 
-            this.Model.Data["albumId"] = albumId;
-            this.Model.Data["cover"] = WebUtility.UrlDecode(album.Cover);
-            this.Model.Data["name"] = WebUtility.UrlDecode(album.Name);
-            this.Model.Data["price"] = album.Price.ToString(CultureInfo.InvariantCulture);
-            this.Model.Data["tracks"] = ConvertTrackNamesToHtml(album, albumId);
+            var albumData = album.TrackAlbums.Select(t =>  new TrackAlbumViewModel()
+            {
+                Name = WebUtility.UrlDecode(t.Track.Name),
+                AlbumId = albumId,
+                TrackId = t.TrackId
+            });
+
+            this.Model.Data["AlbumId"] = albumId;
+            this.Model.Data["Cover"] = WebUtility.UrlDecode(album.Cover);
+            this.Model.Data["Name"] = WebUtility.UrlDecode(album.Name);
+            this.Model.Data["Price"] = album.Price.ToString(CultureInfo.InvariantCulture);
+            this.Model.Data["TrackAlbum"] = albumData;
 
             return this.View();
-        }
-        
-        private IEnumerable<string> ConvertAlbumNamesToHtml(IEnumerable<Album> albums)
-        {
-            var convertedAlbums = new List<string>();
-
-            foreach (var album in albums)
-            {
-                var albumName = WebUtility.UrlDecode(album.Name);
-
-                convertedAlbums.Add($"<p><a href=\"/Albums/Details?albumId={album.Id}\">{albumName}</a></p>");
-            }
-
-            return convertedAlbums;
-        }
-
-        private IEnumerable<string> ConvertTrackNamesToHtml(Album album, string albumId)
-        {
-            var tracks = new List<string>();
-
-            var index = 1;
-
-            foreach (var track in album.TrackAlbums)
-            {
-                var trackName = WebUtility.UrlDecode(track.Track.Name);
-
-                tracks.Add($"<li>{index}.<a href=\"/Tracks/Details?albumId={albumId}&trackId={track.Track.Id}\">{trackName}<a/></li>");
-
-                index++;
-            }
-
-            return tracks;
         }
     }
 }
