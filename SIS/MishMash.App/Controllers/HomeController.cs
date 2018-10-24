@@ -21,7 +21,7 @@ namespace MishMash.App.Controllers
         }
 
         [HttpGet]
-        [Authorize("User")]
+        [Authorize("User","Admin")]
         public IActionResult Authorized()
         {
             var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username);
@@ -34,12 +34,11 @@ namespace MishMash.App.Controllers
                     FollowingCount = c.Channel.Followers.Count
                 })
                 .ToList();
-            
+
             var suggestedChannels = this.DbContext.Channels
                 .Where(c => c.Tags.Select(t => t.Tag.Name).Any(t =>
                     user.FollowedChannels.SelectMany(fc => fc.Channel.Tags.Select(tg => tg.Tag.Name)).Contains(t)
                     && user.FollowedChannels.All(uc => uc.ChannelId != c.Id)))
-
                 .Select(c => new SuggestedChannelsViewModel()
                 {
                     ChannelId = c.Id,
@@ -48,7 +47,7 @@ namespace MishMash.App.Controllers
                     FollowingCount = c.Followers.Count
                 })
                 .ToList();
-            
+
             var otherChannels = this.DbContext.Channels
                 .Where(ch => !user.FollowedChannels.Select(c => c.Channel.Id).Contains(ch.Id) &&
                              !suggestedChannels.Select(sc => sc.ChannelId).Contains(ch.Id))
@@ -61,7 +60,16 @@ namespace MishMash.App.Controllers
                 })
                 .ToList();
 
-            this.Model.Data["Username"] = this.Identity.Username;
+            
+            if (this.Identity.Roles.Contains("Admin"))
+            {
+                this.Model.Data["Username"] = new AuthorizedAdminViewModel(){Username = $"Admin-{this.Identity.Username}"};
+            }
+            else
+            {
+                this.Model.Data["Username"] = new AuthorizedUserViewModel() { Username = this.Identity.Username };
+            }
+            
             this.Model.Data["FollowingChannels"] = followingChannels;
             this.Model.Data["SuggestedChannels"] = suggestedChannels;
             this.Model.Data["OtherChannels"] = otherChannels;

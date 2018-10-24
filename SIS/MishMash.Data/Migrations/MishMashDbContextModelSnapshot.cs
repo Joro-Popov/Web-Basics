@@ -75,7 +75,7 @@ namespace MishMash.Data.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<int>("Role");
+                    b.Property<int>("Username");
 
                     b.Property<string>("Username")
                         .IsRequired();

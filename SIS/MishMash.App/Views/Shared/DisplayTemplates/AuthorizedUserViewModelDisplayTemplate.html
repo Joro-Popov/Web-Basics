@@ -20,32 +20,4 @@
     </nav>
 </header>
 
-@Model.Role
-
-<h2 class="text-mishmash">Your Channels</h2>
-<hr class="bg-mishmash hr-2" />
-
-<div class="container-fluid">
-    <div class="row justify-content-around mt-3">
-        @Model.Collection.FollowingChannels(@Item)
-    </div>
-</div>
-
-
-<h2 class="text-mishmash">Suggested</h2>
-<hr class="bg-mishmash hr-2" />
-
-<div class="container-fluid">
-    <div class="row justify-content-around mt-3">
-        @Model.Collection.SuggestedChannels(@Item)
-    </div>
-</div>
-
-<h2 class="text-mishmash">See Other</h2>
-<hr class="bg-mishmash hr-2" />
-
-<div class="container-fluid">
-    <div class="row justify-content-around mt-3">
-        @Model.Collection.OtherChannels(@Item)
-    </div>
-</div>
+<h2 class="text-center text-mishmash">Welcome,@Model.Username</h2>
