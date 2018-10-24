@@ -20,3 +20,8 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\MishMa
 C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\MishMash.Data.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\MishMash.Models.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\MishMash.Models.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\Views\Home\Authorized.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\Views\Home\Index.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\Views\Shared\_Layout.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\Views\Users\Login.html
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.App\bin\Debug\netcoreapp2.1\Views\Users\Register.html

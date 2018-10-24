@@ -20,18 +20,18 @@ namespace MishMash.Data.Migrations
 
             modelBuilder.Entity("MishMash.Models.Channel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ChannelId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ChannelType");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("ChannelType");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("ChannelId");
 
                     b.ToTable("Channels");
                 });
@@ -51,21 +51,21 @@ namespace MishMash.Data.Migrations
 
             modelBuilder.Entity("MishMash.Models.Tag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ChannelId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("ChannelId");
 
                     b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("MishMash.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ChannelId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -80,7 +80,7 @@ namespace MishMash.Data.Migrations
                     b.Property<string>("Username")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("ChannelId");
 
                     b.ToTable("Users");
                 });

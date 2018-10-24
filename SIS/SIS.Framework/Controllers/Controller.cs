@@ -45,13 +45,13 @@
 
             try
             {
-                viewContent = this.ViewEngine.GetViewContent(this.Identity != null, controllerName, viewName);
+                viewContent = this.ViewEngine.GetViewContent(controllerName, viewName);
             }
             catch (Exception e)
             {
                 this.Model.Data["Error"] = e.Message;
                 
-                viewContent = this.ViewEngine.GetErrorContent(this.Identity != null);
+                viewContent = this.ViewEngine.GetErrorContent();
             }
 
             var renderedContent = this.ViewEngine.RenderHtml(viewContent, this.Model.Data);

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using MishMash.Models;
+using MishMash.Models.Enums;
 using MishMash.Models.ViewModels.Users;
 using SIS.Framework.ActionResults.Contracts.Base;
+using SIS.Framework.Attributes.Action;
 using SIS.Framework.Attributes.Methods;
 using SIS.Framework.Security;
 using SIS.Framework.Services.Contracts;
@@ -50,7 +53,7 @@ namespace MishMash.App.Controllers
                 Username = user.Username,
                 Password = hashedPassword,
                 Email = user.Email,
-                Roles = 
+                Roles = new List<string>() { user.Role.ToString()}
             };
 
             this.SignIn(identityUser);
@@ -91,7 +94,8 @@ namespace MishMash.App.Controllers
             {
                 Username = model.Username,
                 Password = hashedPassword,
-                Email = email
+                Email = email,
+                Role = Role.User
             };
 
             this.DbContext.Users.Add(user);
@@ -109,12 +113,22 @@ namespace MishMash.App.Controllers
             {
                 Username = user.Username,
                 Password = hashedPassword,
-                Email = user.Email
+                Email = user.Email,
+                Roles = new List<string>() { user.Role.ToString()}
             };
 
             this.SignIn(identityUser);
 
             return this.RedirectToAction("/home/authorized");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Logout()
+        {
+            this.SignOut();
+
+            return this.RedirectToAction("/home/index");
         }
     }
 }

@@ -65,13 +65,13 @@ namespace MishMash.Data.Migrations
                         name: "FK_ChannelTags_Channels_ChannelId",
                         column: x => x.ChannelId,
                         principalTable: "Channels",
-                        principalColumn: "Id",
+                        principalColumn: "ChannelId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ChannelTags_Tags_TagId",
                         column: x => x.TagId,
                         principalTable: "Tags",
-                        principalColumn: "Id",
+                        principalColumn: "ChannelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -89,13 +89,13 @@ namespace MishMash.Data.Migrations
                         name: "FK_UserChannels_Channels_ChannelId",
                         column: x => x.ChannelId,
                         principalTable: "Channels",
-                        principalColumn: "Id",
+                        principalColumn: "ChannelId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserChannels_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "ChannelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
