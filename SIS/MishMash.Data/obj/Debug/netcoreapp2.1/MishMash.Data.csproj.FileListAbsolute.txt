@@ -1,0 +1,14 @@
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\bin\Debug\netcoreapp2.1\MishMash.Data.deps.json
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\bin\Debug\netcoreapp2.1\MishMash.Data.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\bin\Debug\netcoreapp2.1\MishMash.Data.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\obj\Debug\netcoreapp2.1\MishMash.Data.csprojAssemblyReference.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\obj\Debug\netcoreapp2.1\MishMash.Data.csproj.CoreCompileInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\obj\Debug\netcoreapp2.1\MishMash.Data.AssemblyInfoInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\obj\Debug\netcoreapp2.1\MishMash.Data.AssemblyInfo.cs
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\obj\Debug\netcoreapp2.1\MishMash.Data.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\obj\Debug\netcoreapp2.1\MishMash.Data.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\bin\Debug\netcoreapp2.1\MishMash.Data.runtimeconfig.json
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\bin\Debug\netcoreapp2.1\MishMash.Data.runtimeconfig.dev.json
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\bin\Debug\netcoreapp2.1\MishMash.Models.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\bin\Debug\netcoreapp2.1\MishMash.Models.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Data\obj\Debug\netcoreapp2.1\MishMash.Data.csproj.CopyComplete

@@ -1,0 +1,9 @@
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\bin\Debug\netcoreapp2.1\MishMash.Models.deps.json
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\bin\Debug\netcoreapp2.1\MishMash.Models.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\bin\Debug\netcoreapp2.1\MishMash.Models.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\obj\Debug\netcoreapp2.1\MishMash.Models.csprojAssemblyReference.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\obj\Debug\netcoreapp2.1\MishMash.Models.csproj.CoreCompileInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\obj\Debug\netcoreapp2.1\MishMash.Models.AssemblyInfoInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\obj\Debug\netcoreapp2.1\MishMash.Models.AssemblyInfo.cs
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\obj\Debug\netcoreapp2.1\MishMash.Models.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\MishMash.Models\obj\Debug\netcoreapp2.1\MishMash.Models.pdb
