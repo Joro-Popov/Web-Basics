@@ -47,8 +47,8 @@
             $@"{this.ViewsSharedFolderPath}{LAYOUT_LOGGED_NAME}.{VIEW_EXTENSION}";
 
         // ../../../Views/Shared/_Error.html
-        private string FormatErrorViewPath()
-            => $@"{this.ViewsSharedFolderPath}/{ERROR_VIEW_NAME}.{VIEW_EXTENSION}";
+        private string FormatErrorViewPath()=> 
+            $@"{this.ViewsSharedFolderPath}/{ERROR_VIEW_NAME}.{VIEW_EXTENSION}";
 
         // ../../../Views/Home/Index.html
         private string FormatViewPath(string controllerName, string actionName) =>
@@ -148,9 +148,17 @@
         }
 
 
-        public string GetErrorContent() =>
-            this.ReadLayoutHtml(this.FormatLayoutViewPath())
-                .Replace("@RenderError()", this.ReadErrorHtml(this.FormatErrorViewPath()));
+        public string GetErrorContent(bool isUserLoggedIn)
+        {
+            var layout = isUserLoggedIn ?
+                this.ReadLayoutHtml(this.FormatLayoutLoggedViewPath()) : this.ReadLayoutHtml(this.FormatLayoutViewPath());
+
+            var errorHtml = this.ReadErrorHtml(this.FormatErrorViewPath());
+
+            var result = layout.Replace("@RenderBody()", errorHtml);
+
+            return result;
+        }
         
         public string GetViewContent(bool isUserLoggedIn, string controllerName, string actionName)
         {

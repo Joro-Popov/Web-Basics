@@ -11,7 +11,7 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction($"/home/welcome?username={this.Identity.Username}");
+                return this.RedirectToAction($"/home/welcome");
             }
 
             return this.View();

@@ -50,9 +50,8 @@
             catch (Exception e)
             {
                 this.Model.Data["Error"] = e.Message;
-
-                // TODO: _Error missing...
-                viewContent = this.ViewEngine.GetErrorContent();
+                
+                viewContent = this.ViewEngine.GetErrorContent(this.Identity != null);
             }
 
             var renderedContent = this.ViewEngine.RenderHtml(viewContent, this.Model.Data);

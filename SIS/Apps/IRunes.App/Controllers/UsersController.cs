@@ -31,7 +31,7 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction($"/home/welcome?username={this.Identity.Username}");
+                return this.RedirectToAction("/home/welcome");
             }
 
             return this.View();
@@ -51,7 +51,7 @@
 
             if (user == null) return this.View();
 
-            var result = this.RedirectToAction($"/Home/Welcome?username={model.Username}");
+            var result = this.RedirectToAction("/Home/Welcome");
             
             var identityUser = new IdentityUser()
             {
@@ -70,7 +70,7 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction($"/home/welcome?username={this.Identity.Username}");
+                return this.RedirectToAction("/home/welcome");
             }
 
             return this.View();
@@ -113,7 +113,7 @@
                 throw new InternalServerException(e.Message);
             }
             
-            var response = this.RedirectToAction($"/home/welcome?username={model.Username}");
+            var response = this.RedirectToAction("/home/welcome");
 
             var identityUser = new IdentityUser()
             {
