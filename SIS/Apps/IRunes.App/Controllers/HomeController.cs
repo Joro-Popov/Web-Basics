@@ -1,8 +1,8 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using SIS.Framework.ActionResults.Contracts.Base;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Attributes.Action;
+    using SIS.Framework.ActionResults.Contracts;
 
     public class HomeController : BaseController
     {

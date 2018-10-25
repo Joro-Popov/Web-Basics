@@ -2,7 +2,6 @@
 {
     using System;
     using System.Runtime.CompilerServices;
-    using System.Text;
 
     using ActionResults;
     using ActionResults.Contracts;
@@ -12,28 +11,16 @@
     using Security.Contracts;
 
     using HTTP.Requests.Contracts;
-    using HTTP.Enums;
-    using HTTP.Headers;
-    using HTTP.Responses;
-    using HTTP.Responses.Contracts;
 
     public abstract class Controller
     {
         private const string IDENTITY_KEY = "auth";
-
-        protected Controller()
-        {
-            this.Model = new ViewModel();
-            this.Response = new HttpResponse(HttpResponseStatusCode.Ok);
-        }
-
+        
         public IHttpRequest Request { get; set; }
-
-        public IHttpResponse Response { get; set; }
-
+        
         public Model ModelState { get; } = new Model();
         
-        protected ViewModel Model { get; }
+        protected ViewModel Model { get; } = new ViewModel();
         
         private ViewEngine ViewEngine { get; } = new ViewEngine();
         

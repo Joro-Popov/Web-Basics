@@ -3,7 +3,7 @@
     using System.Linq;
     using MishMash.Models.ViewModels.Channels;
     using MishMash.Models.ViewModels.Users;
-    using SIS.Framework.ActionResults.Contracts.Base;
+    using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
 

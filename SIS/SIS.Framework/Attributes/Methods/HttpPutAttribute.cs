@@ -1,8 +1,8 @@
 ﻿namespace SIS.Framework.Attributes.Methods
 {
-    public class HttpPostAttribute : HttpMethodAttribute
+    public class HttpPutAttribute : HttpMethodAttribute
     {
-        private const string REQUEST_METHOD = "POST";
+        private const string REQUEST_METHOD = "PUT";
         
         public override bool IsValid(string requestMethod)
         {

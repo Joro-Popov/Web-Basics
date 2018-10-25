@@ -6,7 +6,7 @@
     using MishMash.Models;
     using MishMash.Models.Enums;
     using MishMash.Models.ViewModels.Channels;
-    using SIS.Framework.ActionResults.Contracts.Base;
+    using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using SIS.HTTP.Exceptions;

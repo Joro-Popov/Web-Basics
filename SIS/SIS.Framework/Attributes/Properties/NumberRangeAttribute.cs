@@ -4,19 +4,19 @@
 
     public class NumberRangeAttribute : ValidationAttribute
     {
-        private readonly double minValue;
+        private readonly double minimumValue;
 
-        private readonly double maxValue;
+        private readonly double maximumValue;
 
-        public NumberRangeAttribute(double minValue, double maxValue)
+        public NumberRangeAttribute(double minimumValue = double.MinValue, double maximumValue = double.MaxValue)
         {
-            this.minValue = minValue;
-            this.maxValue = maxValue;
+            this.minimumValue = minimumValue;
+            this.maximumValue = maximumValue;
         }
 
         public override bool IsValid(object value)
         {
-            return (double) value >= this.minValue && (double) value <= this.maxValue;
+            return this.minimumValue <= (double)value && this.maximumValue >= (double)value;
         }
     }
 }

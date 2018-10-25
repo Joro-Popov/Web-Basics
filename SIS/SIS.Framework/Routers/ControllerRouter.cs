@@ -1,6 +1,4 @@
-﻿using SIS.HTTP.Enums;
-
-namespace SIS.Framework.Routers
+﻿namespace SIS.Framework.Routers
 {
     using System;
     using System.Collections.Generic;
@@ -8,30 +6,35 @@ namespace SIS.Framework.Routers
     using System.Reflection;
     using System.ComponentModel.DataAnnotations;
 
-    using ActionResults.Contracts.Base;
-    using Attributes.Methods.Base;
+    using ActionResults.Contracts;
+    using Attributes.Methods;
     using Attributes.Action;
     using Services.Contracts;
-    using ActionResults.Contracts;
     using Controllers;
     using WebServer.API;
     using WebServer.Results;
-    
+    using SIS.HTTP.Enums;
+
     using HTTP.Requests.Contracts;
     using HTTP.Responses.Contracts;
     using HTTP.Extensions;
 
     public class ControllerRouter : IHttpHandler
     {
-        private const string NOT_SUPPORTED_VIEW_RESULT = "Type of result is not supported!";
+        private const string DEFAULT_ROUTE = "/";
+
+        private const string REQUEST_URL_CONTROLLER_ACTION_SEPARATOR = "/";
 
         private const string DEFAULT_CONTROLLER_NAME = "Home";
 
         private const string DEFAULT_ACTION_NAME = "Index";
+
+        private const string DEFAULT_CONTROLLER_ACTION_REQUEST_METHOD = "GET";
+
+        private const string NOT_SUPPORTED_VIEW_RESULT = "The Action result is not supported.";
         
 
         private readonly IServiceCollection serviceCollection;
-
 
         public ControllerRouter(IServiceCollection serviceCollection)
         {
@@ -45,14 +48,14 @@ namespace SIS.Framework.Routers
 
             if (request.Path == "/")
             {
-                controllerName = DEFAULT_CONTROLLER_NAME + MvcContext.Get.ControllersSuffix;
+                controllerName = DEFAULT_CONTROLLER_NAME;
                 stringAction = DEFAULT_ACTION_NAME;
             }
             else
             {
                 var requestArgs = request.Path.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                controllerName = requestArgs.First().Capitalize() + MvcContext.Get.ControllersSuffix;
+                controllerName = requestArgs.First().Capitalize();
 
                 stringAction = requestArgs.Last().Capitalize();
             }
@@ -167,7 +170,10 @@ namespace SIS.Framework.Routers
             if (string.IsNullOrWhiteSpace(controllerName)) return null;
 
             var controllerTypeName =
-                $"{MvcContext.Get.AssemblyName}.{MvcContext.Get.ControllersFolder}.{controllerName}, {MvcContext.Get.AssemblyName}";
+                $"{MvcContext.Get.AssemblyName}." +
+                $"{MvcContext.Get.ControllersFolder}." +
+                $"{controllerName}{MvcContext.Get.ControllersSuffix}, " +
+                $"{MvcContext.Get.AssemblyName}";
 
             var controllerType = Type.GetType(controllerTypeName);
 

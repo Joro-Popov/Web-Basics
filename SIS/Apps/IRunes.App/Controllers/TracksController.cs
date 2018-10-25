@@ -8,7 +8,7 @@
     using Models.Domain;
     using Models.ViewModels.Track;
 
-    using SIS.Framework.ActionResults.Contracts.Base;
+    using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Attributes.Action;
     using SIS.HTTP.Exceptions;

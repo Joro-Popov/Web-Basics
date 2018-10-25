@@ -8,11 +8,11 @@
     using Models.Domain;
     using Models.ViewModels.Album;
     using Models.ViewModels.Track;
-
-    using SIS.Framework.ActionResults.Contracts.Base;
+    
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Attributes.Action;
     using SIS.HTTP.Exceptions;
+    using SIS.Framework.ActionResults.Contracts;
 
     public class AlbumsController : BaseController
     {

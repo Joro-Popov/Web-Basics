@@ -6,7 +6,7 @@
     
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Services.Contracts;
-    using SIS.Framework.ActionResults.Contracts.Base;
+    using SIS.Framework.ActionResults.Contracts;
     using SIS.HTTP.Exceptions;
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Security;

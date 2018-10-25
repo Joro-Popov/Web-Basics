@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using MishMash.Models;
-using MishMash.Models.Enums;
-using MishMash.Models.ViewModels.Users;
-using SIS.Framework.ActionResults.Contracts.Base;
-using SIS.Framework.Attributes.Action;
-using SIS.Framework.Attributes.Methods;
-namespace MishMash.App.Controllers
+﻿namespace MishMash.App.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using MishMash.Models;
+    using MishMash.Models.Enums;
+    using MishMash.Models.ViewModels.Users;
+    using SIS.Framework.Attributes.Action;
+    using SIS.Framework.Attributes.Methods;
+    using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Security;
     using SIS.Framework.Services.Contracts;
     using SIS.HTTP.Exceptions;
