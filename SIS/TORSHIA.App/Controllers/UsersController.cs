@@ -1,18 +1,18 @@
-﻿using SIS.Framework.ActionResults.Contracts;
-using SIS.Framework.Attributes.Methods;
-using SIS.Framework.Security;
-using SIS.Framework.Services.Contracts;
-using SIS.HTTP.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using SIS.Framework.Attributes.Action;
-using TORSHIA.App.ViewModels.Users;
-using TORSHIA.Models;
-
-namespace TORSHIA.App.Controllers
+﻿namespace TORSHIA.App.Controllers
 {
+    using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Attributes.Methods;
+    using SIS.Framework.Security;
+    using SIS.Framework.Services.Contracts;
+    using SIS.HTTP.Exceptions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using SIS.Framework.Attributes.Action;
+    using TORSHIA.App.ViewModels.Users;
+    using TORSHIA.Models;
+
     public class UsersController : BaseController
     {
         private readonly IHashService hashService;
