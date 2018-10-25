@@ -43,33 +43,25 @@
 
         public IHttpResponse Handle(IHttpRequest request)
         {
-            var controllerName = string.Empty;
-            var stringAction = string.Empty;
+            var controllerAndActionNames = this.ExtractControllerAndActionNames(request);
 
-            if (request.Path == "/")
-            {
-                controllerName = DEFAULT_CONTROLLER_NAME;
-                stringAction = DEFAULT_ACTION_NAME;
-            }
-            else
-            {
-                var requestArgs = request.Path.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
+            string controllerName = controllerAndActionNames[0];
+            string actionName = controllerAndActionNames[1];
 
-                controllerName = requestArgs.First().Capitalize();
-
-                stringAction = requestArgs.Last().Capitalize();
-            }
-            
             var controller = this.GetController(controllerName, request);
             
-            var action = this.GetMethod(request.RequestMethod.ToString(), controller, stringAction);
+            var action = this.GetMethod(request.RequestMethod.ToString(), controller, actionName);
             
             if(controller == null || action == null) throw new NullReferenceException();
 
             var actionParameters = this.MapActionParameters(action, request, controller);
-            
-            return this.Authorize(controller, action) 
-                   ?? this.PrepareResponse(this.InvokeAction(controller, action, actionParameters), controller);
+
+            if (!this.IsAuthorized(controller, action))
+            {
+                return new UnauthorizedResult();
+            }
+
+            return this.PrepareResponse(this.InvokeAction(controller, action, actionParameters));
         }
         
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
@@ -106,17 +98,18 @@
         private bool? IsValidModel(object bindingModel)
         {
             var bindingModelProperties = bindingModel.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-            
-            foreach (var bindingModelProperty in bindingModelProperties)
+
+            foreach (var property in bindingModelProperties)
             {
-                var validationAttributes = bindingModelProperty.GetCustomAttributes()
-                    .Where(attr => attr is ValidationAttribute)
-                    .Cast<ValidationAttribute>()
-                    .ToList();
-                
-                foreach (var validationAttribute in validationAttributes)
+                IEnumerable<ValidationAttribute> validationAttributes
+                    = property.GetCustomAttributes()
+                        .Where(a => a is ValidationAttribute)
+                        .Cast<ValidationAttribute>()
+                        .ToList();
+
+                if (validationAttributes.Any(a => !a.IsValid(property.GetValue(bindingModel))))
                 {
-                    if (!validationAttribute.IsValid(bindingModelProperty.GetValue(bindingModel))) return false;
+                    return false;
                 }
             }
 
@@ -163,6 +156,28 @@
             }
 
             return request.FormData.FirstOrDefault(x => x.Key.ToLower() == paramName.ToLower()).Value;
+        }
+
+        private string[] ExtractControllerAndActionNames(IHttpRequest request)
+        {
+            string[] result = new string[2];
+
+            if (request.Path == DEFAULT_ROUTE)
+            {
+                result[0] = DEFAULT_CONTROLLER_NAME;
+                result[1] = DEFAULT_ACTION_NAME;
+            }
+            else
+            {
+                var requestUrlSplit = request.Path.Split(
+                    REQUEST_URL_CONTROLLER_ACTION_SEPARATOR
+                    , StringSplitOptions.RemoveEmptyEntries);
+
+                result[0] = requestUrlSplit[0].Capitalize();
+                result[1] = requestUrlSplit[1].Capitalize();
+            }
+
+            return result;
         }
 
         private Controller GetController(string controllerName, IHttpRequest request)
@@ -214,7 +229,7 @@
                 controller.GetType().GetMethods().Where(method => method.Name.ToLower().Equals(actionName.ToLower()));
         }
         
-        private IHttpResponse PrepareResponse(IActionResult actionResult, Controller controller)
+        private IHttpResponse PrepareResponse(IActionResult actionResult)
         {
             var invocationResult = actionResult.Invoke();
             
@@ -231,14 +246,11 @@
             }
         }
 
-        private IHttpResponse Authorize(Controller controller, MethodInfo action)
-        {
-            var hasIdentity = action.GetCustomAttributes()
+        private bool IsAuthorized(Controller controller, MethodInfo action)
+            => action
+                .GetCustomAttributes()
                 .Where(a => a is AuthorizeAttribute)
                 .Cast<AuthorizeAttribute>()
-                .Any(a => !a.IsAuthorized(controller.Identity));
-
-            return hasIdentity ? new UnauthorizedResult() : null;
-        }
+                .All(a => a.IsAuthorized(controller.Identity));
     }
 }
