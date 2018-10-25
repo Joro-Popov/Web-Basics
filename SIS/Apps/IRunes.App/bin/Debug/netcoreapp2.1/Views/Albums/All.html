@@ -1,9 +1,23 @@
-﻿<h1>Albums</h1>
-<hr style="height: 2px" class="bg-success"/>
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-success">
+    <a class="navbar-brand text-light">IRunes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active text-light" href="/home/index">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link text-light" href="/albums/all">Albums</a>
+            <a class="nav-item nav-link text-light" href="/users/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<h1>Albums</h1>
+<hr style="height: 2px" class="bg-success" />
 
 <p><a href="/Albums/Create" class="btn btn-primary bg-success" role="button">Create Album</a> </p>
-<hr style="height: 2px" class="bg-success"/>
-    
+<hr style="height: 2px" class="bg-success" />
+
 <ul>
     @Model.Collection.Albums(<li>@Item</li>)
 </ul>

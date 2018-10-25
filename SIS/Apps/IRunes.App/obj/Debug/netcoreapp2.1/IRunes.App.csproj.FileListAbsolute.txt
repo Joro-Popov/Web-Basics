@@ -30,4 +30,3 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Vie
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Tracks\Create.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Tracks\Details.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Shared\_Layout.html
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.App\bin\Debug\netcoreapp2.1\Views\Shared\_LayoutLogged.html

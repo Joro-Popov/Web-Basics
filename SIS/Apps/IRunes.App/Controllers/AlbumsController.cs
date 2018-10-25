@@ -66,7 +66,12 @@
                 Name = model.AlbumName,
                 Cover = model.Cover,
             };
-            
+
+            if (user.Albums.Any(a => a.Name == album.Name))
+            {
+                return this.RedirectToAction("/albums/all");
+            }
+
             user.Albums.Add(album);
 
             try

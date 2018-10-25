@@ -50,6 +50,11 @@
                 AlbumId = albumId
             };
 
+            if (album.TrackAlbums.Any(ta => ta.Album.Id == albumId && ta.Track.Name == track.Name))
+            {
+                return this.RedirectToAction("/tracks/create");
+            }
+
             album.TrackAlbums.Add(trackAlbum);
 
             try
