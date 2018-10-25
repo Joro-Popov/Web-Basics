@@ -1,0 +1,9 @@
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\bin\Debug\netcoreapp2.1\TORSHIA.Models.deps.json
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\bin\Debug\netcoreapp2.1\TORSHIA.Models.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\bin\Debug\netcoreapp2.1\TORSHIA.Models.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\obj\Debug\netcoreapp2.1\TORSHIA.Models.csprojAssemblyReference.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\obj\Debug\netcoreapp2.1\TORSHIA.Models.csproj.CoreCompileInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\obj\Debug\netcoreapp2.1\TORSHIA.Models.AssemblyInfoInputs.cache
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\obj\Debug\netcoreapp2.1\TORSHIA.Models.AssemblyInfo.cs
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\obj\Debug\netcoreapp2.1\TORSHIA.Models.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.Models\obj\Debug\netcoreapp2.1\TORSHIA.Models.pdb
