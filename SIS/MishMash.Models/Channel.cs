@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MishMash.Models.Enums;
-
 namespace MishMash.Models
 {
     public class Channel

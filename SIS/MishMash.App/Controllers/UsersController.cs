@@ -8,12 +8,12 @@ using MishMash.Models.ViewModels.Users;
 using SIS.Framework.ActionResults.Contracts.Base;
 using SIS.Framework.Attributes.Action;
 using SIS.Framework.Attributes.Methods;
-using SIS.Framework.Security;
-using SIS.Framework.Services.Contracts;
-using SIS.HTTP.Exceptions;
-
 namespace MishMash.App.Controllers
 {
+    using SIS.Framework.Security;
+    using SIS.Framework.Services.Contracts;
+    using SIS.HTTP.Exceptions;
+
     public class UsersController : BaseController
     {
         private IHashService hashService;

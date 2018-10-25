@@ -164,9 +164,9 @@
             return result;
         }
 
-        public string RenderHtml(string fullHtmlContent, IDictionary<string, object> viewData)
+        public string RenderHtml(string viewContent, IDictionary<string, object> viewData)
         {
-            var renderedHtml = fullHtmlContent;
+            var renderedHtml = viewContent;
 
             if (viewData.Count > 0)
             {

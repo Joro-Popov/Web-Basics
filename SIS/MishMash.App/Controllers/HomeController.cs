@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using MishMash.Models.ViewModels.Channels;
-using MishMash.Models.ViewModels.Users;
-using SIS.Framework.ActionResults.Contracts.Base;
-using SIS.Framework.Attributes.Action;
-using SIS.Framework.Attributes.Methods;
-
-namespace MishMash.App.Controllers
+﻿namespace MishMash.App.Controllers
 {
+    using System.Linq;
+    using MishMash.Models.ViewModels.Channels;
+    using MishMash.Models.ViewModels.Users;
+    using SIS.Framework.ActionResults.Contracts.Base;
+    using SIS.Framework.Attributes.Action;
+    using SIS.Framework.Attributes.Methods;
+
     public class HomeController : BaseController
     {
         [HttpGet]

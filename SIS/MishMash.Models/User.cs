@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using MishMash.Models.Enums;
-
-namespace MishMash.Models
+﻿namespace MishMash.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using MishMash.Models.Enums;
+
     public class User
     {
         [Key]
