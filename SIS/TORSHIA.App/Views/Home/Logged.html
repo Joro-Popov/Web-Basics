@@ -1,2 +1,8 @@
 ﻿
 @Model.Username
+
+<div class="tasks-holder">
+    <div class="tasks-row row">
+        @Model.Collection.Tasks(@Item)
+    </div>
+</div>
