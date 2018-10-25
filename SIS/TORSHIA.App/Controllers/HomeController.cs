@@ -37,8 +37,9 @@ namespace TORSHIA.App.Controllers
                 .UserTasks
                 .Select(t => t.Task)
                 .ToList()
-                .Select(t => new TaskViewModel()
+                .Select(t => new TaskViewModel() 
                 {
+                    TaskId = t.Id,
                     Title = t.Title,
                     Level = t.AffectedSectors.Count
                 });

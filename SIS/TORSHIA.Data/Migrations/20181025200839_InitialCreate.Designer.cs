@@ -10,7 +10,7 @@ using TORSHIA.Data;
 namespace TORSHIA.Data.Migrations
 {
     [DbContext(typeof(TorshiaDbContext))]
-    [Migration("20181025160847_InitialCreate")]
+    [Migration("20181025200839_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,23 +20,6 @@ namespace TORSHIA.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("TORSHIA.Models.AffectedSector", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Sector");
-
-                    b.Property<int?>("TaskId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("AffectedSectors");
-                });
 
             modelBuilder.Entity("TORSHIA.Models.Report", b =>
                 {
@@ -83,6 +66,23 @@ namespace TORSHIA.Data.Migrations
                     b.ToTable("Tasks");
                 });
 
+            modelBuilder.Entity("TORSHIA.Models.TaskSector", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Sector");
+
+                    b.Property<int>("TaskId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("TaskSectors");
+                });
+
             modelBuilder.Entity("TORSHIA.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -118,13 +118,6 @@ namespace TORSHIA.Data.Migrations
                     b.ToTable("UserTasks");
                 });
 
-            modelBuilder.Entity("TORSHIA.Models.AffectedSector", b =>
-                {
-                    b.HasOne("TORSHIA.Models.Task")
-                        .WithMany("AffectedSectors")
-                        .HasForeignKey("TaskId");
-                });
-
             modelBuilder.Entity("TORSHIA.Models.Report", b =>
                 {
                     b.HasOne("TORSHIA.Models.User", "Reporter")
@@ -133,6 +126,14 @@ namespace TORSHIA.Data.Migrations
 
                     b.HasOne("TORSHIA.Models.Task", "Task")
                         .WithMany("Reports")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TORSHIA.Models.TaskSector", b =>
+                {
+                    b.HasOne("TORSHIA.Models.Task", "Task")
+                        .WithMany("AffectedSectors")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

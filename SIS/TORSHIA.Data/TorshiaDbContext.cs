@@ -17,7 +17,7 @@ namespace TORSHIA.Data
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<UserTask> UserTasks { get; set; }
-        public DbSet<AffectedSector> AffectedSectors { get; set; }
+        public DbSet<TaskSector> TaskSectors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -41,23 +41,23 @@ namespace TORSHIA.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AffectedSectors",
+                name: "TaskSectors",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Sector = table.Column<int>(nullable: false),
-                    TaskId = table.Column<int>(nullable: true)
+                    TaskId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AffectedSectors", x => x.Id);
+                    table.PrimaryKey("PK_TaskSectors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AffectedSectors_Tasks_TaskId",
+                        name: "FK_TaskSectors_Tasks_TaskId",
                         column: x => x.TaskId,
                         principalTable: "Tasks",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,11 +114,6 @@ namespace TORSHIA.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AffectedSectors_TaskId",
-                table: "AffectedSectors",
-                column: "TaskId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reports_ReporterId",
                 table: "Reports",
                 column: "ReporterId");
@@ -126,6 +121,11 @@ namespace TORSHIA.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Reports_TaskId",
                 table: "Reports",
+                column: "TaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskSectors_TaskId",
+                table: "TaskSectors",
                 column: "TaskId");
 
             migrationBuilder.CreateIndex(
@@ -137,10 +137,10 @@ namespace TORSHIA.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AffectedSectors");
+                name: "Reports");
 
             migrationBuilder.DropTable(
-                name: "Reports");
+                name: "TaskSectors");
 
             migrationBuilder.DropTable(
                 name: "UserTasks");

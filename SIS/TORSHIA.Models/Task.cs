@@ -25,7 +25,7 @@ namespace TORSHIA.Models
 
         public virtual ICollection<UserTask> Participants { get; set; } = new HashSet<UserTask>();
 
-        public virtual ICollection<AffectedSector> AffectedSectors { get; set; } = new HashSet<AffectedSector>();
+        public virtual ICollection<TaskSector> AffectedSectors { get; set; } = new HashSet<TaskSector>();
 
         public virtual ICollection<Report> Reports { get; set; } = new HashSet<Report>();
     }
