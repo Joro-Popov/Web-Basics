@@ -17,6 +17,6 @@
 
         public virtual bool IsValid { get; set; }
 
-        public virtual IEnumerable<string> Roles { get; set; } = new HashSet<string>();
+        public virtual IEnumerable<string> Roles { get; set; }
     }
 }

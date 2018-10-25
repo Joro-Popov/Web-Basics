@@ -1,4 +1,6 @@
-﻿namespace SIS.Framework.Routers
+﻿using SIS.Framework.Routers.Contracts;
+
+namespace SIS.Framework.Routers
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +21,7 @@
     using HTTP.Responses.Contracts;
     using HTTP.Extensions;
 
-    public class ControllerRouter : IHttpHandler
+    public class ControllerRouter : IMvcRouter
     {
         private const string DEFAULT_ROUTE = "/";
 
@@ -52,7 +54,7 @@
             
             var action = this.GetMethod(request.RequestMethod.ToString(), controller, actionName);
             
-            if(controller == null || action == null) throw new NullReferenceException();
+            if(controller == null || action == null) return null;
 
             var actionParameters = this.MapActionParameters(action, request, controller);
 

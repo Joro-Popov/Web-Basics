@@ -16,13 +16,14 @@
 
             var controllerRouter = new ControllerRouter(container);
             var resourceRouter = new ResourceRouter();
+            var customRouter = new CustomRouter();
 
-            var router = new HttpHandlerContext(controllerRouter, resourceRouter);
+            var router = new HttpHandlerContext(controllerRouter, resourceRouter, customRouter);
             application.Configure();
 
             var server = new WebServer.WebServer(HOSTING_PORT, router);
-
-            MvcEngine.Run(server);
+            
+            server.Run();
         }
     }
 }
