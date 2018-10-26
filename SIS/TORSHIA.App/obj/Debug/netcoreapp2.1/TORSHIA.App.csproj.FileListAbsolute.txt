@@ -22,8 +22,6 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\TORSHIA
 C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\TORSHIA.Models.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\Views\Home\Index.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\Views\Home\Logged.html
-C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\Views\Shared\DisplayTemplates\AdminViewModelDisplayTemplate.html
-C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\Views\Shared\DisplayTemplates\UserViewModelDisplayTemplate.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\Views\Shared\_Error.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\Views\Shared\_Layout.html
 C:\Users\JORO\Desktop\Web-Basics\SIS\TORSHIA.App\bin\Debug\netcoreapp2.1\Views\Users\Login.html

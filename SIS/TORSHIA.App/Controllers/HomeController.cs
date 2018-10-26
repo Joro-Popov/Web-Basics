@@ -7,7 +7,6 @@ namespace TORSHIA.App.Controllers
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using System.Linq;
-    using ViewModels.Home;
 
     public class HomeController : BaseController
     {
@@ -48,15 +47,7 @@ namespace TORSHIA.App.Controllers
                 return this.RedirectToAction("/home/index");
             }
 
-            if (this.Identity.Roles.Contains("Admin"))
-            {
-                this.Model.Data["Username"] = new AdminViewModel() { Username = $"Admin-{this.Identity.Username}" };
-            }
-            else
-            {
-                this.Model.Data["Username"] = new UserViewModel() { Username = this.Identity.Username };
-            }
-
+            this.Model.Data["Username"] = this.Identity.Username;
             this.Model.Data["Tasks"] = tasks;
 
             return this.View();

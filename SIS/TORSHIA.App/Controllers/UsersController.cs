@@ -10,8 +10,8 @@
     using System.Linq;
     using System.Net;
     using SIS.Framework.Attributes.Action;
-    using TORSHIA.App.ViewModels.Users;
-    using TORSHIA.Models;
+    using ViewModels.Users;
+    using Models;
 
     public class UsersController : BaseController
     {
@@ -99,19 +99,16 @@
                 passwordIsNullOrEmpty || passwordsMismatch || emailIsInvalid) return this.View();
 
             var hashedPassword = this.hashService.Hash(model.Password);
-            
+
+            var role = this.DbContext.Users.Any() ? UserRole.Admin : UserRole.User;
+
             var user = new User
             {
                 Username = model.Username,
                 Password = hashedPassword,
                 Email = email,
-                Role = UserRole.User
+                Role = role
             };
-
-            if (this.DbContext.Users.Count() == 0)
-            {
-                user.Role = UserRole.Admin;
-            }
 
             this.DbContext.Users.Add(user);
 

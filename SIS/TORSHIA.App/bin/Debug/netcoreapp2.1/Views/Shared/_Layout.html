@@ -10,18 +10,89 @@
     <link rel="stylesheet" type="text/css" href="/Resources/style.css">
 </head>
 <body>
-    <div class="container-fluid">
-        <main class="mt-3">
-           @RenderBody()
-        </main>
-        <footer>
-            <div class="bg-torshia">
-                <div class="text-white p-2 text-center">
-                    &copy; CopyRight Sanity Web Design Studios 2018. All rights
-                    reserved.
+    <header>
+        <div style="display: @Model.IsGuest">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-torshia">
+                <a class="navbar-brand nav-link-white" href="/">TORSHIA</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav right-side">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/users/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/users/register">Register</a>
+                        </li>
+                    </ul>
                 </div>
+            </nav>
+        </div>
+       
+        <div style="display: @Model.IsUser">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-torshia">
+                <a class="navbar-brand nav-link-white" href="/">TORSHIA</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav right-side">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/users/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div style="display: @Model.IsAdmin">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-torshia">
+                <a class="navbar-brand nav-link-white" href="/">TORSHIA</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav right-side">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/">Create Task</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/">Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-white active" href="/users/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+    </header>
+<div class="container-fluid">
+    <main class="mt-3">
+        @RenderBody()
+    </main>
+    <footer>
+        <div class="bg-torshia">
+            <div class="text-white p-2 text-center">
+                &copy; CopyRight Sanity Web Design Studios 2018. All rights
+                reserved.
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
+</div>
 </body>
 </html>

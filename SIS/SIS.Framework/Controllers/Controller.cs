@@ -24,7 +24,7 @@
         
         private ViewEngine ViewEngine { get; } = new ViewEngine();
         
-        protected IViewable View([CallerMemberName] string viewName = "")
+        protected virtual IViewable View([CallerMemberName] string viewName = "")
         {
             var controllerName = ControllerUtilities.GetControllerName(this);
 
