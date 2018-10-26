@@ -4,7 +4,13 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\IR
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\IRunes.Data.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\IRunes.Data.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\IRunes.Models.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.Framework.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.HTTP.dll
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.WebServer.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\IRunes.Models.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.Framework.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.HTTP.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.WebServer.pdb
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\obj\Debug\netcoreapp2.1\IRunes.Data.csprojAssemblyReference.cache
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\obj\Debug\netcoreapp2.1\IRunes.Data.csproj.CoreCompileInputs.cache
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\obj\Debug\netcoreapp2.1\IRunes.Data.AssemblyInfoInputs.cache
@@ -12,9 +18,3 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\obj\Debug\netcoreapp2.1\IR
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\obj\Debug\netcoreapp2.1\IRunes.Data.csproj.CopyComplete
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\obj\Debug\netcoreapp2.1\IRunes.Data.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\obj\Debug\netcoreapp2.1\IRunes.Data.pdb
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.Framework.dll
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.HTTP.dll
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.WebServer.dll
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.Framework.pdb
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.HTTP.pdb
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Data\bin\Debug\netcoreapp2.1\SIS.WebServer.pdb

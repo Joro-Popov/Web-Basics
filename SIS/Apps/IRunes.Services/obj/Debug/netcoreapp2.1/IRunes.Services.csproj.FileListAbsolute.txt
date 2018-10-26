@@ -1,9 +1,0 @@
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\bin\Debug\netcoreapp2.1\IRunes.Services.deps.json
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\bin\Debug\netcoreapp2.1\IRunes.Services.dll
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\bin\Debug\netcoreapp2.1\IRunes.Services.pdb
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.csproj.CoreCompileInputs.cache
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.AssemblyInfoInputs.cache
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.AssemblyInfo.cs
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.dll
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.pdb
-C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Services\obj\Debug\netcoreapp2.1\IRunes.Services.csprojAssemblyReference.cache
