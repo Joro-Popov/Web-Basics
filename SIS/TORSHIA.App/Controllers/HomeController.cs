@@ -7,7 +7,7 @@ namespace TORSHIA.App.Controllers
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using System.Linq;
-    using TORSHIA.App.ViewModels.Home;
+    using ViewModels.Home;
 
     public class HomeController : BaseController
     {
@@ -18,8 +18,7 @@ namespace TORSHIA.App.Controllers
             {
                 return this.RedirectToAction("/home/logged");
             }
-
-            Console.WriteLine(DateTime.Now);
+            
             return this.View();
         }
 

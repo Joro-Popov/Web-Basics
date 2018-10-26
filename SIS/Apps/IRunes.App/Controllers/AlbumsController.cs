@@ -1,4 +1,6 @@
-﻿namespace IRunes.App.Controllers
+﻿using System.Collections.Generic;
+
+namespace IRunes.App.Controllers
 {
     using System;
     using System.Globalization;
@@ -26,7 +28,7 @@
 
             if (!albums.Any())
             {
-                this.Model.Data["Albums"] = EMPTY_ALBUMS_COLLECTION;
+                this.Model.Data["Albums"] = new List<string>(){ EMPTY_ALBUMS_COLLECTION };
 
                 return this.View();
             }

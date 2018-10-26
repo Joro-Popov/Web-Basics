@@ -21,6 +21,11 @@
         [Authorize]
         public IActionResult Welcome()
         {
+            if (this.Identity == null)
+            {
+                return this.RedirectToAction($"/home/index");
+            }
+
             this.Model.Data["username"] = this.Identity.Username;
 
             return this.View();
