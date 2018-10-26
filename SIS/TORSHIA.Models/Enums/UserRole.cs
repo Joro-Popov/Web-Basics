@@ -1,5 +1,8 @@
-﻿public enum UserRole
+﻿namespace TORSHIA.Models.Enums
 {
-    User = 1,
-    Admin = 2
+    public enum UserRole
+    {
+        User = 1,
+        Admin = 2
+    }
 }

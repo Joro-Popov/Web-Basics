@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TORSHIA.Models.Enums;
 
 namespace TORSHIA.Models
 {

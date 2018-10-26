@@ -1,4 +1,6 @@
-﻿namespace TORSHIA.App.Controllers
+﻿using TORSHIA.Models.Enums;
+
+namespace TORSHIA.App.Controllers
 {
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Methods;
@@ -104,7 +106,7 @@
 
             var hashedPassword = this.hashService.Hash(model.Password);
 
-            var role = this.DbContext.Users.Any() ? UserRole.Admin : UserRole.User;
+            var role = !this.DbContext.Users.Any() ? UserRole.Admin : UserRole.User;
 
             var user = new User
             {

@@ -69,8 +69,7 @@ namespace TORSHIA.Data.Migrations
                     Status = table.Column<int>(nullable: false),
                     ReportedOn = table.Column<DateTime>(nullable: false),
                     TaskId = table.Column<int>(nullable: false),
-                    ReportedId = table.Column<int>(nullable: false),
-                    ReporterId = table.Column<int>(nullable: true)
+                    ReporterId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,7 +79,7 @@ namespace TORSHIA.Data.Migrations
                         column: x => x.ReporterId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reports_Tasks_TaskId",
                         column: x => x.TaskId,

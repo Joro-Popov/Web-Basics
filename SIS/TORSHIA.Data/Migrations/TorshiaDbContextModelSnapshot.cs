@@ -25,11 +25,9 @@ namespace TORSHIA.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ReportedId");
-
                     b.Property<DateTime>("ReportedOn");
 
-                    b.Property<int?>("ReporterId");
+                    b.Property<int>("ReporterId");
 
                     b.Property<int>("Status");
 
@@ -120,7 +118,8 @@ namespace TORSHIA.Data.Migrations
                 {
                     b.HasOne("TORSHIA.Models.User", "Reporter")
                         .WithMany("Reports")
-                        .HasForeignKey("ReporterId");
+                        .HasForeignKey("ReporterId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TORSHIA.Models.Task", "Task")
                         .WithMany("Reports")

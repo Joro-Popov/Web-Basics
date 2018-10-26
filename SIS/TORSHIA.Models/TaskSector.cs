@@ -1,4 +1,6 @@
-﻿namespace TORSHIA.Models
+﻿using TORSHIA.Models.Enums;
+
+namespace TORSHIA.Models
 {
     public class TaskSector
     {

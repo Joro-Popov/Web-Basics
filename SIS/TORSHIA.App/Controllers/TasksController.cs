@@ -8,6 +8,7 @@ using SIS.Framework.Attributes.Methods;
 using SIS.HTTP.Exceptions;
 using TORSHIA.App.ViewModels.Tasks;
 using TORSHIA.Models;
+using TORSHIA.Models.Enums;
 
 namespace TORSHIA.App.Controllers
 {
@@ -32,7 +33,7 @@ namespace TORSHIA.App.Controllers
             var viewModel = new DetailsViewModel()
             {
                 Title = task.Title,
-                Description = task.Description,
+                Description = WebUtility.UrlDecode(task.Description),
                 AffectedSectors = string.Join(", ", task.AffectedSectors.Select(s => s.Sector.ToString()).ToList()),
                 Level = task.AffectedSectors.Count,
                 DueDate = task.DueDate.ToString("dd/MM/yyyy"),
@@ -64,7 +65,7 @@ namespace TORSHIA.App.Controllers
 
             var task = new Task()
             {
-                Title = model.Title,
+                Title = WebUtility.UrlDecode(model.Title),
                 Description = model.Description,
                 DueDate = DateTime.ParseExact(model.DueDate, "yyyy-MM-dd",null),
                 Level = model.AffectedSectors.Count,
@@ -105,6 +106,52 @@ namespace TORSHIA.App.Controllers
             }
 
             return this.RedirectToAction("/");
+        }
+        
+        [HttpGet]
+        [Authorize]
+        public IActionResult Report(int TaskId)
+        {
+            if (!this.DbContext.Tasks.Any(t => t.Id == TaskId))
+            {
+                return this.RedirectToAction("/");
+            }
+            
+            var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username);
+            var task = this.DbContext.UserTasks.FirstOrDefault(ut => ut.TaskId == TaskId && ut.UserId == user.Id);
+
+            if (this.DbContext.Reports.FirstOrDefault(r => r.ReporterId == user.Id && r.TaskId == TaskId).Task.IsReported)
+            {
+                return this.RedirectToAction("/");
+            }
+
+            
+            task.Task.IsReported = true;
+
+            this.DbContext.UserTasks.Remove(task);
+
+            var rnd = new Random();
+            var chance = rnd.Next(1,2);
+            
+            var report = new Report()
+            {
+                TaskId = TaskId,
+                ReporterId = user.Id,
+                ReportedOn = DateTime.Now,
+                Status = (ReportStatus)chance
+            };
+
+            try
+            {
+                this.DbContext.Reports.Add(report);
+                this.DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new InternalServerException(e.InnerException.Message);
+            }
+
+            return RedirectToAction("/");
         }
     }
 }

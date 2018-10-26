@@ -1,8 +1,11 @@
-﻿public enum Sector
+﻿namespace TORSHIA.Models.Enums
 {
-    Customers = 1,
-    Marketing = 2,
-    Finances = 3,
-    Internal = 4,
-    Management = 5
+    public enum Sector
+    {
+        Customers = 1,
+        Marketing = 2,
+        Finances = 3,
+        Internal = 4,
+        Management = 5
+    }
 }

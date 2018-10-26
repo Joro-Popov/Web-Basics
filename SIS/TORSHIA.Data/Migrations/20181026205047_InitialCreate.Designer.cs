@@ -10,7 +10,7 @@ using TORSHIA.Data;
 namespace TORSHIA.Data.Migrations
 {
     [DbContext(typeof(TorshiaDbContext))]
-    [Migration("20181025200839_InitialCreate")]
+    [Migration("20181026205047_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace TORSHIA.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ReportedId");
-
                     b.Property<DateTime>("ReportedOn");
 
-                    b.Property<int?>("ReporterId");
+                    b.Property<int>("ReporterId");
 
                     b.Property<int>("Status");
 
@@ -122,7 +120,8 @@ namespace TORSHIA.Data.Migrations
                 {
                     b.HasOne("TORSHIA.Models.User", "Reporter")
                         .WithMany("Reports")
-                        .HasForeignKey("ReporterId");
+                        .HasForeignKey("ReporterId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TORSHIA.Models.Task", "Task")
                         .WithMany("Reports")

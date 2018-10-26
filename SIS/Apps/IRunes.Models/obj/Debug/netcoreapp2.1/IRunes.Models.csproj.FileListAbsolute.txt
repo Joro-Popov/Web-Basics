@@ -13,3 +13,4 @@ C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Models\obj\Debug\netcoreapp2.1\
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Models\obj\Debug\netcoreapp2.1\IRunes.Models.csproj.CopyComplete
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Models\obj\Debug\netcoreapp2.1\IRunes.Models.dll
 C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Models\obj\Debug\netcoreapp2.1\IRunes.Models.pdb
+C:\Users\JORO\Desktop\Web-Basics\SIS\Apps\IRunes.Models\obj\Debug\netcoreapp2.1\IRunes.Models.csprojAssemblyReference.cache
