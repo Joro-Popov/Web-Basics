@@ -1,8 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using System.Net;
 using SIS.Framework.ActionResults.Contracts;
 using SIS.Framework.Attributes.Action;
 using SIS.Framework.Attributes.Methods;
+using SIS.HTTP.Exceptions;
 using TORSHIA.App.ViewModels.Tasks;
+using TORSHIA.Models;
 
 namespace TORSHIA.App.Controllers
 {
@@ -37,6 +42,69 @@ namespace TORSHIA.App.Controllers
             this.Model.Data["Task"] = viewModel;
 
             return this.View();
+        }
+
+        [HttpGet]
+        [Authorize("Admin")]
+        public IActionResult Create()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [Authorize("Admin")]
+        public IActionResult Create(CreateViewModel model)
+        {
+            if (!ModelState.IsValid.HasValue) return this.View();
+
+            if (this.DbContext.Tasks.Any(t => t.Title == model.Title))
+            {
+                return this.RedirectToAction("/tasks/create");
+            }
+
+            var task = new Task()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                DueDate = DateTime.ParseExact(model.DueDate, "yyyy-MM-dd",null),
+                Level = model.AffectedSectors.Count,
+            };
+
+            var affectedSectors = model.AffectedSectors
+                .Select(s => new TaskSector()
+                {
+                    Task = task,
+                    Sector = (Sector) Enum.Parse(typeof(Sector), s, true)
+                }).ToList();
+
+            if (!string.IsNullOrWhiteSpace(model.Participants))
+            {
+                var participanstsAsStrings = WebUtility.UrlDecode(model.Participants)
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                var participants = participanstsAsStrings
+                    .Select(p => new UserTask()
+                    {
+                        UserId = this.DbContext.Users.FirstOrDefault(u => u.Username == p).Id,
+                        Task = task
+                    }).ToList();
+
+                task.Participants = participants;
+            }
+
+            task.AffectedSectors = affectedSectors;
+
+            try
+            {
+                this.DbContext.Tasks.Add(task);
+                this.DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new InternalServerException(e.Message);
+            }
+
+            return this.RedirectToAction("/");
         }
     }
 }

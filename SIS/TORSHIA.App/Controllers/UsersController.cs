@@ -36,6 +36,8 @@
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
+            if (!ModelState.IsValid.HasValue) return this.View();
+
             if (this.Identity != null)
             {
                 return this.RedirectToAction("/home/logged");
@@ -79,6 +81,8 @@
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
+            if (!ModelState.IsValid.HasValue) return this.View();
+
             if (this.Identity != null)
             {
                 return this.RedirectToAction("/home/logged");
