@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TORSHIA.App.ViewModels.Tasks
+﻿namespace TORSHIA.App.ViewModels.Tasks
 {
     public class DetailsViewModel
     {

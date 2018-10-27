@@ -1,8 +1,6 @@
-﻿using System;
-using TORSHIA.App.ViewModels.Tasks;
-
-namespace TORSHIA.App.Controllers
+﻿namespace TORSHIA.App.Controllers
 {
+    using ViewModels.Tasks;
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TORSHIA.App.ViewModels.Tasks
+﻿namespace TORSHIA.App.ViewModels.Tasks
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class CreateViewModel
     {
         public string Title { get; set; }

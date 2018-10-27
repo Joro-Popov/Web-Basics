@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using System.Runtime.CompilerServices;
-using SIS.Framework.ActionResults.Contracts;
-using SIS.Framework.Controllers;
-using TORSHIA.Data;
-
-namespace TORSHIA.App.Controllers
+﻿namespace TORSHIA.App.Controllers
 {
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+
+    using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Controllers;
+    using Data;
+
     public abstract class BaseController : Controller
     {
         protected BaseController()

@@ -1,12 +1,12 @@
-﻿using System.Globalization;
-using System.Linq;
-using SIS.Framework.ActionResults.Contracts;
-using SIS.Framework.Attributes.Action;
-using SIS.Framework.Attributes.Methods;
-using TORSHIA.App.ViewModels.Reports;
-
-namespace TORSHIA.App.Controllers
+﻿namespace TORSHIA.App.Controllers
 {
+    using System.Globalization;
+    using System.Linq;
+    using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Attributes.Action;
+    using SIS.Framework.Attributes.Methods;
+    using ViewModels.Reports;
+
     public class ReportsController : BaseController
     {
         [HttpGet]

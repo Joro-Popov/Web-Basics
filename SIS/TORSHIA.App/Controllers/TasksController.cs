@@ -1,18 +1,16 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
-using SIS.Framework.ActionResults.Contracts;
-using SIS.Framework.Attributes.Action;
-using SIS.Framework.Attributes.Methods;
-using SIS.HTTP.Exceptions;
-using TORSHIA.App.ViewModels.Tasks;
-using TORSHIA.Models;
-using TORSHIA.Models.Enums;
-
-namespace TORSHIA.App.Controllers
+﻿namespace TORSHIA.App.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Net;
+    using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Attributes.Action;
+    using SIS.Framework.Attributes.Methods;
+    using SIS.HTTP.Exceptions;
+    using ViewModels.Tasks;
+    using Models;
+    using Models.Enums;
+
     public class TasksController : BaseController
     {
         [HttpGet]
@@ -81,10 +79,10 @@ namespace TORSHIA.App.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Participants))
             {
-                var participanstsAsStrings = WebUtility.UrlDecode(model.Participants)
+                var participantsAsString = WebUtility.UrlDecode(model.Participants)
                     .Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                foreach (var p in participanstsAsStrings)
+                foreach (var p in participantsAsString)
                 {
                     if (!this.DbContext.Users.Any(u => u.Username == p))
                     {
@@ -92,7 +90,7 @@ namespace TORSHIA.App.Controllers
                     }
                 }
 
-                var participants = participanstsAsStrings
+                var participants = participantsAsString
                     .Select(p => new UserTask()
                     {
                         UserId = this.DbContext.Users.FirstOrDefault(u => u.Username == p).Id,

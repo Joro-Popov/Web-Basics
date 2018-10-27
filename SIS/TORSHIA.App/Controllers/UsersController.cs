@@ -1,6 +1,4 @@
-﻿using TORSHIA.Models.Enums;
-
-namespace TORSHIA.App.Controllers
+﻿namespace TORSHIA.App.Controllers
 {
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Methods;
@@ -13,6 +11,7 @@ namespace TORSHIA.App.Controllers
     using System.Net;
     using SIS.Framework.Attributes.Action;
     using ViewModels.Users;
+    using Models.Enums;
     using Models;
 
     public class UsersController : BaseController

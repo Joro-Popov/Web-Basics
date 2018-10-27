@@ -1,7 +1,7 @@
-﻿using SIS.Framework;
-
-namespace TORSHIA.App
+﻿namespace TORSHIA.App
 {
+    using SIS.Framework;
+
     public class Launcher
     {
         public static void Main(string[] args)
