@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 using SIS.Framework.ActionResults.Contracts;
 using SIS.Framework.Attributes.Action;
 using SIS.Framework.Attributes.Methods;
@@ -83,6 +84,14 @@ namespace TORSHIA.App.Controllers
                 var participanstsAsStrings = WebUtility.UrlDecode(model.Participants)
                     .Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
+                foreach (var p in participanstsAsStrings)
+                {
+                    if (!this.DbContext.Users.Any(u => u.Username == p))
+                    {
+                        return this.RedirectToAction("/tasks/create");
+                    }
+                }
+
                 var participants = participanstsAsStrings
                     .Select(p => new UserTask()
                     {
@@ -120,7 +129,7 @@ namespace TORSHIA.App.Controllers
             var user = this.DbContext.Users.FirstOrDefault(u => u.Username == this.Identity.Username);
             var task = this.DbContext.UserTasks.FirstOrDefault(ut => ut.TaskId == TaskId && ut.UserId == user.Id);
 
-            if (this.DbContext.Reports.FirstOrDefault(r => r.ReporterId == user.Id && r.TaskId == TaskId).Task.IsReported)
+            if (this.DbContext.Reports.Any(r => r.ReporterId == user.Id && r.TaskId == TaskId))
             {
                 return this.RedirectToAction("/");
             }

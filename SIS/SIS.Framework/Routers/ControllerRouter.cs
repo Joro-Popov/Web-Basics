@@ -164,14 +164,14 @@ namespace SIS.Framework.Routers
         {
             string[] result = new string[2];
 
-            if (request.Path == DEFAULT_ROUTE)
+            if (request.Url == DEFAULT_ROUTE)
             {
                 result[0] = DEFAULT_CONTROLLER_NAME;
                 result[1] = DEFAULT_ACTION_NAME;
             }
             else
             {
-                var requestUrlSplit = request.Path.Split(
+                var requestUrlSplit = request.Url.Split(
                     REQUEST_URL_CONTROLLER_ACTION_SEPARATOR
                     , StringSplitOptions.RemoveEmptyEntries);
 
