@@ -23,11 +23,6 @@
         [Authorize]
         public IActionResult Logged()
         {
-            if (this.Identity == null)
-            {
-                return this.RedirectToAction("/home/index");
-            }
-
             var tasks = this.DbContext.Users
                 .FirstOrDefault(u => u.Username == this.Identity.Username)
                 .UserTasks

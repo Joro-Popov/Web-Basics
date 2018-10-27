@@ -17,11 +17,6 @@
         [Authorize]
         public IActionResult Details(int Id)
         {
-            if (this.Identity == null)
-            {
-                return this.RedirectToAction("/home/index");
-            }
-
             var user = this.DbContext.Users
                 .FirstOrDefault(u => u.Username == this.Identity.Username);
 
