@@ -47,8 +47,8 @@ namespace SIS.Framework.Routers
         {
             var controllerAndActionNames = this.ExtractControllerAndActionNames(request);
 
-            string controllerName = controllerAndActionNames[0];
-            string actionName = controllerAndActionNames[1];
+            var controllerName = controllerAndActionNames[0];
+            var actionName = controllerAndActionNames[1];
 
             var controller = this.GetController(controllerName, request);
             
@@ -58,12 +58,8 @@ namespace SIS.Framework.Routers
 
             var actionParameters = this.MapActionParameters(action, request, controller);
 
-            if (!this.IsAuthorized(controller, action))
-            {
-                return new UnauthorizedResult();
-            }
-
-            return this.PrepareResponse(this.InvokeAction(controller, action, actionParameters));
+            return !this.IsAuthorized(controller, action) ? 
+                new UnauthorizedResult() : this.PrepareResponse(this.InvokeAction(controller, action, actionParameters));
         }
         
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
@@ -162,7 +158,7 @@ namespace SIS.Framework.Routers
 
         private string[] ExtractControllerAndActionNames(IHttpRequest request)
         {
-            string[] result = new string[2];
+            var result = new string[2];
 
             if (request.Url == DEFAULT_ROUTE)
             {
@@ -213,7 +209,8 @@ namespace SIS.Framework.Routers
                     .Cast<HttpMethodAttribute>()
                     .ToList();
 
-                if (!attributes.Any() && requestMethod.ToUpper() == "GET") return suitableMethod;
+                if (!attributes.Any() && requestMethod.ToUpper() == DEFAULT_CONTROLLER_ACTION_REQUEST_METHOD)
+                    return suitableMethod;
 
                 if (attributes.Any(httpMethodAttribute => httpMethodAttribute.IsValid(requestMethod)))
                 {
