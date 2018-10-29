@@ -1,12 +1,18 @@
 ﻿
-@Model.Username
+<div style="display: @Model.IsUser">
+    <h2 class="text-center text-mishmash">Welcome,@Model.Username</h2>
+</div>
+
+<div style="display: @Model.IsAdmin">
+    <h2 class="text-center text-mishmash">Welcome,Admin-@Model.Username</h2>
+</div>
 
 <div class="container-fluid mb-4">
     <h2 class="text-mishmash">Your Channels</h2>
     <hr class="bg-mishmash hr-2" />
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" style="margin-right: 4.166666667%">
             @Model.Collection.FollowingChannels(@Item)
         </div>
     </div>

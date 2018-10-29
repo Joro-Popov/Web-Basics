@@ -60,16 +60,7 @@
                 })
                 .ToList();
 
-            
-            if (this.Identity.Roles.Contains("Admin"))
-            {
-                this.Model.Data["Username"] = new AuthorizedAdminViewModel(){Username = $"Admin-{this.Identity.Username}"};
-            }
-            else
-            {
-                this.Model.Data["Username"] = new AuthorizedUserViewModel() { Username = this.Identity.Username };
-            }
-            
+            this.Model.Data["Username"] = this.Identity.Username;
             this.Model.Data["FollowingChannels"] = followingChannels;
             this.Model.Data["SuggestedChannels"] = suggestedChannels;
             this.Model.Data["OtherChannels"] = otherChannels;
