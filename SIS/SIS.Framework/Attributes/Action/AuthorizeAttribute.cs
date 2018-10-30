@@ -11,7 +11,7 @@
 
         public AuthorizeAttribute()
         {
-            
+            this.roles = new string[0];
         }
 
         public AuthorizeAttribute(params string[] roles)

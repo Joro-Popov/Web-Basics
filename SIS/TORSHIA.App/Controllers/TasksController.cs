@@ -15,13 +15,13 @@
     {
         [HttpGet]
         [Authorize]
-        public IActionResult Details(int Id)
+        public IActionResult Details(int taskId)
         {
             var user = this.DbContext.Users
                 .FirstOrDefault(u => u.Username == this.Identity.Username);
 
             var task = user.UserTasks
-                .FirstOrDefault(t => t.TaskId == Id && t.UserId == user.Id)
+                .FirstOrDefault(t => t.TaskId == taskId && t.UserId == user.Id)
                 .Task;
 
             var viewModel = new DetailsViewModel()
@@ -61,7 +61,7 @@
             {
                 Title = WebUtility.UrlDecode(model.Title),
                 Description = model.Description,
-                DueDate = DateTime.ParseExact(model.DueDate, "yyyy-MM-dd",null),
+                DueDate = DateTime.ParseExact(model.DueDate, "yyyy-MM-dd", null),
                 Level = model.AffectedSectors.Count,
             };
 
@@ -131,17 +131,16 @@
             task.Task.IsReported = true;
 
             this.DbContext.UserTasks.Remove(task);
-
-            var rnd = new Random();
-            var chance = rnd.Next(1,2);
             
             var report = new Report()
             {
                 TaskId = TaskId,
                 ReporterId = user.Id,
                 ReportedOn = DateTime.Now,
-                Status = (ReportStatus)chance
             };
+
+            var rnd = new Random().Next(0, 100) > 25 ? 
+                report.Status = ReportStatus.Completed : report.Status = ReportStatus.Archived;
 
             try
             {
