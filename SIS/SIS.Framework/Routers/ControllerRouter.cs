@@ -1,6 +1,4 @@
-﻿using SIS.Framework.Routers.Contracts;
-
-namespace SIS.Framework.Routers
+﻿namespace SIS.Framework.Routers
 {
     using System;
     using System.Collections.Generic;
@@ -13,10 +11,10 @@ namespace SIS.Framework.Routers
     using Attributes.Action;
     using Services.Contracts;
     using Controllers;
-    using WebServer.API;
     using WebServer.Results;
-    using SIS.HTTP.Enums;
+    using Contracts;
 
+    using HTTP.Enums;
     using HTTP.Requests.Contracts;
     using HTTP.Responses.Contracts;
     using HTTP.Extensions;
@@ -160,14 +158,14 @@ namespace SIS.Framework.Routers
         {
             var result = new string[2];
 
-            if (request.Url == DEFAULT_ROUTE)
+            if (request.Path == DEFAULT_ROUTE)
             {
                 result[0] = DEFAULT_CONTROLLER_NAME;
                 result[1] = DEFAULT_ACTION_NAME;
             }
             else
             {
-                var requestUrlSplit = request.Url.Split(
+                var requestUrlSplit = request.Path.Split(
                     REQUEST_URL_CONTROLLER_ACTION_SEPARATOR
                     , StringSplitOptions.RemoveEmptyEntries);
 

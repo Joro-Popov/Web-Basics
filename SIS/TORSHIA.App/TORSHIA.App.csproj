@@ -14,9 +14,6 @@
     <None Update="Views\Home\Index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Views\Home\Logged.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Views\Shared\_Error.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

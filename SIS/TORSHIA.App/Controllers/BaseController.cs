@@ -20,6 +20,8 @@
         {
             if (this.Identity != null)
             {
+                this.Model.Data["IsLogged"] = "block";
+
                 if (this.Identity.Roles.Contains("Admin"))
                 {
                     this.Model.Data["IsAdmin"] = "block";
@@ -37,8 +39,10 @@
             {
                 this.Model.Data["IsAdmin"] = "none";
                 this.Model.Data["IsUser"] = "none";
+                this.Model.Data["IsLogged"] = "none";
                 this.Model.Data["IsGuest"] = "block";
             }
+
             return base.View(viewName);
         }
     }

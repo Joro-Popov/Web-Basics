@@ -13,36 +13,29 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction("/home/logged");
+                var tasks = this.DbContext.Users
+                    .FirstOrDefault(u => u.Username == this.Identity.Username)?
+                    .UserTasks
+                    .Select(t => t.Task)
+                    .ToList()
+                    .Select(t => new TaskViewModel()
+                    {
+                        TaskId = t.Id,
+                        Title = t.Title,
+                        Level = t.AffectedSectors.Count
+                    });
+
+                if (this.Identity == null)
+                {
+                    return this.RedirectToAction("/home/index");
+                }
+
+                this.Model.Data["Username"] = this.Identity.Username;
+                this.Model.Data["Tasks"] = tasks;
+
+                return this.View();
             }
             
-            return this.View();
-        }
-
-        [HttpGet]
-        [Authorize]
-        public IActionResult Logged()
-        {
-            var tasks = this.DbContext.Users
-                .FirstOrDefault(u => u.Username == this.Identity.Username)
-                .UserTasks
-                .Select(t => t.Task)
-                .ToList()
-                .Select(t => new TaskViewModel() 
-                {
-                    TaskId = t.Id,
-                    Title = t.Title,
-                    Level = t.AffectedSectors.Count
-                });
-
-            if (this.Identity == null)
-            {
-                return this.RedirectToAction("/home/index");
-            }
-
-            this.Model.Data["Username"] = this.Identity.Username;
-            this.Model.Data["Tasks"] = tasks;
-
             return this.View();
         }
     }

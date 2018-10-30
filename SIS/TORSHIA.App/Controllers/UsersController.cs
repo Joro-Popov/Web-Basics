@@ -28,7 +28,7 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction("/home/logged");
+                return this.RedirectToAction("/");
             }
 
             return this.View();
@@ -41,12 +41,7 @@
 
             if (this.Identity != null)
             {
-                return this.RedirectToAction("/home/logged");
-            }
-
-            if (!ModelState.IsValid.HasValue)
-            {
-                return this.View();
+                return this.RedirectToAction("/");
             }
 
             var hashedPassword = this.hashService.Hash(model.Password);
@@ -65,7 +60,7 @@
 
             this.SignIn(identityUser);
 
-            return this.RedirectToAction("/Home/Logged");
+            return this.RedirectToAction("/");
         }
 
         [HttpGet]
@@ -73,7 +68,7 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction("/home/logged");
+                return this.RedirectToAction("/");
             }
 
             return this.View();
@@ -86,10 +81,8 @@
 
             if (this.Identity != null)
             {
-                return this.RedirectToAction("/home/logged");
+                return this.RedirectToAction("/");
             }
-
-            if (!ModelState.IsValid.HasValue) return this.View();
 
             var email = WebUtility.UrlDecode(model.Email);
 
@@ -136,7 +129,7 @@
 
             this.SignIn(identityUser);
 
-            return this.RedirectToAction("/home/logged");
+            return this.RedirectToAction("/");
         }
 
         [HttpGet]
@@ -145,7 +138,7 @@
         {
             this.SignOut();
 
-            return RedirectToAction("/home/index");
+            return RedirectToAction("/");
         }
     }
 }

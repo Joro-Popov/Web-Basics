@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using SIS.Framework.Routers.Contracts;
-    using SIS.HTTP.Enums;
+    using Contracts;
+    using HTTP.Enums;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
 
@@ -28,12 +28,8 @@
 
         public IHttpResponse Handle(IHttpRequest httpRequest)
         {
-            if (this.ContainsMapping(httpRequest))
-            {
-                return this.Routes[httpRequest.RequestMethod][httpRequest.Path].Invoke(httpRequest);
-            }
-
-            return null;
+            return this.ContainsMapping(httpRequest) ?
+                this.Routes[httpRequest.RequestMethod][httpRequest.Path].Invoke(httpRequest) : null;
         }
     }
 }

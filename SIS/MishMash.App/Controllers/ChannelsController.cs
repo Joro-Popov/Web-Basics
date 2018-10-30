@@ -3,9 +3,9 @@
     using System;
     using System.Linq;
     using System.Net;
-    using MishMash.Models;
-    using MishMash.Models.Enums;
-    using MishMash.Models.ViewModels.Channels;
+    using Models;
+    using Models.Enums;
+    using Models.ViewModels.Channels;
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
@@ -135,19 +135,14 @@
         }
 
         [HttpGet]
-        [Authorize("Admin")]
+        [Authorize(nameof(Role.Admin))]
         public IActionResult Create()
         {
-            if (this.Identity == null)
-            {
-                return this.RedirectToAction("/users/login");
-            }
-
             return this.View();
         }
 
         [HttpPost]
-        [Authorize("Admin")]
+        [Authorize(nameof(Role.Admin))]
         public IActionResult Create(CreateChannelViewModel model)
         {
             if (this.Identity == null)

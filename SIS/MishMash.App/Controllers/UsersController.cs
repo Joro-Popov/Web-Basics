@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
-    using MishMash.Models;
-    using MishMash.Models.Enums;
-    using MishMash.Models.ViewModels.Users;
+    using Models;
+    using Models.Enums;
+    using Models.ViewModels.Users;
     using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.ActionResults.Contracts;
@@ -16,7 +16,7 @@
 
     public class UsersController : BaseController
     {
-        private IHashService hashService;
+        private readonly IHashService hashService;
 
         public UsersController(IHashService hashService)
         {
@@ -28,7 +28,7 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction("/home/authorized");
+                return this.RedirectToAction("/home/index");
             }
 
             return this.View();
@@ -58,7 +58,7 @@
 
             this.SignIn(identityUser);
 
-            return this.RedirectToAction("/Home/Authorized");
+            return this.RedirectToAction("/Home/index");
         }
 
         [HttpGet]
@@ -66,7 +66,7 @@
         {
             if (this.Identity != null)
             {
-                return this.RedirectToAction("/home/authorized");
+                return this.RedirectToAction("/home/index");
             }
             return this.View();
         }
@@ -119,7 +119,7 @@
 
             this.SignIn(identityUser);
 
-            return this.RedirectToAction("/home/authorized");
+            return this.RedirectToAction("/home/index");
         }
 
         [HttpGet]
