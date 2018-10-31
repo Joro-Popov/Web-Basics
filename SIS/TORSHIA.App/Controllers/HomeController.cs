@@ -1,8 +1,10 @@
-﻿namespace TORSHIA.App.Controllers
+﻿using System.Collections.Generic;
+using TORSHIA.Models.Enums;
+
+namespace TORSHIA.App.Controllers
 {
     using ViewModels.Tasks;
     using SIS.Framework.ActionResults.Contracts;
-    using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using System.Linq;
 
@@ -23,15 +25,31 @@
                         TaskId = t.Id,
                         Title = t.Title,
                         Level = t.AffectedSectors.Count
-                    });
+                    }).ToList();
 
-                if (this.Identity == null)
+                var taskRowViewModels = new List<TasksRowViewModel>();
+
+                for (int i = 0; i < tasks.Count(); i++)
                 {
-                    return this.RedirectToAction("/home/index");
+                    if (i % 5 == 0)
+                    {
+                        taskRowViewModels.Add(new TasksRowViewModel());
+                    }
+
+                    taskRowViewModels[taskRowViewModels.Count - 1].Tasks.Add(tasks[i]);
                 }
 
                 this.Model.Data["Username"] = this.Identity.Username;
-                this.Model.Data["Tasks"] = tasks;
+                this.Model.Data["Tasks"] = taskRowViewModels;
+
+                if (this.Identity.Roles.Contains(nameof(UserRole.Admin)))
+                {
+                    return this.View("Index-Admin");
+                }
+                else if (this.Identity.Roles.Contains(nameof(UserRole.User)))
+                {
+                    return this.View("Index-User");
+                }
 
                 return this.View();
             }

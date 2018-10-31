@@ -50,7 +50,7 @@
         [Authorize("Admin")]
         public IActionResult Create(CreateViewModel model)
         {
-            if (!ModelState.IsValid.HasValue) return this.View();
+            if (!ModelState.IsValid != true) return this.View();
 
             if (this.DbContext.Tasks.Any(t => t.Title == model.Title))
             {

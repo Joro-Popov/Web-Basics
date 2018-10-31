@@ -1,4 +1,6 @@
-﻿namespace TORSHIA.App.Controllers
+﻿using TORSHIA.Models.Enums;
+
+namespace TORSHIA.App.Controllers
 {
     using System.Globalization;
     using System.Linq;
@@ -10,7 +12,7 @@
     public class ReportsController : BaseController
     {
         [HttpGet]
-        [Authorize("Admin")]
+        [Authorize(nameof(UserRole.Admin))]
         public IActionResult All()
         {
             var reports = this.DbContext.Reports.ToList()
@@ -29,7 +31,7 @@
         }
 
         [HttpGet]
-        [Authorize("Admin")]
+        [Authorize(nameof(UserRole.Admin))]
         public IActionResult Details(int reportId)
         {
             var report = this.DbContext.Reports.FirstOrDefault(r => r.Id == reportId);
